@@ -145,7 +145,7 @@ class vCard extends FormatAbstract
      */
     protected function getFormattedPhoto()
     {
-        $ext =  strtolower(substr(strrchr($this->photo, '.'), 1));
+        $ext = strtolower(substr(strrchr($this->photo, '.'), 1));
         if ($ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'gif')
             $ext = strtoupper($ext);
         else

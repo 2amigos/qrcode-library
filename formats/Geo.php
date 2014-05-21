@@ -17,7 +17,8 @@ use yii\validators\EmailValidator;
  * @link http://www.2amigos.us/
  * @package dosamigos\qrcode\formats
  */
-class Geo extends FormatAbstract {
+class Geo extends FormatAbstract
+{
 
     public $lat;
     public $lng;
