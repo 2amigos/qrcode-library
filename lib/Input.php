@@ -4,7 +4,7 @@
  * @link http://2amigos.us
  * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
-namespace common\extensions\qr\lib;
+namespace dosamigos\qrcode\lib;
 
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
@@ -18,7 +18,7 @@ use yii\base\InvalidParamException;
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @link http://www.ramirezcobos.com/
  * @link http://www.2amigos.us/
- * @package common\extensions\qr\lib
+ * @package dosamigos\qrcode\lib
  */
 class Input
 {
