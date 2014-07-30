@@ -71,7 +71,7 @@ class MeCard extends FormatAbstract
     public function getText()
     {
         $data[] = "MECARD:";
-        $data[] = "N:{$this->lastName}{$this->firstName}";
+        $data[] = "N:{$this->lastName} {$this->firstName}";
         $data[] = "SOUND:{$this->sound}";
         $data[] = "TEL:{$this->phone}";
         $data[] = "TEL-AV:{$this->videoPhone}";
