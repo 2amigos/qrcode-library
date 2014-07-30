@@ -80,7 +80,7 @@ class MeCard extends FormatAbstract
         $data[] = "BDAY:{$this->birthday}";
         $data[] = "ADR:{$this->address}";
         $data[] = "URL:{$this->url}";
-        $data[] = "NICKNAME:{$this->nickname}";
+        $data[] = "NICKNAME:{$this->nickName}";
 
         return implode(";", $data);
     }
