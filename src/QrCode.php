@@ -65,7 +65,7 @@ class QrCode
 
     /**
      * Encodes a text on png format
-     * @param string $text
+     * @param string $text the text to be encoded
      * @param string|bool $outfile the full file path to save as an image. If false will render an image.
      * @param int $level the error correction level. Defaults to [[\dosamigos\qr\lib\Enum::QR_ECLEVEL_L]] (low)
      * @param int $size the size of the image. Defaults to 3.
@@ -80,7 +80,7 @@ class QrCode
 
     /**
      * Encodes a string in raw format
-     * @param string $text
+     * @param string $text the text to be encoded
      * @param string|bool $outfile the full file path to save as an image. If false will render an image.
      * @param int $level the error correction level. Defaults to [[\dosamigos\qr\lib\Enum::QR_ECLEVEL_L]] (low)
      * @param int $size the size of the image. Defaults to 3.
@@ -93,7 +93,9 @@ class QrCode
     }
 
     /**
-     * @param $text
+     * Creates a Qr Code in Png, Jpg, Raw or Text format
+     *
+     * @param string $text the text to be encoded
      * @param string|bool $outfile the full file path to save as an image. If false will render an image.
      * @param int $level the error correction level. Defaults to [[\dosamigos\qr\lib\Enum::QR_ECLEVEL_L]] (low)
      * @param int $size the size of the image. Defaults to 3.
