@@ -1,22 +1,42 @@
 {
     "name": "2amigos/yii2-qrcode-helper",
-    "description": "Allows you to create QrCodes based on libqrencode C library.",
-    "keywords": ["yii", "extension", "helper", "qrcode"],
+    "description": "Create QrCodes based on libqrencode C library.",
+    "keywords": [
+        "yii",
+        "extension",
+        "helper",
+        "qrcode"
+    ],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Antonio Ramirez",
-            "email": "ramirez.cobos@gmail.com",
-            "homepage": "http://2amigos.us"
+            "name": "2amigOS! Consulting Group",
+            "email": "hola@2amigos.us",
+            "homepage": "http://2amigos.us",
+            "role": "Developer"
         }
     ],
     "require": {
+        "php": ">=5.4.0",
         "yiisoft/yii2": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
     },
     "autoload": {
         "psr-4": {
-            "dosamigos\\qrcode\\": ""
+            "dosamigos\\qrcode\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "dosamigos\\qrcode\\tests\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
         }
     }
 }
