@@ -26,7 +26,7 @@ abstract class FormatAbstract extends Object
     /**
      * @return string the string representation of the object
      */
-    function __toString()
+    public function __toString()
     {
         return $this->getText();
     }
