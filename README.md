@@ -36,15 +36,19 @@ mobile phone scanner will understand.
 
 The library comes with the following formats:
 
+- Bitcoin
 - BookMark
 - Geo
+- iCal
 - MailMessage
 - MailTo
 - MeCard
+- MMS
 - Phone
 - Sms
 - vCard
 - Wifi
+- Youtube
 
 There are many more out there, we hope the community will helps us improve the library with `facebook`, `google maps`,
 `youtube`, and `market` links. If not, we will add them whenever we have time :)
