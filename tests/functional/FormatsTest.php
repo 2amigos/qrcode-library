@@ -13,6 +13,7 @@
 namespace tests;
 
 
+use dosamigos\qrcode\formats\Bitcoin;
 use dosamigos\qrcode\formats\BookMark;
 use dosamigos\qrcode\formats\Geo;
 use dosamigos\qrcode\formats\MailMessage;
@@ -93,6 +94,12 @@ class FormatsTest extends TestCase
         $sms = new Sms(['phone' => 657657657, 'msg' => 'test']);
 
         $this->assertEquals("SMSTO:657657657:test", $sms->getText());
+    }
+
+    public function testBitcoin() {
+        $bitcoin = new Bitcoin(['address' => 'test-address', 'amount' => 1]);
+
+        $this->assertEquals("bitcoin:test-address?amount=1", $bitcoin->getText());
     }
 
     public function testVCard() {
