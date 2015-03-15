@@ -181,6 +181,6 @@ class FormatsTest extends TestCase
     public function testiCal() {
         $iCal = new iCal(['summary' => 'test-summary', 'dtStart' => 1260232200, 'dtEnd' => 1260318600]);
 
-        $this->assertEquals("BEGIN:VEVENT\nSUMMARY:test-summary\nDTSTART:20091208T013000Z\nDTEND:20091209T013000Z\nEND:VEVENT", $iCal);
+        $this->assertEquals("BEGIN:VEVENT\nSUMMARY:test-summary\nDTSTART:20091208T013000Z\nDTEND:20091209T013000Z\nEND:VEVENT", $iCal->getText());
     }
 }
