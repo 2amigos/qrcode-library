@@ -94,10 +94,10 @@ class QrCode
 
     /**
      * @param $text
-     * @param bool $outfile
-     * @param int $level
-     * @param int $size
-     * @param int $margin
+     * @param string|bool $outfile the full file path to save as an image. If false will render an image.
+     * @param int $level the error correction level. Defaults to [[\dosamigos\qr\lib\Enum::QR_ECLEVEL_L]] (low)
+     * @param int $size the size of the image. Defaults to 3.
+     * @param int $margin the margin of the image. Defaults to 4.
      * @param bool $saveAndPrint
      * @param int $type
      * @return array|int
@@ -123,10 +123,8 @@ class QrCode
                 break;
             case Enum::QR_FORMAT_RAW:
                 return $enc->encode($text, $outfile, true);
-                break;
             case Enum::QR_FORMAT_TEXT:
                 return $enc->encode($text, $outfile);
-                break;
             default:
                 throw new InvalidParamException("Unknown format $type");
         }
