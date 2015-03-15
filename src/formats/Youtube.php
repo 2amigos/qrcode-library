@@ -6,39 +6,27 @@
  */
 namespace dosamigos\qrcode\formats;
 
-use yii\base\InvalidConfigException;
-use yii\validators\EmailValidator;
-
 /**
- * Class Sms formats a string to properly create a Sms QrCode
+ * Class Youtube formats a string to a valid youtube video link
  *
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @link http://www.ramirezcobos.com/
  * @link http://www.2amigos.us/
  * @package dosamigos\qrcode\formats
  */
-class Sms extends FormatAbstract
+class Youtube extends FormatAbstract
 {
+    /**
+     * @var string the video ID
+     */
+    public $videoId;
 
     /**
-     * @var string the phone
-     */
-    public $phone;
-    /**
-     * @var string the message
-     */
-    public $msg;
-
-    /**
-     * @return string
+     * @return string the formatted string to be encoded
      */
     public function getText()
     {
-        $data = [];
-        $data[] = "SMSTO";
-        $data[] = $this->phone;
-        $data[] = $this->msg;
-
-        return implode(":", array_filter($data));
+        return "youtube://{$this->videoId}";
     }
+
 }

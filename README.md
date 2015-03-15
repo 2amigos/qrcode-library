@@ -66,6 +66,8 @@ use dosamigos\qrcode\QrCode;
 public function actionQrcode() {
     $mailTo = new MailTo(['email' => 'email@example.com']);
     return QrCode::png($mailTo->getText());
+    // you could also use the following
+    // return return QrCode::png($mailTo);
 }
 
 ```

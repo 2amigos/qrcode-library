@@ -6,6 +6,7 @@
  */
 namespace dosamigos\qrcode\formats;
 
+use dosamigos\qrcode\traits\EmailTrait;
 use yii\base\InvalidConfigException;
 use yii\validators\EmailValidator;
 
@@ -19,21 +20,7 @@ use yii\validators\EmailValidator;
  */
 class MailTo extends FormatAbstract
 {
-    /**
-     * @var string the well formatted string to create the formatted email
-     */
-    public $email;
-
-    /**
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function init()
-    {
-        $validator = new EmailValidator();
-        if (!$validator->validate($this->email, $error)) {
-            throw new InvalidConfigException($error);
-        }
-    }
+    use EmailTrait;
 
     /**
      * @inheritdoc

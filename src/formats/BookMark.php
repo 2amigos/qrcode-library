@@ -6,6 +6,7 @@
  */
 namespace dosamigos\qrcode\formats;
 
+use dosamigos\qrcode\traits\UrlTrait;
 use yii\base\InvalidConfigException;
 use yii\validators\UrlValidator;
 
@@ -19,14 +20,12 @@ use yii\validators\UrlValidator;
  */
 class BookMark extends FormatAbstract
 {
+    use UrlTrait;
+
     /**
      * @var string bookmark title
      */
     public $title;
-    /**
-     * @var string bookmark url
-     */
-    public $url;
 
     /**
      * @inheritdoc
@@ -34,9 +33,8 @@ class BookMark extends FormatAbstract
      */
     public function init()
     {
-        $validator = new UrlValidator();
-        if (!$validator->validate($this->url, $error)) {
-            throw new InvalidConfigException($error);
+        if ($this->url === null) {
+            throw new InvalidConfigException("'url' cannot be empty.");
         }
     }
 

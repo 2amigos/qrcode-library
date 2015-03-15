@@ -1,15 +1,9 @@
 <?php
 /**
- *
- * Mail.php
- *
- * Date: 21/05/14
- * Time: 13:37
- * @author Antonio Ramirez <amigo.cobos@gmail.com>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ * @copyright Copyright (c) 2013-15 2amigOS! Consulting Group LLC
+ * @link http://2amigos.us
+ * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
  */
-
 namespace dosamigos\qrcode\formats;
 
 use yii\base\InvalidConfigException;
@@ -44,15 +38,20 @@ class Wifi extends FormatAbstract
     public $hidden;
 
     /**
-     * @return string
      * @throws InvalidConfigException
+     */
+    public function init()
+    {
+        if ($this->ssid === null) {
+            throw new InvalidConfigException("'ssid' cannot be null");
+        }
+    }
+
+    /**
+     * @inheritdoc
      */
     public function getText()
     {
-        if ($this->ssid === null) {
-            throw new InvalidConfigException('"ssid" cannot be null');
-        }
-
         $data = [];
         $data[] = $this->authentication !== null ? "T:{$this->authentication}" : "";
         $data[] = "S:{$this->ssid}";

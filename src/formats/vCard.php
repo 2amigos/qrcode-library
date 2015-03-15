@@ -6,11 +6,12 @@
  */
 namespace dosamigos\qrcode\formats;
 
+use dosamigos\qrcode\traits\EmailTrait;
+use dosamigos\qrcode\traits\UrlTrait;
 use yii\base\InvalidConfigException;
-use yii\validators\EmailValidator;
 
 /**
- * Class vCard formats a string to properly create a vCard 4.0 QrCode
+ * Class vCard creates a valid vCard 4.0 QrCode string
  *
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @link http://www.ramirezcobos.com/
@@ -19,6 +20,9 @@ use yii\validators\EmailValidator;
  */
 class vCard extends FormatAbstract
 {
+
+    use EmailTrait;
+    use UrlTrait;
 
     /**
      * @var string the name
@@ -36,10 +40,6 @@ class vCard extends FormatAbstract
      * @var string the nickname
      */
     public $nickName;
-    /**
-     * @var string the email
-     */
-    public $email;
     /**
      * @var string the work phone
      */
@@ -78,10 +78,6 @@ class vCard extends FormatAbstract
      */
     public $role;
     /**
-     * @var string the url
-     */
-    public $url;
-    /**
      * @var string the name and optionally the unit(s) of the organization
      * associated with the vCard object. This property is based on the X.520 Organization Name
      * attribute and the X.520 Organization Unit attribute.
@@ -101,13 +97,14 @@ class vCard extends FormatAbstract
      */
     public function getText()
     {
+        $data = [];
         $data[] = "BEGIN:VCARD";
         $data[] = "VERSION:4.0";
         $data[] = "N:{$this->name}";
         $data[] = "FN:{$this->fullName}";
         $data[] = "ADR:{$this->address}";
         $data[] = "NICKNAME:{$this->nickName}";
-        $data[] = $this->getFormattedEmail();
+        $data[] = "EMAIL;TYPE=PREF,INTERNET:{$this->email}";
         $data[] = "TEL;TYPE=WORK:{$this->workPhone}";
         $data[] = "TEL;TYPE=HOME:{$this->homePhone}";
         $data[] = "BDAY:{$this->birthday}";
@@ -123,22 +120,6 @@ class vCard extends FormatAbstract
         $data[] = "END:VCARD";
 
         return implode("\n", array_filter($data));
-    }
-
-    /**
-     * @return string the formatted email. Makes sure is a well formed email address.
-     * @throws \yii\base\InvalidConfigException
-     */
-    protected function getFormattedEmail()
-    {
-        if ($this->email !== null) {
-            $validator = new EmailValidator();
-            if (!$validator->validate($this->email, $error)) {
-                throw new InvalidConfigException($error);
-            }
-            return "EMAIL;TYPE=PREF,INTERNET:{$this->email}";
-        }
-        return null;
     }
 
     /**

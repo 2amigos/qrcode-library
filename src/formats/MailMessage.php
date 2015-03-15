@@ -6,8 +6,7 @@
  */
 namespace dosamigos\qrcode\formats;
 
-use yii\base\InvalidConfigException;
-use yii\validators\EmailValidator;
+use dosamigos\qrcode\traits\EmailTrait;
 
 /**
  * Class MailMessage formats a string to properly create a NNTMail QrCode
@@ -19,10 +18,8 @@ use yii\validators\EmailValidator;
  */
 class MailMessage extends FormatAbstract
 {
-    /**
-     * @var string the email to
-     */
-    public $email;
+    use EmailTrait;
+
     /**
      * @var string the subject
      */
@@ -31,18 +28,6 @@ class MailMessage extends FormatAbstract
      * @var string the body of the mail message
      */
     public $body;
-
-    /**
-     * @inheritdoc
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function init()
-    {
-        $validator = new EmailValidator();
-        if (!$validator->validate($this->email, $error)) {
-            throw new InvalidConfigException($error);
-        }
-    }
 
     /**
      * @inheritdoc

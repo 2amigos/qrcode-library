@@ -6,6 +6,8 @@
  */
 namespace dosamigos\qrcode\formats;
 
+use dosamigos\qrcode\traits\EmailTrait;
+use dosamigos\qrcode\traits\UrlTrait;
 use yii\base\InvalidConfigException;
 use yii\validators\EmailValidator;
 
@@ -20,6 +22,8 @@ use yii\validators\EmailValidator;
  */
 class MeCard extends FormatAbstract
 {
+    use EmailTrait;
+    use UrlTrait;
 
     /**
      * @var string the name
@@ -46,17 +50,9 @@ class MeCard extends FormatAbstract
      */
     public $videoPhone;
     /**
-     * @var string the email
-     */
-    public $email;
-    /**
      * @var string a date in the format YYYY-MM-DD or ISO 860
      */
     public $birthday;
-    /**
-     * @var string designates a text string to be set as the address in the phonebook. (0 or more characters)
-     */
-    public $url;
     /**
      * @var string designates a text string to be set as the memo in the phonebook. (0 or more characters)
      */
@@ -71,12 +67,13 @@ class MeCard extends FormatAbstract
      */
     public function getText()
     {
+        $data = [];
         $data[] = "MECARD:";
         $data[] = "N:{$this->lastName} {$this->firstName};";
         $data[] = "SOUND:{$this->sound};";
         $data[] = "TEL:{$this->phone};";
         $data[] = "TEL-AV:{$this->videoPhone};";
-        $data[] = $this->getFormattedEmail();
+        $data[] = "EMAIL:{$this->email};";
         $data[] = "NOTE:{$this->note};";
         $data[] = "BDAY:{$this->birthday};";
         $data[] = "ADR:{$this->address};";
@@ -84,19 +81,5 @@ class MeCard extends FormatAbstract
         $data[] = "NICKNAME:{$this->nickName};\n;";
 
         return implode("\n", $data);
-    }
-
-    /**
-     * @return string the formatted email. Makes sure is a well formed email address.
-     * @throws \yii\base\InvalidConfigException
-     */
-    protected function getFormattedEmail()
-    {
-        $validator = new EmailValidator();
-        if (!$validator->validate($this->email, $error)) {
-            throw new InvalidConfigException($error);
-        }
-
-        return "EMAIL:{$this->email};";
     }
 }
