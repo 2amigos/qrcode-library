@@ -11,6 +11,7 @@
         "helper",
         "qrcode"
     ],
+    "homepage": "http://yiiwheels.com/extension/qrcode-helper",
     "license": "BSD-3-Clause",
     "authors": [
         {
