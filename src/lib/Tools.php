@@ -97,6 +97,9 @@ class Tools
      */
     public static function markTime($markerId)
     {
+    	if (Yii::$app->getRequest()->isConsoleRequest) {
+            return false;
+    	}
         list($usec, $sec) = explode(" ", microtime());
         $time = ((float)$usec + (float)$sec);
 
@@ -104,7 +107,7 @@ class Tools
 
         $qr_time_bench[$markerId] = $time;
 
-        Yii::$app->session->set('qr_time_bench', $qr_time_bench);
+	Yii::$app->session->set('qr_time_bench', $qr_time_bench);
     }
 
 
@@ -113,6 +116,9 @@ class Tools
      */
     public static function timeBenchmark()
     {
+    	if (Yii::$app->getRequest()->isConsoleRequest) {
+            return false;
+    	}
         static::markTime('finish');
 
         $lastTime = 0;
