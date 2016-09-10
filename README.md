@@ -62,7 +62,7 @@ To render the qrcode, add this to your HTML page:
 Now, use it on your action:
 
 ```php
-use doamigos\qrcode\formats\MailTo;
+use dosamigos\qrcode\formats\MailTo;
 use dosamigos\qrcode\QrCode;
 
 \\ ...
