@@ -83,7 +83,7 @@ class QrCode implements QrCodeInterface
      */
     public function __construct($text = '', $errorCorrectionLevel = null, WriterInterface $writer = null)
     {
-        $this->text = $text;
+        $this->text = (string) $text;
         $this->errorCorrectionLevel = $errorCorrectionLevel ?: ErrorCorrectionLevelInterface::LOW;
         $this->writer = $writer ?: new PngWriter();
     }

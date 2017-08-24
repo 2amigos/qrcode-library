@@ -28,11 +28,11 @@ class iCalFormat extends AbstractFormat
     /**
      * @var integer the unix timestamp of the start date of the event
      */
-    public $dtStart;
+    public $startTimestamp;
     /**
      * @var integer the unix timestamp of the end date of the event
      */
-    public $dtEnd;
+    public $endTimestamp;
 
     /**
      * @inheritdoc
@@ -42,8 +42,8 @@ class iCalFormat extends AbstractFormat
         $data = [];
         $data[] = "BEGIN:VEVENT";
         $data[] = "SUMMARY:{$this->summary}";
-        $data[] = "DTSTART:{$this->unixToiCal($this->dtStart)}";
-        $data[] = "DTEND:{$this->unixToiCal($this->dtEnd)}";
+        $data[] = "DTSTART:{$this->unixToiCal($this->startTimestamp)}";
+        $data[] = "DTEND:{$this->unixToiCal($this->endTimestamp)}";
         $data[] = "END:VEVENT";
 
         return implode("\n", $data);

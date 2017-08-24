@@ -21,6 +21,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
+- [Zxing Wiki Barcode Contents](https://github.com/zxing/zxing/wiki/Barcode-Contents)
 - [BaconQrCode](https://github.com/Bacon/BaconQrCode)
 - [Endroid QrCode](https://github.com/endroid/QrCode)
 - [Antonio Ramirez](https://github.com/tonydspaniard)

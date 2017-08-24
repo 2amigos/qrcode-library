@@ -19,10 +19,17 @@ namespace Da\QrCode\Format;
 class BtcFormat extends AbstractFormat
 {
     /**
+     * @var string the name of the receiver.
+     */
+    public $name;
+    /**
+     * @var string the message that describes the transaction.
+     */
+    public $message;
+    /**
      * @var string the Bitcoin address
      */
     public $address;
-
     /**
      * @var string the payable amount
      */
@@ -33,6 +40,8 @@ class BtcFormat extends AbstractFormat
      */
     public function getText()
     {
-        return "bitcoin:{$this->address}?amount={$this->amount}";
+        $query = http_build_query(['amount' => $this->amount, 'label' => $this->name, 'message' => $this->message]);
+
+        return "bitcoin:{$this->address}?{$query}";
     }
 }

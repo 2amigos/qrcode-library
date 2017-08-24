@@ -29,7 +29,8 @@ use Da\QrCode\Format\YoutubeFormat;
 
 class FormatsTest extends \PHPUnit_Framework_TestCase
 {
-    public function testBookMark() {
+    public function testBookMark()
+    {
         $bookmark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2amigos.us']);
         $this->assertEquals("http://2amigos.us", $bookmark->getUrl());
         // using __toString()
@@ -44,12 +45,14 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
         $bookmark = new BookMarkFormat();
     }
 
-    public function testGeo() {
-        $geo = new GeoFormat(['lat' => 1,'lng' => 1, 'altitude' => 20]);
+    public function testGeo()
+    {
+        $geo = new GeoFormat(['lat' => 1, 'lng' => 1, 'altitude' => 20]);
         $this->assertEquals("GEO:1,1,20", $geo->getText());
     }
 
-    public function testMailMessage() {
+    public function testMailMessage()
+    {
         $message = new MailMessageFormat(['email' => 'hola@2amigos.us', 'subject' => 'test', 'body' => 'test-body']);
         $this->assertEquals("hola@2amigos.us", $message->getEmail());
         $this->assertEquals("MATMSG:TO:hola@2amigos.us;SUB:test;BODY:test-body;;", $message->getText());
@@ -59,18 +62,21 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testMailTo() {
+    public function testMailTo()
+    {
         $mailTo = new MailToFormat(['email' => 'hola@2amigos.us']);
         $this->assertEquals("MAILTO:hola@2amigos.us", $mailTo->getText());
 
     }
 
-    public function testMailToWrongEmail() {
+    public function testMailToWrongEmail()
+    {
         $this->expectException('yii\base\InvalidConfigException');
         $mailTo = new MailToFormat(['email' => 'wrongaddress-@...']);
     }
 
-    public function testMeCard() {
+    public function testMeCard()
+    {
         $card = new MeCardFormat();
         $card->firstName = 'Antonio';
         $card->lastName = 'Ramirez';
@@ -94,22 +100,22 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testPhone() {
+    public function testPhone()
+    {
         $phone = new PhoneFormat(['phone' => 657657657]);
 
         $this->assertEquals("TEL:657657657", $phone->getText());
     }
 
-    public function testSms() {
-        $sms = new SmsFormat(['phone' => 657657657, 'msg' => 'test']);
+    public function testSms()
+    {
+        $sms = new SmsFormat(['phone' => 657657657]);
 
-        $this->assertEquals("SMSTO:657657657:test", $sms->getText());
-
-        $sms->msg = null;
-        $this->assertEquals("SMSTO:657657657", $sms->getText());
+        $this->assertEquals("SMS:657657657", $sms->getText());
     }
 
-    public function testMms() {
+    public function testMms()
+    {
         $mms = new MmsFormat(['phone' => 657657657, 'msg' => 'test']);
 
         $this->assertEquals("MMSTO:657657657:test", $mms->getText());
@@ -118,19 +124,22 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("MMSTO:657657657", $mms->getText());
     }
 
-    public function testBitcoin() {
-        $bitcoin = new BtcFormat(['address' => 'test-address', 'amount' => 1]);
+    public function testBitcoin()
+    {
+        $bitcoin = new BtcFormat(['address' => 'test-address', 'amount' => 1, 'name' => 'antonio']);
 
-        $this->assertEquals("bitcoin:test-address?amount=1", $bitcoin->getText());
+        $this->assertEquals("bitcoin:test-address?amount=1&label=antonio", $bitcoin->getText());
     }
 
-    public function testYoutube() {
+    public function testYoutube()
+    {
         $yt = new YoutubeFormat(['videoId' => 123456]);
 
         $this->assertEquals("youtube://123456", $yt->getText());
     }
 
-    public function testVCard() {
+    public function testVCard()
+    {
         $vcard = new vCardFormat();
         $vcard->name = "Antonio";
         $vcard->fullName = "Antonio Ramirez";
@@ -148,7 +157,8 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testVCardPhoto() {
+    public function testVCardPhoto()
+    {
         $vcard = new vCardFormat();
         $vcard->photo = 'http://2amigos.us/img/logo.png';
 
@@ -169,7 +179,8 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
         $method->invoke($vcard);
     }
 
-    public function testWifi() {
+    public function testWifi()
+    {
         $wifi = new WifiFormat(['authentication' => 'WPA', 'ssid' => 'testSSID', 'password' => 'HAKUNAMATATA']);
         $this->assertEquals("WIFI:T:WPA;S:testSSID;P:HAKUNAMATATA;;", $wifi->getText());
         $wifi->hidden = 'true';
@@ -178,9 +189,15 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
         $wifi = new WifiFormat(['authentication' => 'WPA', 'password' => 'HAKUNAMATATA']);
     }
 
-    public function testiCal() {
-        $iCal = new iCalFormat(['summary' => 'test-summary', 'dtStart' => 1260232200, 'dtEnd' => 1260318600]);
+    public function testiCal()
+    {
+        $iCal = new iCalFormat(
+            ['summary' => 'test-summary', 'startTimestamp' => 1260232200, 'endTimestamp' => 1260318600]
+        );
 
-        $this->assertEquals("BEGIN:VEVENT\nSUMMARY:test-summary\nDTSTART:20091208T003000Z\nDTEND:20091209T003000Z\nEND:VEVENT", $iCal->getText());
+        $this->assertEquals(
+            "BEGIN:VEVENT\nSUMMARY:test-summary\nDTSTART:20091208T003000Z\nDTEND:20091209T003000Z\nEND:VEVENT",
+            $iCal->getText()
+        );
     }
 }

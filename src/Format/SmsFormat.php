@@ -25,10 +25,6 @@ class SmsFormat extends AbstractFormat
      * @var string the phone
      */
     public $phone;
-    /**
-     * @var string the message
-     */
-    public $msg;
 
     /**
      * @return string
@@ -36,9 +32,8 @@ class SmsFormat extends AbstractFormat
     public function getText()
     {
         $data = [];
-        $data[] = "SMSTO";
+        $data[] = "SMS";
         $data[] = $this->phone;
-        $data[] = $this->msg;
 
         return implode(":", array_filter($data));
     }

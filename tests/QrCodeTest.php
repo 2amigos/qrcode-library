@@ -35,7 +35,7 @@ class QrCodeTest extends \PHPUnit_Framework_TestCase
     public function testPng()
     {
         $file = __DIR__ . '/data/data-test.png';
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us']))->getText());
+        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])));
         $qrCode->writeFile($file);
         $this->assertFileEquals(__DIR__ . '/data/data.png', $file);
         @unlink($file);
@@ -45,7 +45,7 @@ class QrCodeTest extends \PHPUnit_Framework_TestCase
     {
         $file = __DIR__ . '/data/data-test.jpg';
         $writer = new JpgWriter();
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us']))->getText(), null, $writer);
+        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $qrCode->writeFile($file);
         $this->assertFileEquals(__DIR__ . '/data/data.jpg', $file);
         @unlink($file);
@@ -56,7 +56,7 @@ class QrCodeTest extends \PHPUnit_Framework_TestCase
     {
         $file = __DIR__ . '/data/data-test.eps';
         $writer = new EpsWriter();
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us']))->getText(), null, $writer);
+        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $qrCode->writeFile($file);
         $this->assertFileEquals(__DIR__ . '/data/data.eps', $file);
         @unlink($file);
@@ -66,7 +66,7 @@ class QrCodeTest extends \PHPUnit_Framework_TestCase
     {
         $file = __DIR__ . '/data/data-test.svg';
         $writer = new SvgWriter();
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us']))->getText(), null, $writer);
+        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $qrCode->writeFile($file);
         $this->assertFileEquals(__DIR__ . '/data/data.svg', $file);
         @unlink($file);
@@ -100,7 +100,7 @@ class QrCodeTest extends \PHPUnit_Framework_TestCase
 
     public function testQrColored() {
         $file = __DIR__ . '/data/data-color-test.png';
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us']))->getText());
+        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])));
         $qrCode
             ->useForegroundColor(51, 153, 255)
             ->writeFile($file);
