@@ -38,9 +38,7 @@ The use of the library is quite easy when working as standalone. For example:
 
 use Da\QrCode\QrCode;
 
-$qrCode = new QrCode('This is my text');
-
-$qrCode
+$qrCode = (new QrCode('This is my text'))
     ->setSize(250)
     ->setMargin(5)
     ->useForegroundColor(51, 153, 255);

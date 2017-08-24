@@ -22,6 +22,11 @@ namespace Da\QrCode\Format;
 class MmsFormat extends SmsFormat
 {
     /**
+     * @var string
+     */
+    public $msg;
+
+    /**
      * @return string
      * @codeCoverageIgnore
      */

@@ -13,6 +13,7 @@
 namespace tests;
 
 use Da\QrCode\Contracts\ErrorCorrectionLevelInterface;
+use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Format\MailToFormat;
 use Da\QrCode\Label;
 use Da\QrCode\QrCode;
@@ -88,7 +89,7 @@ class QrCodeTest extends \PHPUnit_Framework_TestCase
     {
         $file = __DIR__ . '/data/data-label-test.png';
 
-        $label  = new Label('2amigos.us');
+        $label = new Label('2amigos.us');
 
         (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
             ->setLabel($label)
@@ -98,13 +99,65 @@ class QrCodeTest extends \PHPUnit_Framework_TestCase
         @unlink($file);
     }
 
-    public function testQrColored() {
+    public function testQrColored()
+    {
         $file = __DIR__ . '/data/data-color-test.png';
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])));
         $qrCode
             ->useForegroundColor(51, 153, 255)
             ->writeFile($file);
         $this->assertFileEquals(__DIR__ . '/data/data-color.png', $file);
+        @unlink($file);
+    }
+
+    public function testAttributes()
+    {
+        $file = __DIR__ . '/data/data-attributes-test.png';
+
+        $label = (new Label('2amigos'))
+            ->useFont(__DIR__ . '/../resources/fonts/monsterrat.otf')
+            ->updateFontSize(12);
+
+        $this->assertEquals('2amigos', $label->getText());
+        $this->assertEquals(LabelInterface::ALIGN_CENTER, $label->getAlignment());
+        $margins = $label->getMargins();
+        $this->assertEquals(0, $margins['t']);
+        $this->assertEquals(10, $margins['r']);
+        $this->assertEquals(10, $margins['b']);
+        $this->assertEquals(10, $margins['l']);
+        $this->assertEquals(realpath(__DIR__ . '/../resources/fonts/monsterrat.otf'), $label->getFont());
+        $this->assertEquals(12, $label->getFontSize());
+
+
+        $qrCode = (new QrCode('Test text'))
+            ->useLogo(__DIR__ . '/data/logo.png')
+            ->useForegroundColor(51, 153, 255)
+            ->useBackgroundColor(200, 220, 210)
+            ->useEncoding('UTF-8')
+            ->setErrorCorrectionLevel(ErrorCorrectionLevelInterface::HIGH)
+            ->setLogoWidth(60)
+            ->setText('https://2amigos.us')
+            ->setSize(300)
+            ->setMargin(5)
+            ->setLabel($label);
+
+        $this->assertEquals(realpath(__DIR__ . '/data/logo.png'), $qrCode->getLogoPath());
+        $foregroundColor = $qrCode->getForegroundColor();
+        $this->assertEquals(51, $foregroundColor['r']);
+        $this->assertEquals(153, $foregroundColor['g']);
+        $this->assertEquals(255, $foregroundColor['b']);
+        $backgroundColor = $qrCode->getBackgroundColor();
+        $this->assertEquals(200, $backgroundColor['r']);
+        $this->assertEquals(220, $backgroundColor['g']);
+        $this->assertEquals(210, $backgroundColor['b']);
+        $this->assertEquals('UTF-8', $qrCode->getEncoding());
+        $this->assertEquals(ErrorCorrectionLevelInterface::HIGH, $qrCode->getErrorCorrectionLevel());
+        $this->assertEquals(60, $qrCode->getLogoWidth());
+        $this->assertEquals('https://2amigos.us', $qrCode->getText());
+        $this->assertEquals('image/png', $qrCode->getContentType());
+        $this->assertEquals($label, $qrCode->getLabel());
+        $qrCode->writeFile($file);
+        $this->assertFileEquals(__DIR__ . '/data/data-attributes.png', $file);
         @unlink($file);
     }
 }
