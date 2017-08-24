@@ -11,9 +11,6 @@
 
 namespace Da\QrCode\Format;
 
-use yii\base\InvalidConfigException;
-use yii\validators\EmailValidator;
-
 /**
  * Class Phone formats a string to properly create a Phone QrCode
  *

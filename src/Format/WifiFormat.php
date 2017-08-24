@@ -12,7 +12,6 @@
 namespace Da\QrCode\Format;
 
 use yii\base\InvalidConfigException;
-use yii\validators\EmailValidator;
 
 /**
  * Class Wifi formats a string to properly create a Wifi QrCode

@@ -136,7 +136,7 @@ class QrCode implements QrCodeInterface
     {
         $logo = realpath($path);
         if (!is_file($logo)) {
-            throw new InvalidPathException(sprintf('Invalid logo path: "%s"', $logoPath));
+            throw new InvalidPathException(sprintf('Invalid logo path: "%s"', $logo));
         }
         $cloned = clone $this;
         $cloned->logoPath = $logo;
@@ -171,6 +171,71 @@ class QrCode implements QrCodeInterface
     }
 
     /**
+     * @param string $errorCorrectionLevel
+     *
+     * @return QrCode
+     */
+    public function setErrorCorrectionLevel($errorCorrectionLevel)
+    {
+        $cloned = clone $this;
+        $cloned->errorCorrectionLevel = $errorCorrectionLevel;
+
+        return $cloned;
+    }
+
+    /**
+     * @param string $text
+     *
+     * @return QrCode
+     */
+    public function setText($text)
+    {
+        $cloned = clone $this;
+        $cloned->text = $text;
+
+        return $cloned;
+    }
+
+    /**
+     * @param int $size
+     *
+     * @return QrCode
+     */
+    public function setSize($size)
+    {
+        $cloned = clone $this;
+        $cloned->size = $size;
+
+        return $cloned;
+    }
+
+    /**
+     * @param int $margin
+     *
+     * @return QrCode
+     */
+    public function setMargin($margin)
+    {
+        $cloned = clone $this;
+        $cloned->margin = $margin;
+
+        return $cloned;
+    }
+
+    /**
+     * @param int $width
+     *
+     * @return QrCode
+     */
+    public function setLogoWidth($width)
+    {
+        $cloned = clone $this;
+        $cloned->logoWidth = $width;
+
+        return $cloned;
+    }
+
+    /**
      * @param LabelInterface $label
      *
      * @return QrCode
@@ -182,6 +247,7 @@ class QrCode implements QrCodeInterface
 
         return $cloned;
     }
+
 
     /**
      * @inheritdoc

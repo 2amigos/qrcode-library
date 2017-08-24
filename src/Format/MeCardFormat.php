@@ -11,10 +11,8 @@
 
 namespace Da\QrCode\Format;
 
-use   Da\QrCode\Traits\EmailTrait;
-use   Da\QrCode\Traits\UrlTrait;
-use yii\base\InvalidConfigException;
-use yii\validators\EmailValidator;
+use Da\QrCode\Traits\EmailTrait;
+use Da\QrCode\Traits\UrlTrait;
 
 /**
  * Class MeCard formats a string to properly create a meCard 4.0 QrCode

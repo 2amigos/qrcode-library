@@ -11,7 +11,7 @@
 
 namespace Da\QrCode\Format;
 
-use   Da\QrCode\Traits\EmailTrait;
+use Da\QrCode\Traits\EmailTrait;
 
 /**
  * Class MailMessage formats a string to properly create a NNTMail QrCode

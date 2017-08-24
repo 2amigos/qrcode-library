@@ -33,9 +33,10 @@ trait ImageTrait
      */
     public function validateResult($validate)
     {
-        $this->validate = $validate;
+        $cloned = clone $this;
+        $cloned->validate = $validate;
 
-        return $this;
+        return $cloned;
     }
 
     /**
@@ -98,10 +99,10 @@ trait ImageTrait
 
     /**
      * @param resource $sourceImage
-     * @param int      $margin
-     * @param int      $size
-     * @param int[]    $foregroundColor
-     * @param int[]    $backgroundColor
+     * @param int $margin
+     * @param int $size
+     * @param int[] $foregroundColor
+     * @param int[] $backgroundColor
      *
      * @return resource
      */
@@ -139,7 +140,7 @@ trait ImageTrait
 
     /**
      * @param resource $image
-     * @param int[]    $foregroundColor
+     * @param int[] $foregroundColor
      *
      * @return int
      */
@@ -169,8 +170,8 @@ trait ImageTrait
 
     /**
      * @param resource $sourceImage
-     * @param string   $logoPath
-     * @param int      $logoWidth
+     * @param string $logoPath
+     * @param int $logoWidth
      *
      * @return resource
      */
@@ -210,9 +211,9 @@ trait ImageTrait
 
     /**
      * @param resource $sourceImage
-     * @param LabelInterface   $label
-     * @param int[]    $foregroundColor
-     * @param int[]    $backgroundColor
+     * @param LabelInterface $label
+     * @param int[] $foregroundColor
+     * @param int[] $backgroundColor
      *
      * @throws BadMethodCallException
      * @return resource
