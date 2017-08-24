@@ -8,7 +8,8 @@ QrCode Library
 [![Quality Score](https://img.shields.io/scrutinizer/g/2amigos/qrcode-library.svg?style=flat-square)](https://scrutinizer-ci.com/g/2amigos/qrcode-library)
 [![Total Downloads](https://img.shields.io/packagist/dt/2amigos/qrcode-library.svg?style=flat-square)](https://packagist.org/packages/2amigos/qrcode-library)
 
-This library allows developers to generate QR codes with ease. It works standalone and also provides a Yii2 component.
+This library allows developers to generate QR codes with ease. It works standalone and also provides Yii2 components for 
+its use on the framework.
 
 ## Documentation 
 
