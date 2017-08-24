@@ -1,25 +1,51 @@
-build
-composer.lock
-docs
-vendor
+# yii console command
+/yii
 
-# cache directories
-Thumbs.db
-*.DS_Store
-*.empty
-
-#phpstorm project files
+# phpstorm project files
 .idea
 
-#netbeans project files
+# netbeans project files
 nbproject
 
-#eclipse, zend studio, aptana or other eclipse like project files
+# zend studio for eclipse project files
 .buildpath
 .project
 .settings
 
+# windows thumbnail cache
+Thumbs.db
 
-# mac deployment helpers
-switch
-index
+# composer vendor dir
+/vendor
+
+# no need in composer distribution
+/composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+/phpunit.phar
+# local phpunit config
+/phpunit.xml
+
+# vagrant runtime
+/.vagrant
+# vagrant folder we are not using it
+vagrant
+Vagrantfile
+
+# javascript files
+/node_modules
+tests/_support/_generated
+tests/_output/*
+
+# temporary directory for various purposes
+/temp
+
+# ignore local codeception settings
+codeception.yml
+
+# Code Style Checkers and Mess Detectors
+/phpcs.xml
+/.php_cs.cache
+/.php_cs
