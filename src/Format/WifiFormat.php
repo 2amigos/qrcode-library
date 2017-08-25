@@ -11,7 +11,7 @@
 
 namespace Da\QrCode\Format;
 
-use yii\base\InvalidConfigException;
+use Da\QrCode\Exception\InvalidConfigException;
 
 /**
  * Class Wifi formats a string to properly create a Wifi QrCode

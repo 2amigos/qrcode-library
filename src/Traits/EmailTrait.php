@@ -11,8 +11,7 @@
 
 namespace Da\QrCode\Traits;
 
-use yii\base\InvalidConfigException;
-use yii\validators\EmailValidator;
+use Da\QrCode\Exception\InvalidConfigException;
 
 /**
  * EmailTrait
@@ -39,9 +38,9 @@ trait EmailTrait
     public function setEmail($value)
     {
         $error = null;
-        $validator = new EmailValidator();
-        if (!$validator->validate($value, $error)) {
-            throw new InvalidConfigException($error);
+
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidConfigException('Email seems incorrect.');
         }
 
         $this->email = $value;

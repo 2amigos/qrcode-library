@@ -11,9 +11,9 @@
 
 namespace Da\QrCode\Format;
 
+use Da\QrCode\Exception\InvalidConfigException;
 use Da\QrCode\Traits\EmailTrait;
 use Da\QrCode\Traits\UrlTrait;
-use yii\base\InvalidConfigException;
 
 /**
  * Class vCard creates a valid vCard 4.0 QrCode string

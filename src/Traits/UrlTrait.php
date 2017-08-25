@@ -11,8 +11,7 @@
 
 namespace Da\QrCode\Traits;
 
-use yii\base\InvalidConfigException;
-use yii\validators\UrlValidator;
+use Da\QrCode\Exception\InvalidConfigException;
 
 trait UrlTrait
 {
@@ -29,9 +28,9 @@ trait UrlTrait
     public function setUrl($value)
     {
         $error = null;
-        $validator = new UrlValidator();
-        if (!$validator->validate($value, $error)) {
-            throw new InvalidConfigException($error);
+
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            throw new InvalidConfigException('Url seems invalid.');
         }
 
         $this->url = $value;

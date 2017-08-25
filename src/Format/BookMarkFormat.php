@@ -11,8 +11,8 @@
 
 namespace Da\QrCode\Format;
 
+use Da\QrCode\Exception\InvalidConfigException;
 use Da\QrCode\Traits\UrlTrait;
-use yii\base\InvalidConfigException;
 
 /**
  * Class BookMark formats a string to properly create a Bookmark QrCode
@@ -33,7 +33,7 @@ class BookMarkFormat extends AbstractFormat
 
     /**
      * @inheritdoc
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function init()
     {

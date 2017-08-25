@@ -35,13 +35,13 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("http://2amigos.us", $bookmark->getUrl());
         // using __toString()
         $this->assertEquals("MEBKM:TITLE:test-title;URL:http://2amigos.us;;", $bookmark);
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $bookmark->url = 'wrong!url';
     }
 
     public function testBookMarkFailed()
     {
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $bookmark = new BookMarkFormat();
     }
 
@@ -57,7 +57,7 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("hola@2amigos.us", $message->getEmail());
         $this->assertEquals("MATMSG:TO:hola@2amigos.us;SUB:test;BODY:test-body;;", $message->getText());
 
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $message = new MailMessageFormat(['email' => 'wrongaddress!!']);
 
     }
@@ -71,7 +71,7 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
     public function testMailToWrongEmail()
     {
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $mailTo = new MailToFormat(['email' => 'wrongaddress-@...']);
     }
 
@@ -94,7 +94,7 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
             "NOTE:test-note;\nBDAY:19711201;\nADR:test-address;\nURL:http://2amigos.us;\nNICKNAME:tonydspaniard;\n;";
         $this->assertEquals($expected, $card->getText());
 
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $card->email = 'wrongaddress!!!';
         $card->getText();
 
@@ -152,7 +152,7 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $vcard->getText());
 
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $vcard->email = "wrongaddress";
 
     }
@@ -175,7 +175,7 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
         $vcard->photo = 'wrongimage.superb';
 
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $method->invoke($vcard);
     }
 
@@ -185,7 +185,7 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("WIFI:T:WPA;S:testSSID;P:HAKUNAMATATA;;", $wifi->getText());
         $wifi->hidden = 'true';
         $this->assertEquals("WIFI:T:WPA;S:testSSID;P:HAKUNAMATATA;H:true;", $wifi->getText());
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
         $wifi = new WifiFormat(['authentication' => 'WPA', 'password' => 'HAKUNAMATATA']);
     }
 
