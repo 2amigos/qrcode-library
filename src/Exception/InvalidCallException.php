@@ -11,6 +11,6 @@
 
 namespace Da\QrCode\Exception;
 
-class InvalidConfigException extends Exception
+class InvalidCallException extends Exception
 {
 }

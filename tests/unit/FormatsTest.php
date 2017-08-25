@@ -1,78 +1,83 @@
 <?php
-/**
- *
- * BookMarkTest.php
- *
- * Date: 12/03/15
- * Time: 14:01
- * @author Antonio Ramirez <amigo.cobos@gmail.com>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
- */
-
-namespace tests;
-
 
 use Da\QrCode\Format\BookMarkFormat;
-use Da\QrCode\Format\BtcFormat;
 use Da\QrCode\Format\GeoFormat;
-use Da\QrCode\Format\iCalFormat;
 use Da\QrCode\Format\MailMessageFormat;
 use Da\QrCode\Format\MailToFormat;
 use Da\QrCode\Format\MeCardFormat;
-use Da\QrCode\Format\MmsFormat;
 use Da\QrCode\Format\PhoneFormat;
 use Da\QrCode\Format\SmsFormat;
-use Da\QrCode\Format\vCardFormat;
-use Da\QrCode\Format\WifiFormat;
+use Da\QrCode\Format\MmsFormat;
+use Da\QrCode\Format\BtcFormat;
 use Da\QrCode\Format\YoutubeFormat;
+use Da\QrCode\Format\vCardFormat;
+use Da\QrCode\Format\iCalFormat;
+use Da\QrCode\Format\WifiFormat;
 
-class FormatsTest extends \PHPUnit_Framework_TestCase
+
+class FormatsTest extends \Codeception\Test\Unit
 {
+    /**
+     * @var \UnitTester
+     */
+    protected $tester;
+
+    protected function _before()
+    {
+    }
+
+    protected function _after()
+    {
+    }
+
     public function testBookMark()
     {
         $bookmark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2amigos.us']);
-        $this->assertEquals("http://2amigos.us", $bookmark->getUrl());
+        $this->tester->assertEquals("http://2amigos.us", $bookmark->getUrl());
         // using __toString()
-        $this->assertEquals("MEBKM:TITLE:test-title;URL:http://2amigos.us;;", $bookmark);
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $bookmark->url = 'wrong!url';
+        $this->tester->assertEquals("MEBKM:TITLE:test-title;URL:http://2amigos.us;;", $bookmark);
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() use ($bookmark) {
+            $bookmark->url = 'wrong!url';
+        });
     }
 
     public function testBookMarkFailed()
     {
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $bookmark = new BookMarkFormat();
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function(){
+            $bookmark = new BookMarkFormat();
+        });
     }
 
     public function testGeo()
     {
         $geo = new GeoFormat(['lat' => 1, 'lng' => 1, 'altitude' => 20]);
-        $this->assertEquals("GEO:1,1,20", $geo->getText());
+        $this->tester->assertEquals("GEO:1,1,20", $geo->getText());
     }
 
     public function testMailMessage()
     {
         $message = new MailMessageFormat(['email' => 'hola@2amigos.us', 'subject' => 'test', 'body' => 'test-body']);
-        $this->assertEquals("hola@2amigos.us", $message->getEmail());
-        $this->assertEquals("MATMSG:TO:hola@2amigos.us;SUB:test;BODY:test-body;;", $message->getText());
+        $this->tester->assertEquals("hola@2amigos.us", $message->getEmail());
+        $this->tester->assertEquals("MATMSG:TO:hola@2amigos.us;SUB:test;BODY:test-body;;", $message->getText());
 
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $message = new MailMessageFormat(['email' => 'wrongaddress!!']);
-
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() {
+            $message = new MailMessageFormat(['email' => 'wrongaddress!!']);
+        });
     }
 
     public function testMailTo()
     {
         $mailTo = new MailToFormat(['email' => 'hola@2amigos.us']);
-        $this->assertEquals("MAILTO:hola@2amigos.us", $mailTo->getText());
+        $this->tester->assertEquals("MAILTO:hola@2amigos.us", $mailTo->getText());
 
     }
 
     public function testMailToWrongEmail()
     {
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $mailTo = new MailToFormat(['email' => 'wrongaddress-@...']);
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() {
+            $mailTo = new MailToFormat(['email' => 'wrongaddress-@...']);
+        });
+
     }
 
     public function testMeCard()
@@ -92,50 +97,49 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
         $expected = "MECARD:\nN:Ramirez Antonio;\nSOUND:docomotaro;\nTEL:657657657;\nTEL-AV:657657657;\nEMAIL:hola@2amigos.us;\n" .
             "NOTE:test-note;\nBDAY:19711201;\nADR:test-address;\nURL:http://2amigos.us;\nNICKNAME:tonydspaniard;\n;";
-        $this->assertEquals($expected, $card->getText());
+        $this->tester->assertEquals($expected, $card->getText());
 
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $card->email = 'wrongaddress!!!';
-        $card->getText();
-
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() use ($card){
+            $card->email = 'wrongaddress!!!';
+        });
     }
 
     public function testPhone()
     {
         $phone = new PhoneFormat(['phone' => 657657657]);
 
-        $this->assertEquals("TEL:657657657", $phone->getText());
+        $this->tester->assertEquals("TEL:657657657", $phone->getText());
     }
 
     public function testSms()
     {
         $sms = new SmsFormat(['phone' => 657657657]);
 
-        $this->assertEquals("SMS:657657657", $sms->getText());
+        $this->tester->assertEquals("SMS:657657657", $sms->getText());
     }
 
     public function testMms()
     {
         $mms = new MmsFormat(['phone' => 657657657, 'msg' => 'test']);
 
-        $this->assertEquals("MMSTO:657657657:test", $mms->getText());
+        $this->tester->assertEquals("MMSTO:657657657:test", $mms->getText());
 
         $mms->msg = null;
-        $this->assertEquals("MMSTO:657657657", $mms->getText());
+        $this->tester->assertEquals("MMSTO:657657657", $mms->getText());
     }
 
     public function testBitcoin()
     {
         $bitcoin = new BtcFormat(['address' => 'test-address', 'amount' => 1, 'name' => 'antonio']);
 
-        $this->assertEquals("bitcoin:test-address?amount=1&label=antonio", $bitcoin->getText());
+        $this->tester->assertEquals("bitcoin:test-address?amount=1&label=antonio", $bitcoin->getText());
     }
 
     public function testYoutube()
     {
         $yt = new YoutubeFormat(['videoId' => 123456]);
 
-        $this->assertEquals("youtube://123456", $yt->getText());
+        $this->tester->assertEquals("youtube://123456", $yt->getText());
     }
 
     public function testVCard()
@@ -150,11 +154,11 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
             "GENDER:\nIMPP:\nROLE:\nURL:\nORG:\nNOTE:\n" .
             "ORG:\nLANG:\nEND:VCARD";
 
-        $this->assertEquals($expected, $vcard->getText());
+        $this->tester->assertEquals($expected, $vcard->getText());
 
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $vcard->email = "wrongaddress";
-
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() use ($vcard) {
+            $vcard->email = "wrongaddress";
+        });
     }
 
     public function testVCardPhoto()
@@ -168,25 +172,28 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
 
         $value = $method->invoke($vcard);
 
-        $this->assertEquals("PHOTO;VALUE=URL;TYPE=PNG:http://2amigos.us/img/logo.png", $value);
+        $this->tester->assertEquals("PHOTO;VALUE=URL;TYPE=PNG:http://2amigos.us/img/logo.png", $value);
 
         $vcard->photo = null;
-        $this->assertNull($method->invoke($vcard));
+        $this->tester->assertNull($method->invoke($vcard));
 
         $vcard->photo = 'wrongimage.superb';
 
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $method->invoke($vcard);
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() use ($vcard, $method) {
+            $method->invoke($vcard);
+        });
     }
 
     public function testWifi()
     {
         $wifi = new WifiFormat(['authentication' => 'WPA', 'ssid' => 'testSSID', 'password' => 'HAKUNAMATATA']);
-        $this->assertEquals("WIFI:T:WPA;S:testSSID;P:HAKUNAMATATA;;", $wifi->getText());
+        $this->tester->assertEquals("WIFI:T:WPA;S:testSSID;P:HAKUNAMATATA;;", $wifi->getText());
         $wifi->hidden = 'true';
-        $this->assertEquals("WIFI:T:WPA;S:testSSID;P:HAKUNAMATATA;H:true;", $wifi->getText());
-        $this->expectException('Da\QrCode\Exception\InvalidConfigException');
-        $wifi = new WifiFormat(['authentication' => 'WPA', 'password' => 'HAKUNAMATATA']);
+        $this->tester->assertEquals("WIFI:T:WPA;S:testSSID;P:HAKUNAMATATA;H:true;", $wifi->getText());
+        $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() {
+            $wifi = new WifiFormat(['authentication' => 'WPA', 'password' => 'HAKUNAMATATA']);
+        });
+
     }
 
     public function testiCal()
@@ -195,9 +202,10 @@ class FormatsTest extends \PHPUnit_Framework_TestCase
             ['summary' => 'test-summary', 'startTimestamp' => 1260232200, 'endTimestamp' => 1260318600]
         );
 
-        $this->assertEquals(
+        $this->tester->assertEquals(
             "BEGIN:VEVENT\nSUMMARY:test-summary\nDTSTART:20091208T003000Z\nDTEND:20091209T003000Z\nEND:VEVENT",
             $iCal->getText()
         );
     }
+
 }

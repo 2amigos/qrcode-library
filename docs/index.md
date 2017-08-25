@@ -1,7 +1,6 @@
 # Qrcode Library
 
 [![Documentation Status](https://readthedocs.org/projects/qrcode-library/badge/?version=latest)](http://qrcode-library.readthedocs.io/en/latest/?badge=latest)
-[![Join the chat at https://gitter.im/2amigos/qrcode-library](https://badges.gitter.im/2amigos/qrcode-library.svg)](https://gitter.im/2amigos/qrcode-library?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Packagist Version](https://img.shields.io/packagist/v/2amigos/qrcode-library.svg?style=flat-square)](https://packagist.org/packages/2amigos/qrcode-library)
 [![Build Status](https://travis-ci.org/2amigos/qrcode-library.svg?branch=master)](https://travis-ci.org/2amigos/qrcode-library)
 [![Latest Stable Version](https://poser.pugx.org/2amigos/qrcode-library/version)](https://packagist.org/packages/2amigos/qrcode-library)

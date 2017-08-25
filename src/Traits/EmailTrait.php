@@ -28,7 +28,7 @@ trait EmailTrait
     /**
      * @var string a valid email
      */
-    protected $email;
+    private $email;
 
     /**
      * @param string $value the email

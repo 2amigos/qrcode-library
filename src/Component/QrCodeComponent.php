@@ -105,7 +105,7 @@ class QrCodeComponent extends Component
      */
     public $logoWidth;
     /**
-     * @var LabelInterface
+     * @var LabelInterface|string
      */
     public $label;
     /**

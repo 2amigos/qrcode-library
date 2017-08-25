@@ -50,7 +50,7 @@ class QrCodeAction extends Action
             Yii::$app->response->format = Response::FORMAT_RAW;
             Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
 
-            return $qr->setText($text)->writeString();
+            return $qr->setText((string)$text)->writeString();
         }
     }
 }
