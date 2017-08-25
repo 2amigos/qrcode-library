@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the 2amigos/yii2-qrcode-component project.
+ *
+ * (c) 2amigOS! <http://2amigos.us/>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Da\QrCode\Component;
 
 use Da\QrCode\Contracts\LabelInterface;
@@ -111,6 +120,14 @@ class QrCodeComponent extends Component
     /**
      * @inheritdoc
      */
+    public function __call($name, $params)
+    {
+        return call_user_func_array([$this->qrCode, $name], $params);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         $this->qrCode = (new QrCode($this->text, $this->errorCorrectionLevel, $this->writer))
@@ -130,13 +147,5 @@ class QrCodeComponent extends Component
             list($r, $g, $b) = $this->backgroundColor;
             $this->qrCode = $this->qrCode->useBackgroundColor($r, $g, $b);
         }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function __call($name, $params)
-    {
-        return call_user_func_array([$this->qrCode, $name], $params);
     }
 }

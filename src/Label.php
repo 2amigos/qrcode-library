@@ -47,9 +47,9 @@ class Label implements LabelInterface
      *
      * @param $text
      * @param string|null $font
-     * @param int|null $fontSize
+     * @param int|null    $fontSize
      * @param string|null $alignment
-     * @param array $margins
+     * @param array       $margins
      */
     public function __construct($text, $font = null, $fontSize = null, $alignment = null, array $margins = [])
     {

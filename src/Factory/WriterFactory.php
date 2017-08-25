@@ -30,13 +30,13 @@ class WriterFactory
     /**
      * @param $name
      *
-     * @return WriterInterface
      * @throws UnknownWriterException
+     * @return WriterInterface
      */
     public static function fromName($name)
     {
         if (!array_key_exists($name, self::$map)) {
-            throw new UnknownWriterException(sprintf('Unkown writer name "%s"', $name));
+            throw new UnknownWriterException(sprintf('Unknown writer name "%s"', $name));
         }
 
         return new self::$map[$name];

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the 2amigos/yii2-qrcode-component project.
+ *
+ * (c) 2amigOS! <http://2amigos.us/>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Da\QrCode\Action;
 
 use Da\QrCode\Component\QrCodeComponent;
@@ -11,7 +20,7 @@ class QrCodeAction extends Action
 {
     /**
      * @var string the text to render if there are no parameter. Defaults to null, which means the component should
-     * render the text given as a parameter.
+     *             render the text given as a parameter.
      */
     public $text;
     /**
@@ -24,7 +33,7 @@ class QrCodeAction extends Action
     public $method = 'get';
     /**
      * @var string the qr component name configured on the Yii2 app. The component should have configured all the
-     * possible options like adding a logo, styling, labelling, etc.
+     *             possible options like adding a logo, styling, labelling, etc.
      */
     public $component = 'qr';
 
@@ -38,7 +47,6 @@ class QrCodeAction extends Action
         $qr = Yii::$app->get($this->component);
 
         if ($text && $qr instanceof QrCodeComponent) {
-
             Yii::$app->response->format = Response::FORMAT_RAW;
             Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
 

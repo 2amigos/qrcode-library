@@ -77,13 +77,13 @@ class QrCode implements QrCodeInterface
     /**
      * QrCode constructor.
      *
-     * @param string $text
-     * @param null $errorCorrectionLevel
+     * @param string               $text
+     * @param null                 $errorCorrectionLevel
      * @param WriterInterface|null $writer
      */
     public function __construct($text = '', $errorCorrectionLevel = null, WriterInterface $writer = null)
     {
-        $this->text = (string) $text;
+        $this->text = (string)$text;
         $this->errorCorrectionLevel = $errorCorrectionLevel ?: ErrorCorrectionLevelInterface::LOW;
         $this->writer = $writer ?: new PngWriter();
     }
@@ -129,8 +129,8 @@ class QrCode implements QrCodeInterface
     /**
      * @param $path
      *
-     * @return QrCode
      * @throws InvalidPathException
+     * @return QrCode
      */
     public function useLogo($path)
     {
@@ -236,18 +236,17 @@ class QrCode implements QrCodeInterface
     }
 
     /**
-     * @param LabelInterface $label
+     * @param LabelInterface|string $label
      *
      * @return QrCode
      */
-    public function setLabel(LabelInterface $label)
+    public function setLabel($label)
     {
         $cloned = clone $this;
-        $cloned->label = $label;
+        $cloned->label = $label instanceof LabelInterface ? $label : new Label($label);
 
         return $cloned;
     }
-
 
     /**
      * @inheritdoc
