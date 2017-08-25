@@ -1,5 +1,5 @@
 {
-    "name": "2amigos/yii2-qrcode-component",
+    "name": "2amigos/qrcode-library",
     "description": "QrCode Generator",
     "type": "yii2-extension",
     "keywords": [
@@ -9,9 +9,10 @@
         "yii 2",
         "extension",
         "component",
-        "qrcode"
+        "qrcode",
+        "qr"
     ],
-    "homepage": "http://yiiwheels.com/extension/qrcode-helper",
+    "homepage": "http://www.2amigos.us/open-source/details/qrcode-library",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -22,8 +23,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/2amigos/yii2-qrcode-helper/issues",
-        "source": "https://github.com/2amigos/yii2-qrcode-helper"
+        "issues": "https://github.com/2amigos/qrcode-library/issues",
+        "source": "https://github.com/2amigos/qrcode-library"
     },
     "require": {
         "php": ">=5.6",
