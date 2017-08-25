@@ -40,7 +40,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $writer = new JpgWriter();
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
-        file_put_contents(codecept_data_dir('data.jpg'), $out);
+
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.jpg')), $out);
     }
 
@@ -77,7 +77,7 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLabel($label)
             ->writeString();
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-label.png')), $out);
+        $this->tester->assertContains($out, file_get_contents(codecept_data_dir('data-label.png')));
     }
 
     public function testQrColored()
