@@ -34,7 +34,7 @@ Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
 
 return $qr
     ->setText('https://2amigos.us')
-    ->label('2amigos consulting group llc')
+    ->setLabel('2amigos consulting group llc')
     ->writeString();
 
 ```
