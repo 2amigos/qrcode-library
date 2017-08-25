@@ -69,7 +69,8 @@ class QrCodeTest extends \Codeception\Test\Unit
     }
 
     /** Travis fails with FreeType? */
-    /*public function testLabel()
+    /*
+    public function testLabel()
     {
         $label = new Label('2amigos.us');
 
@@ -78,7 +79,8 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->writeString();
 
         $this->tester->assertContains($out, file_get_contents(codecept_data_dir('data-label.png')));
-    }*/
+    }
+    */
 
     public function testQrColored()
     {
