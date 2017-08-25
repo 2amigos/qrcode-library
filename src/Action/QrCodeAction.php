@@ -3,11 +3,9 @@
 namespace Da\QrCode\Action;
 
 use Da\QrCode\Component\QrCodeComponent;
-use Da\QrCode\Contracts\ErrorCorrectionLevelInterface;
-use Da\QrCode\Contracts\LabelInterface;
-use Da\QrCode\Label;
 use Yii;
 use yii\base\Action;
+use yii\web\Response;
 
 class QrCodeAction extends Action
 {
@@ -25,25 +23,10 @@ class QrCodeAction extends Action
      */
     public $method = 'get';
     /**
-     * @var string the qr component name configured on the Yii2 app.
+     * @var string the qr component name configured on the Yii2 app. The component should have configured all the
+     * possible options like adding a logo, styling, labelling, etc.
      */
     public $component = 'qr';
-    /**
-     * @var string the logo to be included in the qr code. If applied, errorCorrectionLevel will be updated to HIGH.
-     */
-    public $logo;
-    /**
-     * @var string the label to add to the qr code. Defaults to null, which means no label.
-     */
-    public $label;
-    /**
-     * @var int the label font size. Defaults to 14.
-     */
-    public $labelFontSize = 14;
-    /**
-     * @var string the label alignment. Defaults to center.
-     */
-    public $labelAlignment = LabelInterface::ALIGN_CENTER;
 
     /**
      * Runs the action.
@@ -55,21 +38,11 @@ class QrCodeAction extends Action
         $qr = Yii::$app->get($this->component);
 
         if ($text && $qr instanceof QrCodeComponent) {
-            $qr->setText($text);
 
-            if ($this->logo) {
-                $qr
-                    ->useLogo($this->logo)
-                    ->setErrorCorrectionLevel(ErrorCorrectionLevelInterface::HIGH);
-            }
-            if ($this->label) {
-                $label = new Label($this->label, null, $this->labelFontSize, $this->labelAlignment);
+            Yii::$app->response->format = Response::FORMAT_RAW;
+            Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
 
-                $qr->setLabel($label);
-            }
-
-            header('Content-Type: ' . $qr->getContentType());
-            echo $qr->writeString();
+            return $qr->setText($text)->writeString();
         }
     }
 }
