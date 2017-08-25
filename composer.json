@@ -26,6 +26,8 @@
         "issues": "https://github.com/2amigos/qrcode-library/issues",
         "source": "https://github.com/2amigos/qrcode-library"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=5.6",
         "ext-gd": "*",
