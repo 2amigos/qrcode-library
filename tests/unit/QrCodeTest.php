@@ -66,8 +66,6 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->useLogo(codecept_data_dir('logo.png'))
             ->writeString();
 
-        file_put_contents(codecept_data_dir('data-logo.png'), $out);
-
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-logo.png')), $out);
     }
 
@@ -88,6 +86,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $out = $qrCode
             ->useForegroundColor(51, 153, 255)
             ->writeString();
+
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-color.png')), $out);
     }
 
@@ -137,7 +136,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals('image/png', $qrCode->getContentType());
         $this->tester->assertEquals($label, $qrCode->getLabel());
         $out = $qrCode->writeString();
-        file_put_contents(codecept_data_dir('data-attributes.png'), $out);
+
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-attributes.png')), $out);
     }
 }
