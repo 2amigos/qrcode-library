@@ -52,3 +52,6 @@ codeception.yml
 
 # test
 /build
+
+# composer.lock
+composer.lock
