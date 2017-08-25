@@ -17,11 +17,14 @@ use Da\QrCode\Traits\UrlTrait;
 /**
  * Class MeCard formats a string to properly create a meCard 4.0 QrCode
  *
+ * @property string $email
+ * 
  * @author Antonio Ramirez <hola@2amigos.us>
  * @link http://www.ramirezcobos.com/
  * @link http://www.2amigos.us/
  * @see https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/index.html
  * @package Da\QrCode\Format
+ *
  */
 class MeCardFormat extends AbstractFormat
 {

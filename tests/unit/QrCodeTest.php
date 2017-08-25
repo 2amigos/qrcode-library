@@ -40,6 +40,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $writer = new JpgWriter();
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
+        file_put_contents(codecept_data_dir('data.jpg'), $out);
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.jpg')), $out);
     }
 
@@ -64,6 +65,8 @@ class QrCodeTest extends \Codeception\Test\Unit
         $out = (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
             ->useLogo(codecept_data_dir('logo.png'))
             ->writeString();
+
+        file_put_contents(codecept_data_dir('data-logo.png'), $out);
 
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-logo.png')), $out);
     }
@@ -90,7 +93,6 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testAttributes()
     {
-        $file = __DIR__ . '/data/data-attributes-test.png';
 
         $label = (new Label('2amigos'))
             ->useFont(__DIR__ . '/../../resources/fonts/monsterrat.otf')
@@ -135,6 +137,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals('image/png', $qrCode->getContentType());
         $this->tester->assertEquals($label, $qrCode->getLabel());
         $out = $qrCode->writeString();
+        file_put_contents(codecept_data_dir('data-attributes.png'), $out);
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-attributes.png')), $out);
     }
 }

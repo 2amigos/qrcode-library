@@ -18,6 +18,8 @@ use Da\QrCode\Traits\UrlTrait;
 /**
  * Class vCard creates a valid vCard 4.0 QrCode string
  *
+ * @property string $email
+ *
  * @author Antonio Ramirez <hola@2amigos.us>
  * @link http://www.ramirezcobos.com/
  * @link http://www.2amigos.us/
