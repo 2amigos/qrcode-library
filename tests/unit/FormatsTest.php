@@ -151,8 +151,8 @@ class FormatsTest extends \Codeception\Test\Unit
 
         $expected = "BEGIN:VCARD\nVERSION:4.0\nN:Antonio\nFN:Antonio Ramirez\nADR:\nNICKNAME:\n" .
             "EMAIL;TYPE=PREF,INTERNET:hola@2amigos.us\nTEL;TYPE=WORK:\nTEL;TYPE=HOME:\nBDAY:\n" .
-            "GENDER:\nIMPP:\nROLE:\nURL:\nORG:\nNOTE:\n" .
-            "ORG:\nLANG:\nEND:VCARD";
+            "GENDER:\nCATEGORIES:\nIMPP:\nROLE:\nURL:\nORG:\nNOTE:\n" .
+            "LANG:\nEND:VCARD";
 
         $this->tester->assertEquals($expected, $vcard->getText());
 
