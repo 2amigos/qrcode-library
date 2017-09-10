@@ -115,13 +115,13 @@ class vCardFormat extends AbstractFormat
         $data[] = "TEL;TYPE=HOME:{$this->homePhone}";
         $data[] = "BDAY:{$this->birthday}";
         $data[] = "GENDER:{$this->gender}";
+        $data[] = "CATEGORIES:{$this->categories}";
         $data[] = "IMPP:{$this->impp}";
         $data[] = $this->getFormattedPhoto();
         $data[] = "ROLE:{$this->role}";
         $data[] = "URL:{$this->url}";
         $data[] = "ORG:{$this->organization}";
         $data[] = "NOTE:{$this->note}";
-        $data[] = "ORG:{$this->organization}";
         $data[] = "LANG:{$this->lang}";
         $data[] = "END:VCARD";
 
