@@ -95,8 +95,8 @@ class FormatsTest extends \Codeception\Test\Unit
         $card->url = 'http://2amigos.us';
         $card->nickName = 'tonydspaniard';
 
-        $expected = "MECARD:\nN:Ramirez Antonio;\nSOUND:docomotaro;\nTEL:657657657;\nTEL-AV:657657657;\nEMAIL:hola@2amigos.us;\n" .
-            "NOTE:test-note;\nBDAY:19711201;\nADR:test-address;\nURL:http://2amigos.us;\nNICKNAME:tonydspaniard;\n;";
+        $expected = "MECARD:N:Ramirez Antonio;SOUND:docomotaro;TEL:657657657;TEL-AV:657657657;EMAIL:hola@2amigos.us;" .
+            "NOTE:test-note;BDAY:19711201;ADR:test-address;URL:http://2amigos.us;NICKNAME:tonydspaniard;;";
         $this->tester->assertEquals($expected, $card->getText());
 
         $this->tester->expectException('Da\QrCode\Exception\InvalidConfigException', function() use ($card){

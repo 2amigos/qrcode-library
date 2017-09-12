@@ -86,6 +86,6 @@ class MeCardFormat extends AbstractFormat
         $data[] = "URL:{$this->url};";
         $data[] = "NICKNAME:{$this->nickName};\n;";
 
-        return implode("\n", $data);
+        return implode($data);
     }
 }
