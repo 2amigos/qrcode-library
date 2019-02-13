@@ -7,7 +7,7 @@
 namespace dosamigos\qrcode\lib;
 
 use Yii;
-use yii\base\Object;
+use yii\base\BaseObject;
 
 /**
  * Class Encode
@@ -17,7 +17,7 @@ use yii\base\Object;
  * @link http://www.2amigos.us/
  * @package dosamigos\qrcode\lib
  */
-class Encode extends Object
+class Encode extends BaseObject
 {
     /**
      * @var bool whether to be case senstive or not

@@ -6,7 +6,7 @@
  */
 namespace dosamigos\qrcode\formats;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
 /**
  * Abstract Class FormatAbstract for all formats
@@ -16,7 +16,7 @@ use yii\base\Object;
  * @link http://www.2amigos.us/
  * @package dosamigos\qrcode\formats
  */
-abstract class FormatAbstract extends Object
+abstract class FormatAbstract extends BaseObject
 {
     /**
      * @return string the formatted string to be encoded
