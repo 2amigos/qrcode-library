@@ -55,7 +55,7 @@ echo $qrCode->writeString();
 
 <?php 
 // or even as data:uri url
-echo '<img src"' . $qrCode->writeDataUri() . '">';
+echo '<img src="' . $qrCode->writeDataUri() . '">';
 ?>
 ```
 
