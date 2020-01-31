@@ -4,10 +4,7 @@ sudo: false
 language: php
 
 php:
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
+  - 7.3
 
 cache:
   directories:
@@ -15,12 +12,6 @@ cache:
     - $HOME/.composer/cache
 
 install:
-  - |
-    if [[ $TRAVIS_PHP_VERSION != '7.1' && $TRAVIS_PHP_VERSION != hhv* ]]; then
-        # disable xdebug for performance reasons when code coverage is not needed
-        # note: xdebug on hhvm is disabled by default
-        phpenv config-rm xdebug.ini || echo "xdebug is not installed"
-    fi
   - travis_retry composer self-update && composer --version
   - travis_retry composer global require "fxp/composer-asset-plugin:^1.3.0" --no-plugins
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -30,9 +21,9 @@ before_script:
   - php -r "echo INTL_ICU_VERSION . \"\n\";"
   - php -r "echo INTL_ICU_DATA_VERSION . \"\n\";"
 
-  # enable code coverage on PHP 7.1, only one PHP version needs to generate coverage data
+  # enable code coverage on PHP 7.3, only one PHP version needs to generate coverage data
   - |
-    if [ $TRAVIS_PHP_VERSION = '7.1' ]; then
+    if [ $TRAVIS_PHP_VERSION = '7.3' ]; then
       CODECEPTION_FLAGS="--coverage-xml"
     fi
 
@@ -46,7 +37,7 @@ notifications:
 
 after_script:
   - |
-    if [ $TRAVIS_PHP_VERSION = '7.1' ]; then
+    if [ $TRAVIS_PHP_VERSION = '7.3' ]; then
       travis_retry wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover tests/_output/coverage.xml
     fi
