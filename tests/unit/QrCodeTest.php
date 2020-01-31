@@ -77,11 +77,15 @@ class QrCodeTest extends \Codeception\Test\Unit
         //return true; // todo: try to figure out what is going on Travis and why is working locally.
         $label = new Label('2amigos.us');
 
-        $out = (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
+        (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
             ->setLabel($label)
-            ->writeString();
-
+            ->writeFile(codecept_data_dir('data-label-new.png'));
+        $out = file_get_contents(codecept_data_dir('data-label-new.png'));
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-label.png')), $out);
+
+        unlink(codecept_data_dir('data-label-new.png'));
+
+
     }
 
     public function testQrColored()
