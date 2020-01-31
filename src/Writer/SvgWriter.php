@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -29,7 +29,7 @@ class SvgWriter extends AbstractWriter
     /**
      * @inheritdoc
      */
-    public function writeString(QrCodeInterface $qrCode)
+    public function writeString(QrCodeInterface $qrCode): string
     {
         /** @var Svg $renderer */
         $renderer = $this->renderer;
@@ -54,7 +54,7 @@ class SvgWriter extends AbstractWriter
     /**
      * @return string
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return 'image/svg+xml';
     }
@@ -65,7 +65,7 @@ class SvgWriter extends AbstractWriter
      * @param  int    $size
      * @return string
      */
-    protected function addMargin($string, $margin, $size)
+    protected function addMargin(string $string, int $margin, int $size): string
     {
         $targetSize = $size + $margin * 2;
         $xml = new SimpleXMLElement($string);

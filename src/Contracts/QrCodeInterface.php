@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -16,50 +16,50 @@ interface QrCodeInterface
     /**
      * @return string
      */
-    public function getText();
+    public function getText(): ?string;
 
     /**
      * @return int
      */
-    public function getSize();
+    public function getSize():int;
 
     /**
      * @return int
      */
-    public function getMargin();
+    public function getMargin(): int;
 
     /**
      * @return int[]
      */
-    public function getForegroundColor();
+    public function getForegroundColor(): array;
 
     /**
      * @return int[]
      */
-    public function getBackgroundColor();
+    public function getBackgroundColor(): array;
 
     /**
      * @return string
      */
-    public function getEncoding();
+    public function getEncoding(): string;
 
     /**
      * @return string
      */
-    public function getErrorCorrectionLevel();
+    public function getErrorCorrectionLevel(): string;
 
     /**
      * @return string
      */
-    public function getLogoPath();
+    public function getLogoPath(): ?string;
 
     /**
      * @return int
      */
-    public function getLogoWidth();
+    public function getLogoWidth(): ?int;
 
     /**
      * @return LabelInterface
      */
-    public function getLabel();
+    public function getLabel(): ?LabelInterface;
 }

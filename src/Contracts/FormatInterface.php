@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -16,5 +16,5 @@ interface FormatInterface
     /**
      * @return string the formatted string to be encoded
      */
-    public function getText();
+    public function getText(): string;
 }

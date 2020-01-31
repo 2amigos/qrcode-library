@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -45,13 +45,13 @@ class Label implements LabelInterface
     /**
      * Label constructor.
      *
-     * @param $text
+     * @param string $text
      * @param string|null $font
      * @param int|null    $fontSize
      * @param string|null $alignment
      * @param array       $margins
      */
-    public function __construct($text, $font = null, $fontSize = null, $alignment = null, array $margins = [])
+    public function __construct(string $text, string $font = null, $fontSize = null, $alignment = null, array $margins = [])
     {
         $this->text = $text;
         $this->font = $font ?: __DIR__ . '/../resources/fonts/noto_sans.otf';
@@ -63,35 +63,33 @@ class Label implements LabelInterface
     /**
      * @inheritdoc
      */
-    public function updateFontSize($size)
+    public function setFontSize(int $size): LabelInterface
     {
-        $cloned = clone $this;
-        $cloned->fontSize = $size;
+        $this->fontSize = $size;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @inheritdoc
+     * @throws InvalidPathException
      */
-    public function useFont($font)
+    public function setFont(string $font): LabelInterface
     {
         $path = realpath($font);
         if (!is_file($path)) {
             throw new InvalidPathException(sprintf('Invalid label font path "%s"', $path));
         }
 
-        $cloned = clone $this;
+        $this->font = $path;
 
-        $cloned->font = $path;
-
-        return $cloned;
+        return $this;
     }
 
     /**
      * @inheritdoc
      */
-    public function getFont()
+    public function getFont(): string
     {
         return $this->font;
     }
@@ -99,7 +97,7 @@ class Label implements LabelInterface
     /**
      * @inheritdoc
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -107,7 +105,7 @@ class Label implements LabelInterface
     /**
      * @inheritdoc
      */
-    public function getFontSize()
+    public function getFontSize(): int
     {
         return $this->fontSize;
     }
@@ -115,7 +113,7 @@ class Label implements LabelInterface
     /**
      * @inheritdoc
      */
-    public function getAlignment()
+    public function getAlignment(): string
     {
         return $this->alignment;
     }
@@ -123,7 +121,7 @@ class Label implements LabelInterface
     /**
      * @inheritdoc
      */
-    public function getMargins()
+    public function getMargins(): array
     {
         return $this->margins;
     }

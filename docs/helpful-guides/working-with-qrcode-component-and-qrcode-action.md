@@ -45,4 +45,4 @@ QrCode. According to the above configuration we could use it to display it on im
 <img src="<?= Url::to(['controller/qr']) ?>" />
 ```
 
-© [2amigos](http://www.2amigos.us/) 2013-2017
+© [2amigos](https://2amigos.us/) 2013-2020

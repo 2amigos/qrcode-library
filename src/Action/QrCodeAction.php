@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -42,7 +42,7 @@ class QrCodeAction extends Action
      */
     public function run()
     {
-        $text = call_user_func_array([Yii::$app->request, $this->method], [$this->param, $this->text]);
+        $text = call_user_func([Yii::$app->request, $this->method], $this->param, $this->text);
 
         $qr = Yii::$app->get($this->component);
 

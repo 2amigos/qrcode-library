@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -16,6 +16,7 @@ use BaconQrCode\Renderer\RendererInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Contracts\WriterInterface;
 use ReflectionClass;
+use ReflectionException;
 
 abstract class AbstractWriter implements WriterInterface
 {
@@ -37,7 +38,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * @inheritdoc
      */
-    public function writeDataUri(QrCodeInterface $qrCode)
+    public function writeDataUri(QrCodeInterface $qrCode): string
     {
         return 'data:' . $this->getContentType() . ';base64,' . base64_encode($this->writeString($qrCode));
     }
@@ -52,8 +53,9 @@ abstract class AbstractWriter implements WriterInterface
 
     /**
      * @inheritdoc
+     * @throws ReflectionException
      */
-    public function getName()
+    public function getName(): string
     {
         return strtolower(str_replace('Writer', '', (new ReflectionClass($this))->getShortName()));
     }
@@ -63,11 +65,9 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @return Rgb
      */
-    protected function convertColor(array $color)
+    protected function convertColor(array $color): Rgb
     {
-        $color = new Rgb($color['r'], $color['g'], $color['b']);
-
-        return $color;
+        return new Rgb($color['r'], $color['g'], $color['b']);
     }
 
     /**
@@ -75,9 +75,9 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @return string
      */
-    protected function convertErrorCorrectionLevel($errorCorrectionLevel)
+    protected function convertErrorCorrectionLevel($errorCorrectionLevel): string
     {
-        $name = strtoupper(substr($errorCorrectionLevel, 0, 1));
+        $name = strtoupper($errorCorrectionLevel[0]);
         $errorCorrectionLevel = constant('BaconQrCode\Common\ErrorCorrectionLevel::' . $name);
 
         return $errorCorrectionLevel;

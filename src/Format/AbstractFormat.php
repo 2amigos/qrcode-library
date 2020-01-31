@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -20,8 +20,7 @@ use Da\QrCode\Exception\UnknownPropertyException;
  * Abstract Class FormatAbstract for all formats
  *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ * @link https://2amigos.us/
  * @package Da\QrCode\Format
  */
 abstract class AbstractFormat implements FormatInterface
@@ -51,13 +50,6 @@ abstract class AbstractFormat implements FormatInterface
     }
 
     /**
-     * Initialization method
-     */
-    public function init()
-    {
-    }
-
-    /**
      * Returns the value of an object property.
      *
      * Do not call this method directly as it is a PHP magic method that
@@ -75,9 +67,12 @@ abstract class AbstractFormat implements FormatInterface
         $getter = 'get' . $name;
         if (method_exists($this, $getter)) {
             return $this->$getter();
-        } elseif (method_exists($this, 'set' . $name)) {
+        }
+
+        if (method_exists($this, 'set' . $name)) {
             throw new InvalidCallException('Getting write-only property: ' . get_class($this) . '::' . $name);
         }
+
         throw new UnknownPropertyException('Getting unknown property: ' . get_class($this) . '::' . $name);
     }
 
@@ -179,6 +174,13 @@ abstract class AbstractFormat implements FormatInterface
     }
 
     /**
+     * Initialization method
+     */
+    public function init(): void
+    {
+    }
+
+    /**
      * Returns a value indicating whether a property is defined.
      * A property is defined if:
      *
@@ -193,7 +195,7 @@ abstract class AbstractFormat implements FormatInterface
      * @see canGetProperty()
      * @see canSetProperty()
      */
-    public function hasProperty($name, $checkVars = true)
+    public function hasProperty($name, $checkVars = true): bool
     {
         return $this->canGetProperty($name, $checkVars) || $this->canSetProperty($name, false);
     }
@@ -212,9 +214,9 @@ abstract class AbstractFormat implements FormatInterface
      * @return bool   whether the property can be read
      * @see canSetProperty()
      */
-    public function canGetProperty($name, $checkVars = true)
+    public function canGetProperty($name, $checkVars = true): bool
     {
-        return method_exists($this, 'get' . $name) || $checkVars && property_exists($this, $name);
+        return method_exists($this, 'get' . $name) || ($checkVars && property_exists($this, $name));
     }
 
     /**
@@ -231,9 +233,9 @@ abstract class AbstractFormat implements FormatInterface
      * @return bool   whether the property can be written
      * @see canGetProperty()
      */
-    public function canSetProperty($name, $checkVars = true)
+    public function canSetProperty($name, $checkVars = true): bool
     {
-        return method_exists($this, 'set' . $name) || $checkVars && property_exists($this, $name);
+        return method_exists($this, 'set' . $name) || ($checkVars && property_exists($this, $name));
     }
 
     /**
@@ -246,7 +248,7 @@ abstract class AbstractFormat implements FormatInterface
      *
      * @return bool   whether the method is defined
      */
-    public function hasMethod($name)
+    public function hasMethod($name): bool
     {
         return method_exists($this, $name);
     }

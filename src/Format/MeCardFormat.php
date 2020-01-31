@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -18,10 +18,9 @@ use Da\QrCode\Traits\UrlTrait;
  * Class MeCard formats a string to properly create a meCard 4.0 QrCode
  *
  * @property string $email
- * 
- * @author Antonio Ramirez <hola@2amigos.us>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ *
+* @author Antonio Ramirez <hola@2amigos.us>
+ * @link https://www.2amigos.us/
  * @see https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/index.html
  * @package Da\QrCode\Format
  *
@@ -71,10 +70,10 @@ class MeCardFormat extends AbstractFormat
     /**
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         $data = [];
-        $data[] = "MECARD:";
+        $data[] = 'MECARD:';
         $data[] = "N:{$this->lastName} {$this->firstName};";
         $data[] = "SOUND:{$this->sound};";
         $data[] = "TEL:{$this->phone};";

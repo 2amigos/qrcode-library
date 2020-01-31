@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -15,8 +15,7 @@ namespace Da\QrCode\Format;
  * Class Geo formats a string to properly create a Geo QrCode
  *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ * @link https://www.2amigos.us/
  * @package Da\QrCode\Format
  */
 class GeoFormat extends AbstractFormat
@@ -28,7 +27,7 @@ class GeoFormat extends AbstractFormat
     /**
      * @inheritdoc
      */
-    public function getText()
+    public function getText(): string
     {
         return "GEO:{$this->lat},{$this->lng},{$this->altitude}";
     }

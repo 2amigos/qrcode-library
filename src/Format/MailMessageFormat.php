@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -17,8 +17,7 @@ use Da\QrCode\Traits\EmailTrait;
  * Class MailMessage formats a string to properly create a NNTMail QrCode
  *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ * @link https://www.2amigos.us/
  * @package Da\QrCode\Format
  */
 class MailMessageFormat extends AbstractFormat
@@ -37,7 +36,7 @@ class MailMessageFormat extends AbstractFormat
     /**
      * @inheritdoc
      */
-    public function getText()
+    public function getText(): string
     {
         return "MATMSG:TO:{$this->email};SUB:{$this->subject};BODY:{$this->body};;";
     }

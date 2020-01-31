@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -18,9 +18,8 @@ use Da\QrCode\Exception\InvalidConfigException;
  *
  * Provides methods to handle the email property
  *
- * @author Antonio Ramirez <amigo.cobos@gmail.com>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ * @author Antonio Ramirez <hola@2amigos.us>
+ * @link https://www.2amigos.us/
  * @package dosamigos\qrcode\traits
  */
 trait EmailTrait
@@ -35,7 +34,7 @@ trait EmailTrait
      *
      * @throws InvalidConfigException
      */
-    public function setEmail($value)
+    public function setEmail(string $value): void
     {
         $error = null;
 
@@ -49,7 +48,7 @@ trait EmailTrait
     /**
      * @return string the email
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }

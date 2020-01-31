@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -29,7 +29,7 @@ class JpgWriter extends AbstractWriter
     /**
      * @inheritdoc
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return 'image/jpeg';
     }
@@ -39,7 +39,7 @@ class JpgWriter extends AbstractWriter
      *
      * @return string
      */
-    protected function imageToString($image)
+    protected function imageToString($image): string
     {
         ob_start();
         imagejpeg($image);

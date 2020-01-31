@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -38,7 +38,7 @@ class BtcFormat extends AbstractFormat
     /**
      * @inheritdoc
      */
-    public function getText()
+    public function getText(): string
     {
         $query = http_build_query(['amount' => $this->amount, 'label' => $this->name, 'message' => $this->message]);
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -28,7 +28,7 @@ class EpsWriter extends AbstractWriter
     /**
      * @inheritdoc
      */
-    public function writeString(QrCodeInterface $qrCode)
+    public function writeString(QrCodeInterface $qrCode): string
     {
         /** @var Eps $renderer */
         $renderer = $this->renderer;
@@ -51,7 +51,7 @@ class EpsWriter extends AbstractWriter
     /**
      * @inheritdoc
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return 'image/eps';
     }
@@ -62,17 +62,17 @@ class EpsWriter extends AbstractWriter
      *
      * @return string
      */
-    protected function addMargin($string, QrCodeInterface $qrCode)
+    protected function addMargin(string $string, QrCodeInterface $qrCode): string
     {
         $targetSize = $qrCode->getSize() + $qrCode->getMargin() * 2;
         $lines = explode("\n", $string);
         $sourceBlockSize = 0;
         $additionalWhitespace = $qrCode->getSize();
         foreach ($lines as $line) {
-            if (preg_match('#[0-9]+ [0-9]+ [0-9]+ [0-9]+ F#i', $line) && strpos(
-                    $line,
-                    $qrCode->getSize() . ' ' . $qrCode->getSize() . ' F'
-                ) === false) {
+            if (preg_match('#\d+ \d+ \d+ \d+ F#i', $line) && strpos(
+                $line,
+                $qrCode->getSize() . ' ' . $qrCode->getSize() . ' F'
+            ) === false) {
                 $parts = explode(' ', $line);
                 $sourceBlockSize = $parts[2];
                 $additionalWhitespace = min($additionalWhitespace, $parts[0]);
@@ -80,12 +80,13 @@ class EpsWriter extends AbstractWriter
         }
         $blockCount = ($qrCode->getSize() - 2 * $additionalWhitespace) / $sourceBlockSize;
         $targetBlockSize = $qrCode->getSize() / $blockCount;
-        foreach ($lines as &$line) {
+        $newLines =[];
+        foreach ($lines as $line) {
             if (strpos($line, 'BoundingBox') !== false) {
-                $line = '%%BoundingBox: 0 0 ' . $targetSize . ' ' . $targetSize;
+                $newLines[] = '%%BoundingBox: 0 0 ' . $targetSize . ' ' . $targetSize;
             } elseif (strpos($line, $qrCode->getSize() . ' ' . $qrCode->getSize() . ' F') !== false) {
-                $line = '0 0 ' . $targetSize . ' ' . $targetSize . ' F';
-            } elseif (preg_match('#[0-9]+ [0-9]+ [0-9]+ [0-9]+ F#i', $line)) {
+                $newLines[] = '0 0 ' . $targetSize . ' ' . $targetSize . ' F';
+            } elseif (preg_match('#\d+ \d+ \d+ \d+ + F#i', $line)) {
                 $parts = explode(' ', $line);
                 $parts[0] = $qrCode->getMargin(
                     ) + $targetBlockSize * ($parts[0] - $additionalWhitespace) / $sourceBlockSize;
@@ -93,10 +94,10 @@ class EpsWriter extends AbstractWriter
                     ) + $targetBlockSize * ($parts[1] - $sourceBlockSize - $additionalWhitespace) / $sourceBlockSize;
                 $parts[2] = $targetBlockSize;
                 $parts[3] = $targetBlockSize;
-                $line = implode(' ', $parts);
+                $newLines[] = implode(' ', $parts);
             }
         }
-        $string = implode("\n", $lines);
+        $string = implode("\n", $newLines);
 
         return $string;
     }

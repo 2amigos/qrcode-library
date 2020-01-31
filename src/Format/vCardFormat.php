@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -18,11 +18,8 @@ use Da\QrCode\Traits\UrlTrait;
 /**
  * Class vCard creates a valid vCard 4.0 QrCode string
  *
- * @property string $email
- *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ * @link https://www.2amigos.us/
  * @package Da\QrCode\Format
  */
 class vCardFormat extends AbstractFormat
@@ -99,13 +96,14 @@ class vCardFormat extends AbstractFormat
     public $lang;
 
     /**
+     * @throws InvalidConfigException
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         $data = [];
-        $data[] = "BEGIN:VCARD";
-        $data[] = "VERSION:4.0";
+        $data[] = 'BEGIN:VCARD';
+        $data[] = 'VERSION:4.0';
         $data[] = "N:{$this->name}";
         $data[] = "FN:{$this->fullName}";
         $data[] = "ADR:{$this->address}";
@@ -123,20 +121,21 @@ class vCardFormat extends AbstractFormat
         $data[] = "ORG:{$this->organization}";
         $data[] = "NOTE:{$this->note}";
         $data[] = "LANG:{$this->lang}";
-        $data[] = "END:VCARD";
+        $data[] = 'END:VCARD';
 
         return implode("\n", array_filter($data));
     }
 
     /**
-     * @throws \yii\base\InvalidConfigException
-     * @return string                           the formatted photo. Makes sure is of the right image extension.
+     * @throws InvalidConfigException
+     * @return string  the formatted photo. Makes sure is of the right image extension.
      */
-    protected function getFormattedPhoto()
+    protected function getFormattedPhoto(): ?string
     {
+
         if ($this->photo !== null) {
             $ext = strtolower(substr(strrchr($this->photo, '.'), 1));
-            if ($ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'gif') {
+            if ($ext === 'jpeg' || $ext === 'jpg' || $ext === 'png' || $ext === 'gif') {
                 $ext = strtoupper($ext);
             } else {
                 throw new InvalidConfigException('Invalid format Image!');

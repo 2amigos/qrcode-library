@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -18,14 +18,14 @@ interface WriterInterface
      *
      * @return string
      */
-    public function writeString(QrCodeInterface $qrCode);
+    public function writeString(QrCodeInterface $qrCode): string;
 
     /**
      * @param QrCodeInterface $qrCode
      *
      * @return string
      */
-    public function writeDataUri(QrCodeInterface $qrCode);
+    public function writeDataUri(QrCodeInterface $qrCode): string;
 
     /**
      * @param QrCodeInterface $qrCode
@@ -33,15 +33,15 @@ interface WriterInterface
      *
      * @return bool|int the number of bytes that were written to the file, or false on failure.
      */
-    public function writeFile(QrCodeInterface $qrCode, $path);
+    public function writeFile(QrCodeInterface $qrCode, string $path);
 
     /**
      * @return string
      */
-    public function getContentType();
+    public function getContentType(): string;
 
     /**
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 }

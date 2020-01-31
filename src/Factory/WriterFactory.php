@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -28,12 +28,12 @@ class WriterFactory
     ];
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @throws UnknownWriterException
      * @return WriterInterface
      */
-    public static function fromName($name)
+    public static function fromName(string $name): WriterInterface
     {
         if (!array_key_exists($name, self::$map)) {
             throw new UnknownWriterException(sprintf('Unknown writer name "%s"', $name));

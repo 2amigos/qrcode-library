@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -14,9 +14,8 @@ namespace Da\QrCode\Format;
 /**
  * Mms formats a string to properly create a Sms QrCode
  *
- * @author Antonio Ramirez <hola@2amigos.us>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+* @author Antonio Ramirez <hola@2amigos.us>
+ * @link https://www.2amigos.us/
  * @package Da\QrCode\Format
  */
 class MmsFormat extends SmsFormat
@@ -30,13 +29,13 @@ class MmsFormat extends SmsFormat
      * @return string
      * @codeCoverageIgnore
      */
-    public function getText()
+    public function getText(): string
     {
         $data = [];
-        $data[] = "MMSTO";
+        $data[] = 'MMSTO';
         $data[] = $this->phone;
         $data[] = $this->msg;
 
-        return implode(":", array_filter($data));
+        return implode(':', array_filter($data));
     }
 }

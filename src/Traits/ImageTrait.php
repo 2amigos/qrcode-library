@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -18,7 +18,7 @@ use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Exception\BadMethodCallException;
 use Da\QrCode\Exception\ValidationException;
 use Da\QrCode\Renderer\Jpg;
-use QrReader;
+use Zxing\QrReader;
 
 trait ImageTrait
 {
@@ -27,22 +27,23 @@ trait ImageTrait
     /**
      * Whether to validate result or not.
      *
-     * @param $validate
+     * @param bool $validate
      *
      * @return $this
      */
-    public function validateResult($validate)
+    public function validateResult(bool $validate): self
     {
-        $cloned = clone $this;
-        $cloned->validate = $validate;
+        $this->validate = $validate;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * {@inheritdoc}
+     * @throws ValidationException
+     * @throws BadMethodCallException
      */
-    public function writeString(QrCodeInterface $qrCode)
+    public function writeString(QrCodeInterface $qrCode): string
     {
         /** @var Png|Jpg $renderer */
         $renderer = $this->renderer;
@@ -110,7 +111,7 @@ trait ImageTrait
     {
         $additionalWhitespace = $this->calculateAdditionalWhiteSpace($sourceImage, $foregroundColor);
 
-        if ($additionalWhitespace == 0 && $margin == 0) {
+        if ($additionalWhitespace === 0 && $margin === 0) {
             return $sourceImage;
         }
 
@@ -144,7 +145,7 @@ trait ImageTrait
      *
      * @return int
      */
-    protected function calculateAdditionalWhiteSpace($image, array $foregroundColor)
+    protected function calculateAdditionalWhiteSpace($image, array $foregroundColor): int
     {
         $width = imagesx($image);
         $height = imagesy($image);
@@ -234,8 +235,8 @@ trait ImageTrait
         $labelAlignment = $label->getAlignment();
 
         $labelBox = imagettfbbox($labelFontSize, 0, $labelFontPath, $labelText);
-        $labelBoxWidth = intval($labelBox[2] - $labelBox[0]);
-        $labelBoxHeight = intval($labelBox[0] - $labelBox[7]);
+        $labelBoxWidth = ($labelBox[2] - $labelBox[0]);
+        $labelBoxHeight = ($labelBox[0] - $labelBox[7]);
         $sourceWidth = imagesx($sourceImage);
         $sourceHeight = imagesy($sourceImage);
         $targetWidth = $sourceWidth;
@@ -277,7 +278,7 @@ trait ImageTrait
                 $labelX = $targetWidth - $labelBoxWidth - $labelMargin['r'];
                 break;
             default:
-                $labelX = intval($targetWidth / 2 - $labelBoxWidth / 2);
+                $labelX = (int)($targetWidth / 2 - $labelBoxWidth / 2);
                 break;
         }
         $labelY = $targetHeight - $labelMargin['b'];

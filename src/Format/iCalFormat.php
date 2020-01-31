@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -15,8 +15,7 @@ namespace Da\QrCode\Format;
  * iCal creates a valid iCal format string
  *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @link http://www.ramirezcobos.com/
- * @link http://www.2amigos.us/
+ * @link https://www.2amigos.us/
  * @package Da\QrCode\Format
  */
 class iCalFormat extends AbstractFormat
@@ -37,14 +36,14 @@ class iCalFormat extends AbstractFormat
     /**
      * @inheritdoc
      */
-    public function getText()
+    public function getText(): string
     {
         $data = [];
-        $data[] = "BEGIN:VEVENT";
+        $data[] = 'BEGIN:VEVENT';
         $data[] = "SUMMARY:{$this->summary}";
         $data[] = "DTSTART:{$this->unixToiCal($this->startTimestamp)}";
         $data[] = "DTEND:{$this->unixToiCal($this->endTimestamp)}";
-        $data[] = "END:VEVENT";
+        $data[] = 'END:VEVENT';
 
         return implode("\n", $data);
     }

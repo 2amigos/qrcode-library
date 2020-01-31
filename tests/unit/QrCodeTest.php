@@ -37,10 +37,11 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testJpg()
     {
-        return true;  // todo: try to figure out what is going on Travis and why is working locally.
+        // return true;  // todo: try to figure out what is going on Travis and why is working locally.
         $writer = new JpgWriter();
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
+
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.jpeg')), $out);
     }
 
@@ -49,6 +50,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $writer = new EpsWriter();
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
+
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.eps')), $out);
     }
 
@@ -63,7 +65,7 @@ class QrCodeTest extends \Codeception\Test\Unit
     public function testLogo()
     {
         $out = (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
-            ->useLogo(codecept_data_dir('logo.png'))
+            ->setLogo(codecept_data_dir('logo.png'))
             ->writeString();
 
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-logo.png')), $out);
@@ -72,21 +74,21 @@ class QrCodeTest extends \Codeception\Test\Unit
     /** Travis fails with FreeType? */
     public function testLabel()
     {
-        return true; // todo: try to figure out what is going on Travis and why is working locally.
+        //return true; // todo: try to figure out what is going on Travis and why is working locally.
         $label = new Label('2amigos.us');
 
         $out = (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
             ->setLabel($label)
             ->writeString();
 
-        $this->tester->assertContains($out, file_get_contents(codecept_data_dir('data-label.png')));
+        $this->tester->assertStringContainsString($out, file_get_contents(codecept_data_dir('data-label.png')));
     }
 
     public function testQrColored()
     {
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])));
         $out = $qrCode
-            ->useForegroundColor(51, 153, 255)
+            ->setForegroundColor(51, 153, 255)
             ->writeString();
 
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-color.png')), $out);
@@ -96,10 +98,10 @@ class QrCodeTest extends \Codeception\Test\Unit
     {
 
         $qrCode = (new QrCode('Test text'))
-            ->useLogo(codecept_data_dir('logo.png'))
-            ->useForegroundColor(51, 153, 255)
-            ->useBackgroundColor(200, 220, 210)
-            ->useEncoding('UTF-8')
+            ->setLogo(codecept_data_dir('logo.png'))
+            ->setForegroundColor(51, 153, 255)
+            ->setBackgroundColor(200, 220, 210)
+            ->setEncoding('UTF-8')
             ->setErrorCorrectionLevel(ErrorCorrectionLevelInterface::HIGH)
             ->setLogoWidth(60)
             ->setText('https://2amigos.us')
@@ -123,14 +125,14 @@ class QrCodeTest extends \Codeception\Test\Unit
 
         $out = $qrCode->writeString();
 
-        $this->tester->assertContains($out, file_get_contents(codecept_data_dir('data-attributes.png')));
+        $this->tester->assertStringContainsString($out, file_get_contents(codecept_data_dir('data-attributes.png')));
     }
 
     public function testLabelAttributes()
     {
         $label = (new Label('2amigos'))
-            ->useFont(__DIR__ . '/../../resources/fonts/monsterrat.otf')
-            ->updateFontSize(12);
+            ->setFont(__DIR__ . '/../../resources/fonts/monsterrat.otf')
+            ->setFontSize(12);
 
         $this->tester->assertEquals('2amigos', $label->getText());
         $this->tester->assertEquals(LabelInterface::ALIGN_CENTER, $label->getAlignment());
