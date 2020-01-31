@@ -23,6 +23,12 @@
         "issues": "https://github.com/2amigos/qrcode-library/issues",
         "source": "https://github.com/2amigos/qrcode-library"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
