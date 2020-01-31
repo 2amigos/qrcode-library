@@ -6,6 +6,8 @@ language: php
 php:
   - 7.3
 
+env:
+  - COMPOSER_MEMORY_LIMIT=-1
 cache:
   directories:
     - vendor
@@ -14,7 +16,7 @@ cache:
 install:
   - travis_retry composer self-update && composer --version
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - travis_retry php -d memory_limit=1G composer install --prefer-dist --no-interaction
+  - travis_retry composer install --prefer-dist --no-interaction
 
 before_script:
   - php -r "echo INTL_ICU_VERSION . \"\n\";"
