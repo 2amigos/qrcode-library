@@ -35,7 +35,7 @@
         "php": ">=7.3",
         "ext-gd": "*",
         "ext-simplexml": "*",
-        "bacon/bacon-qr-code": "^1.0",
+        "bacon/bacon-qr-code": "^2.0",
         "khanamiryan/qrcode-detector-decoder": "^1.0"
     },
     "require-dev": {
