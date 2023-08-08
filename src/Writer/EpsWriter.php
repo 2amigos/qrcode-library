@@ -11,7 +11,9 @@
 
 namespace Da\QrCode\Writer;
 
-use BaconQrCode\Renderer\Image\Eps;
+use BaconQrCode\Renderer\Image\EpsImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\QrCodeInterface;
 
@@ -22,7 +24,7 @@ class EpsWriter extends AbstractWriter
      */
     public function __construct()
     {
-        parent::__construct(new Eps());
+        parent::__construct(new EpsImageBackEnd());
     }
 
     /**
@@ -30,22 +32,21 @@ class EpsWriter extends AbstractWriter
      */
     public function writeString(QrCodeInterface $qrCode): string
     {
-        /** @var Eps $renderer */
-        $renderer = $this->renderer;
-        $renderer->setWidth($qrCode->getSize());
-        $renderer->setHeight($qrCode->getSize());
-        $renderer->setMargin(0);
-        $renderer->setForegroundColor($this->convertColor($qrCode->getForegroundColor()));
-        $renderer->setBackgroundColor($this->convertColor($qrCode->getBackgroundColor()));
+        $fill = $this->buildQrCodeFillColor($qrCode);
+        $rendererStyle = new RendererStyle($qrCode->getSize(), $qrCode->getMargin(), null, null, $fill);
+
+        $renderer = new ImageRenderer(
+            $rendererStyle,
+            $this->renderBackEnd
+        );
+
         $writer = new Writer($renderer);
-        $string = $writer->writeString(
+
+        return  $writer->writeString(
             $qrCode->getText(),
             $qrCode->getEncoding(),
             $this->convertErrorCorrectionLevel($qrCode->getErrorCorrectionLevel())
         );
-        $string = $this->addMargin($string, $qrCode);
-
-        return $string;
     }
 
     /**
@@ -102,3 +103,6 @@ class EpsWriter extends AbstractWriter
         return $string;
     }
 }
+
+
+

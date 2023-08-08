@@ -11,13 +11,13 @@
 
 namespace Da\QrCode\Traits;
 
-use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Exception\BadMethodCallException;
 use Da\QrCode\Exception\ValidationException;
-use Da\QrCode\Renderer\Jpg;
 use Zxing\QrReader;
 
 trait ImageTrait
@@ -45,20 +45,22 @@ trait ImageTrait
      */
     public function writeString(QrCodeInterface $qrCode): string
     {
-        /** @var Png|Jpg $renderer */
-        $renderer = $this->renderer;
+        $fill = $this->buildQrCodeFillColor($qrCode);
 
-        $renderer->setWidth($qrCode->getSize());
-        $renderer->setHeight($qrCode->getSize());
-        $renderer->setMargin(0);
-        $renderer->setForegroundColor($this->convertColor($qrCode->getForegroundColor()));
-        $renderer->setBackgroundColor($this->convertColor($qrCode->getBackgroundColor()));
+        $rendererStyle = new RendererStyle($qrCode->getSize(), 0, null, null, $fill);
+
+        $renderer = new ImageRenderer(
+            $rendererStyle,
+            $this->renderBackEnd
+        );
+
         $writer = new Writer($renderer);
         $string = $writer->writeString(
             $qrCode->getText(),
             $qrCode->getEncoding(),
             $this->convertErrorCorrectionLevel($qrCode->getErrorCorrectionLevel())
         );
+
         $image = imagecreatefromstring($string);
         $image = $this->addMargin(
             $image,
@@ -80,6 +82,7 @@ trait ImageTrait
                 $qrCode->getBackgroundColor()
             );
         }
+
         $string = $this->imageToString($image);
         if ($this->validate) {
             $reader = new QrReader($string, QrReader::SOURCE_TYPE_BLOB);

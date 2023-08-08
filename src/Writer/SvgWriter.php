@@ -11,7 +11,9 @@
 
 namespace Da\QrCode\Writer;
 
-use BaconQrCode\Renderer\Image\Svg;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\QrCodeInterface;
 use SimpleXMLElement;
@@ -23,7 +25,7 @@ class SvgWriter extends AbstractWriter
      */
     public function __construct()
     {
-        parent::__construct(new Svg());
+        parent::__construct(new SvgImageBackEnd());
     }
 
     /**
@@ -31,13 +33,15 @@ class SvgWriter extends AbstractWriter
      */
     public function writeString(QrCodeInterface $qrCode): string
     {
-        /** @var Svg $renderer */
-        $renderer = $this->renderer;
-        $renderer->setWidth($qrCode->getSize());
-        $renderer->setHeight($qrCode->getSize());
-        $renderer->setMargin(0);
-        $renderer->setForegroundColor($this->convertColor($qrCode->getForegroundColor()));
-        $renderer->setBackgroundColor($this->convertColor($qrCode->getBackgroundColor()));
+        $fill = $this->buildQrCodeFillColor($qrCode);
+
+        $rendererStyle = new RendererStyle($qrCode->getSize(), $qrCode->getMargin(), null, null, $fill);
+
+        $renderer = new ImageRenderer(
+            $rendererStyle,
+            $this->renderBackEnd
+        );
+
         $writer = new Writer($renderer);
 
         $string = $writer->writeString(
@@ -46,9 +50,9 @@ class SvgWriter extends AbstractWriter
             $this->convertErrorCorrectionLevel($qrCode->getErrorCorrectionLevel())
         );
 
-        $string = $this->addMargin($string, $qrCode->getMargin(), $qrCode->getSize());
+        $svg = new SimpleXMLElement($string);
 
-        return $string;
+        return $svg->asXML();
     }
 
     /**

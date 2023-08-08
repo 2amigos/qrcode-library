@@ -11,7 +11,7 @@
 
 namespace Da\QrCode\Writer;
 
-use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
 use Da\QrCode\Traits\ImageTrait;
 
 class PngWriter extends AbstractWriter
@@ -23,7 +23,7 @@ class PngWriter extends AbstractWriter
      */
     public function __construct()
     {
-        parent::__construct(new Png());
+        parent::__construct(new ImagickImageBackEnd('png'));
     }
 
     /**

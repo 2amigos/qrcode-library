@@ -11,8 +11,10 @@
 
 namespace Da\QrCode\Writer;
 
+use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Renderer\Color\Rgb;
-use BaconQrCode\Renderer\RendererInterface;
+use BaconQrCode\Renderer\Image\ImageBackEndInterface;
+use BaconQrCode\Renderer\RendererStyle\Fill;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Contracts\WriterInterface;
 use ReflectionClass;
@@ -21,18 +23,33 @@ use ReflectionException;
 abstract class AbstractWriter implements WriterInterface
 {
     /**
-     * @var RendererInterface
+     * @var ImageBackEndInterface
      */
-    protected $renderer;
+    protected $renderBackEnd;
 
     /**
      * AbstractWriter constructor.
      *
-     * @param RendererInterface $renderer
+     * @param ImageBackEndInterface $renderBackEnd
      */
-    protected function __construct(RendererInterface $renderer)
+    protected function __construct(ImageBackEndInterface $renderBackEnd)
     {
-        $this->renderer = $renderer;
+        $this->renderBackEnd = $renderBackEnd;
+    }
+
+    /**
+     * @param QrCodeInterface $qrCode
+     * @return Fill
+     */
+    protected function buildQrCodeFillColor(QrCodeInterface $qrCode): Fill
+    {
+        $background = $qrCode->getBackgroundColor();
+        $foreground = $qrCode->getForegroundColor();
+
+        return Fill::uniformColor(
+            new Rgb($background['r'], $background['g'], $background['b']),
+            new Rgb($foreground['r'], $foreground['g'], $foreground['b']),
+        );
     }
 
     /**
@@ -75,10 +92,10 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @return string
      */
-    protected function convertErrorCorrectionLevel($errorCorrectionLevel): string
+    protected function convertErrorCorrectionLevel($errorCorrectionLevel): ?ErrorCorrectionLevel
     {
         $name = strtoupper($errorCorrectionLevel[0]);
-        $errorCorrectionLevel = constant('BaconQrCode\Common\ErrorCorrectionLevel::' . $name);
+        $errorCorrectionLevel = ErrorCorrectionLevel::$name();
 
         return $errorCorrectionLevel;
     }
