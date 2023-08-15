@@ -71,10 +71,41 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-logo.png')), $out);
     }
 
-    /** Travis fails with FreeType? */
+    public function testLogoInvalidPath()
+    {
+        $this->expectException('Da\QrCode\Exception\InvalidPathException');
+
+        (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
+            ->setLogo(codecept_data_dir('testing_logo.png'))
+            ->writeString();
+    }
+
+    public function testSetOutputFormat()
+    {
+        $png = (new QrCode('https://2amigos.us'))
+            ->setWriter(new \Da\QrCode\Writer\PngWriter())
+            ->writeString();
+
+        $jpeg = (new QrCode('https://2amigos.us'))
+            ->setWriter(new \Da\QrCode\Writer\JpgWriter())
+            ->writeString();
+
+        $svg = (new QrCode('https://2amigos.us'))
+            ->setWriter(new \Da\QrCode\Writer\SvgWriter())
+            ->writeString();
+
+        $eps = (new QrCode('https://2amigos.us'))
+            ->setWriter(new \Da\QrCode\Writer\EpsWriter())
+            ->writeString();
+
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.png')), $png);
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.jpg')), $jpeg);
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.svg')), $svg);
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.eps')), $eps);
+    }
+
     public function testLabel()
     {
-        return true; // todo: try to figure out what is going on Travis and why is working locally.
         $label = new Label('2amigos.us');
 
         (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
@@ -84,8 +115,6 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-label.png')), $out);
 
         unlink(codecept_data_dir('data-label-new.png'));
-
-
     }
 
     public function testQrColored()
