@@ -62,38 +62,4 @@ class SvgWriter extends AbstractWriter
     {
         return 'image/svg+xml';
     }
-
-    /**
-     * @param  string $string
-     * @param  int    $margin
-     * @param  int    $size
-     * @return string
-     */
-    protected function addMargin(string $string, int $margin, int $size): string
-    {
-        $targetSize = $size + $margin * 2;
-        $xml = new SimpleXMLElement($string);
-
-        $xml['width'] = $targetSize;
-        $xml['height'] = $targetSize;
-        $xml['viewBox'] = '0 0 '.$targetSize.' '.$targetSize;
-        $xml->rect['width'] = $targetSize;
-        $xml->rect['height'] = $targetSize;
-        $additionalWhitespace = $targetSize;
-
-        foreach ($xml->use as $block) {
-            $additionalWhitespace = min($additionalWhitespace, (int) $block['x']);
-        }
-        $sourceBlockSize = (int) $xml->defs->rect['width'];
-        $blockCount = ($size - 2 * $additionalWhitespace) / $sourceBlockSize;
-        $targetBlockSize = $size / $blockCount;
-        $xml->defs->rect['width'] = $targetBlockSize;
-        $xml->defs->rect['height'] = $targetBlockSize;
-
-        foreach ($xml->use as $block) {
-            $block['x'] = $margin + $targetBlockSize * ($block['x'] - $additionalWhitespace) / $sourceBlockSize;
-            $block['y'] = $margin + $targetBlockSize * ($block['y'] - $additionalWhitespace) / $sourceBlockSize;
-        }
-        return $xml->asXML();
-    }
 }

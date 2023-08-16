@@ -206,6 +206,85 @@ class FormatsTest extends \Codeception\Test\Unit
         );
     }
 
+    public function testMsm()
+    {
+        $msm = new MmsFormat(['phone' => 9966716, 'msg' => 'testing-message']);
+
+        $this->tester->assertEquals('MMSTO:9966716:testing-message', $msm->getText());
+    }
+
+    public function testGettersAndSetters()
+    {
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->__set('email', $testEMail);
+
+        $emailAddress = $emailFormat->__get('email');
+
+        $this->assertEquals($testEMail, $emailAddress);
+    }
+
+    public function testGettersUnknownProperties()
+    {
+        $this->expectException('Da\QrCode\Exception\UnknownPropertyException');
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->setEmail($testEMail);
+
+        $emailFormat->__get('userEmail');
+    }
+
+    public function testSettersUnknownProperties()
+    {
+        $this->expectException('Da\QrCode\Exception\UnknownPropertyException');
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->__set('userEmail', $testEMail);
+    }
+
+    public function testSetReadOnlyProperties()
+    {
+        $this->expectException('Da\QrCode\Exception\InvalidCallException');
+
+        $bookMark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2amigos.tech']);
+        $bookMark->__set('text', 'bookmark content');
+    }
+
+    public function testIsset()
+    {
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->setEmail($testEMail);
+
+        $this->assertTrue($emailFormat->__isset('email'));
+
+        // invalid property
+        $this->assertFalse($emailFormat->__isset('userEmail'));
+    }
+
+    public function testCallInvalidMethod()
+    {
+        $this->expectException('Da\QrCode\Exception\UnknownMethodException');
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->setEmailAddress('hola@2amigos.us');
+    }
+
+    public function testFormatPropertiesAndMethodsExistence()
+    {
+        $emailFormat = new MailToFormat();
+
+        $this->assertTrue($emailFormat->hasProperty('email'));
+        $this->assertFalse($emailFormat->hasProperty('emailAddress'));
+
+        $this->assertTrue($emailFormat->hasMethod('setEmail'));
+        $this->assertFalse($emailFormat->hasMethod('setEmailAddress'));
+    }
+
     protected function _before()
     {
     }
