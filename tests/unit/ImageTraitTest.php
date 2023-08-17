@@ -83,7 +83,7 @@ class ImageTraitTest extends \Codeception\Test\Unit
         $this->assertEquals(file_get_contents(codecept_data_dir('data-label-right.png')), $out);
     }
 
-    public function validateImageStringOutput()
+    public function testValidateImageStringOutput()
     {
         $this->expectException('Da\QrCode\Exception\ValidationException');
 
@@ -91,6 +91,6 @@ class ImageTraitTest extends \Codeception\Test\Unit
         $qrCode = new QrCode('hola@2amigos.us');
         $imageString = $writer->writeString($qrCode);
 
-        $writer->validateOutput($imageString, $qrCode->setMargin(15));
+        $writer->validateOutput($imageString, $qrCode->setText('2amigos'));
     }
 }
