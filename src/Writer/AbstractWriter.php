@@ -47,8 +47,8 @@ abstract class AbstractWriter implements WriterInterface
         $foreground = $qrCode->getForegroundColor();
 
         return Fill::uniformColor(
-            new Rgb($background['r'], $background['g'], $background['b']),
-            new Rgb($foreground['r'], $foreground['g'], $foreground['b']),
+            $this->convertColor($background),
+            $this->convertColor($foreground),
         );
     }
 

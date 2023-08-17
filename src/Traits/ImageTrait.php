@@ -85,20 +85,32 @@ trait ImageTrait
 
         $string = $this->imageToString($image);
         if ($this->validate) {
-            $reader = new QrReader($string, QrReader::SOURCE_TYPE_BLOB);
-            if ($reader->text() !== $qrCode->getText()) {
-                throw new ValidationException(
-                    sprintf(
-                        'Built-in validation reader read "%s" instead of "%s"' .
-                        'Adjust your parameters to increase readability or disable built-in validation.',
-                        $reader->text(),
-                        $qrCode->getText()
-                    )
-                );
-            }
+            $this->validateOutput($string, $qrCode);
         }
 
         return $string;
+    }
+
+    /**
+     * @param string $expectedImageString
+     * @param QrCodeInterface $qrCode
+     * @return void
+     * @throws ValidationException
+     */
+    public function validateOutput(string $expectedImageString, QrCodeInterface $qrCode)
+    {
+        $reader = new QrReader($expectedImageString, QrReader::SOURCE_TYPE_BLOB);
+
+        if ($reader->text() !== $qrCode->getText()) {
+            throw new ValidationException(
+                sprintf(
+                    'Built-in validation reader read "%s" instead of "%s"' .
+                    'Adjust your parameters to increase readability or disable built-in validation.',
+                    $reader->text(),
+                    $qrCode->getText()
+                )
+            );
+        }
     }
 
     /**
@@ -114,7 +126,7 @@ trait ImageTrait
     {
         $additionalWhitespace = $this->calculateAdditionalWhiteSpace($sourceImage, $foregroundColor);
 
-        if ($additionalWhitespace === 0 && $margin === 0) {
+        if ($margin === 0) {
             return $sourceImage;
         }
 

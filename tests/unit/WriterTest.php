@@ -3,6 +3,7 @@
 namespace unit;
 
 use Da\QrCode\Factory\WriterFactory;
+use Da\QrCode\QrCode;
 use Da\QrCode\Writer\EpsWriter;
 use Da\QrCode\Writer\JpgWriter;
 use Da\QrCode\Writer\PngWriter;
@@ -60,5 +61,27 @@ class WriterTest extends \Codeception\Test\Unit
         $this->assertEquals('image/eps', $writer->getContentType());
     }
 
+    public function testWriterDataUri()
+    {
+        $writer = WriterFactory::fromName('png');
+        $qrCode = new QrCode('hola@2amigos.us');
 
+        $out = $writer->writeDataUri($qrCode);
+        $this->assertEquals(file_get_contents(codecept_data_dir('uri.txt')), $out);
+    }
+
+    public function testGetWriterName()
+    {
+        $writer = WriterFactory::fromName('png');
+        $this->assertEquals('png', $writer->getName());
+
+        $writer = WriterFactory::fromName('jpg');
+        $this->assertEquals('jpg', $writer->getName());
+
+        $writer = WriterFactory::fromName('svg');
+        $this->assertEquals('svg', $writer->getName());
+
+        $writer = WriterFactory::fromName('eps');
+        $this->assertEquals('eps', $writer->getName());
+    }
 }

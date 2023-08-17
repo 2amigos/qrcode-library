@@ -140,14 +140,5 @@ class QrCodeComponent extends Component
         $this->qrCode = $this->logoPath ? $this->qrCode->setLogo($this->logoPath) : $this->qrCode;
         $this->qrCode = $this->logoWidth ? $this->qrCode->setLogoWidth($this->logoWidth) : $this->qrCode;
         $this->qrCode = $this->label ? $this->qrCode->setLabel($this->label) : $this->qrCode;
-
-        if ($this->foregroundColor) {
-            [$r, $g, $b] = $this->foregroundColor;
-            $this->qrCode = $this->qrCode->setForegroundColor($r, $g, $b);
-        }
-        if ($this->backgroundColor) {
-            [$r, $g, $b] = $this->backgroundColor;
-            $this->qrCode = $this->qrCode->setBackgroundColor($r, $g, $b);
-        }
     }
 }
