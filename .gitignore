@@ -57,3 +57,4 @@ codeception.yml
 composer.lock
 
 /xdebug
+/tools

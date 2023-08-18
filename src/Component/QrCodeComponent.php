@@ -56,14 +56,17 @@ class QrCodeComponent extends Component
      * @var string
      */
     public $text = '';
+
     /**
      * @var int
      */
     public $size = 300;
+
     /**
      * @var int
      */
     public $margin = 10;
+
     /**
      * @var array the foreground color. Syntax is:
      *
@@ -76,6 +79,7 @@ class QrCodeComponent extends Component
      * ```
      */
     public $foregroundColor;
+
     /**
      * @var array the background color. Syntax is:
      *
@@ -89,30 +93,37 @@ class QrCodeComponent extends Component
      *
      */
     public $backgroundColor;
+
     /**
      * @var string
      */
     public $encoding = 'UTF-8';
+
     /**
      * @var string ErrorCorrectionLevelInterface value
      */
     public $errorCorrectionLevel;
+
     /**
      * @var string
      */
     public $logoPath;
+
     /**
      * @var int
      */
     public $logoWidth;
+
     /**
      * @var LabelInterface|string
      */
     public $label;
+
     /**
      * @var WriterInterface
      */
     public $writer;
+
     /**
      * @var QrCodeInterface
      */

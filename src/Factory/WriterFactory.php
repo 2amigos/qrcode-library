@@ -39,6 +39,6 @@ class WriterFactory
             throw new UnknownWriterException(sprintf('Unknown writer name "%s"', $name));
         }
 
-        return new self::$map[$name];
+        return new self::$map[$name]();
     }
 }

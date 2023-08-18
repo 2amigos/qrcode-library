@@ -21,7 +21,7 @@ interface QrCodeInterface
     /**
      * @return int
      */
-    public function getSize():int;
+    public function getSize(): int;
 
     /**
      * @return int

@@ -57,6 +57,3 @@ class EpsWriter extends AbstractWriter
         return 'image/eps';
     }
 }
-
-
-

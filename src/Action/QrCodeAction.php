@@ -46,7 +46,7 @@ class QrCodeAction extends Action
 
         $qr = Yii::$app->get($this->component);
 
-        if ($text && $qr instanceof QrCodeComponent) {
+        if ($text !== null && $qr instanceof QrCodeComponent) {
             Yii::$app->response->format = Response::FORMAT_RAW;
             Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
 
