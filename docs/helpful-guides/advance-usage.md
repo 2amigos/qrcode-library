@@ -20,7 +20,7 @@ $label = (new Label('2amigos'))
     ->setFont(__DIR__ . '/../resources/fonts/monsterrat.otf')
     ->setFontSize(12);
 
-$qrCode = (new QrCode('https://2amigos.us'))
+$qrCode = (new QrCode('https://2am.tech'))
     ->setLogo(__DIR__ . '/data/logo.png')
     ->setForegroundColor(51, 153, 255)
     ->setBackgroundColor(200, 220, 210)
@@ -36,4 +36,4 @@ $qrCode->writeFile(__DIR__ . '/codes/my-code.png');
 ```
 
 
-© [2amigos](https://2amigos.us/) 2013-2020
+© [2amigos](https://2am.tech/) 2013-2023

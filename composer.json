@@ -9,13 +9,13 @@
         "qrcode",
         "qr"
     ],
-    "homepage": "https://2amigos.us/open-source/details/qrcode-library",
+    "homepage": "https://2am.tech/our-work/open-source/qrcode-library",
     "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "2amigOS! Consulting Group",
             "email": "hola@2amigos.us",
-            "homepage": "https://2amigos.us",
+            "homepage": "https://2am.tech",
             "role": "Developer"
         }
     ],

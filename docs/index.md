@@ -96,4 +96,4 @@ Contributing
 -  [Clean Code](contributing/clean-code.md)
 
 
-© [2amigos](https://2amigos.us/) 2013-2020
+© [2amigos](https://2am.tech/) 2013-2023

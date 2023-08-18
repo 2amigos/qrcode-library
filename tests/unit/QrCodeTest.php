@@ -64,7 +64,7 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testLogo()
     {
-        $out = (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
+        $out = (new QrCode(strtoupper('https://2am.tech'), ErrorCorrectionLevelInterface::HIGH))
             ->setLogo(codecept_data_dir('logo.png'))
             ->writeString();
 
@@ -75,26 +75,26 @@ class QrCodeTest extends \Codeception\Test\Unit
     {
         $this->expectException('Da\QrCode\Exception\InvalidPathException');
 
-        (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
+        (new QrCode(strtoupper('https://2am.tech'), ErrorCorrectionLevelInterface::HIGH))
             ->setLogo(codecept_data_dir('testing_logo.png'))
             ->writeString();
     }
 
     public function testSetOutputFormat()
     {
-        $png = (new QrCode('https://2amigos.us'))
+        $png = (new QrCode('https://2am.tech'))
             ->setWriter(new \Da\QrCode\Writer\PngWriter())
             ->writeString();
 
-        $jpeg = (new QrCode('https://2amigos.us'))
+        $jpeg = (new QrCode('https://2am.tech'))
             ->setWriter(new \Da\QrCode\Writer\JpgWriter())
             ->writeString();
 
-        $svg = (new QrCode('https://2amigos.us'))
+        $svg = (new QrCode('https://2am.tech'))
             ->setWriter(new \Da\QrCode\Writer\SvgWriter())
             ->writeString();
 
-        $eps = (new QrCode('https://2amigos.us'))
+        $eps = (new QrCode('https://2am.tech'))
             ->setWriter(new \Da\QrCode\Writer\EpsWriter())
             ->writeString();
 
@@ -106,9 +106,9 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testLabel()
     {
-        $label = new Label('2amigos.us');
+        $label = new Label('2am.tech');
 
-        (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
+        (new QrCode(strtoupper('https://2am.tech'), ErrorCorrectionLevelInterface::HIGH))
             ->setLabel($label)
             ->writeFile(codecept_data_dir('data-label-new.png'));
         $out = file_get_contents(codecept_data_dir('data-label-new.png'));
@@ -137,7 +137,7 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setEncoding('UTF-8')
             ->setErrorCorrectionLevel(ErrorCorrectionLevelInterface::HIGH)
             ->setLogoWidth(60)
-            ->setText('https://2amigos.us')
+            ->setText('https://2am.tech')
             ->setSize(300)
             ->setMargin(5);
 
@@ -153,7 +153,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals('UTF-8', $qrCode->getEncoding());
         $this->tester->assertEquals(ErrorCorrectionLevelInterface::HIGH, $qrCode->getErrorCorrectionLevel());
         $this->tester->assertEquals(60, $qrCode->getLogoWidth());
-        $this->tester->assertEquals('https://2amigos.us', $qrCode->getText());
+        $this->tester->assertEquals('https://2am.tech', $qrCode->getText());
         $this->tester->assertEquals('image/png', $qrCode->getContentType());
 
         $out = $qrCode->writeString();

@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -20,7 +20,7 @@ use Da\QrCode\Exception\UnknownPropertyException;
  * Abstract Class FormatAbstract for all formats
  *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @link https://2amigos.us/
+ * @link https://2am.tech/
  * @package Da\QrCode\Format
  */
 abstract class AbstractFormat implements FormatInterface

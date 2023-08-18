@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -33,10 +33,10 @@ class FormatsTest extends \Codeception\Test\Unit
 
     public function testBookMark()
     {
-        $bookmark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2amigos.us']);
-        $this->tester->assertEquals('http://2amigos.us', $bookmark->getUrl());
+        $bookmark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2am.tech']);
+        $this->tester->assertEquals('http://2am.tech', $bookmark->getUrl());
         // using __toString()
-        $this->tester->assertEquals('MEBKM:TITLE:test-title;URL:http://2amigos.us;;', $bookmark);
+        $this->tester->assertEquals('MEBKM:TITLE:test-title;URL:http://2am.tech;;', $bookmark);
         $this->tester->expectThrowable(InvalidConfigException::class, function () use ($bookmark) {
             $bookmark->url = 'wrong!url';
         });
@@ -91,11 +91,11 @@ class FormatsTest extends \Codeception\Test\Unit
         $card->note = 'test-note';
         $card->birthday = '19711201';
         $card->address = 'test-address';
-        $card->url = 'http://2amigos.us';
+        $card->url = 'http://2am.tech';
         $card->nickName = 'tonydspaniard';
 
         $expected = 'MECARD:N:Ramirez Antonio;SOUND:docomotaro;TEL:657657657;TEL-AV:657657657;EMAIL:hola@2amigos.us;' .
-                    'NOTE:test-note;BDAY:19711201;ADR:test-address;URL:http://2amigos.us;NICKNAME:tonydspaniard;;';
+                    'NOTE:test-note;BDAY:19711201;ADR:test-address;URL:http://2am.tech;NICKNAME:tonydspaniard;;';
         $this->tester->assertEquals($expected, $card->getText());
 
         $this->tester->expectThrowable(InvalidConfigException::class, function () use ($card) {
@@ -163,7 +163,7 @@ class FormatsTest extends \Codeception\Test\Unit
     public function testVCardPhoto()
     {
         $vcard = new vCardFormat();
-        $vcard->photo = 'http://2amigos.us/img/logo.png';
+        $vcard->photo = 'http://2am.tech/img/logo.png';
 
         $class = new ReflectionClass(vCardFormat::class);
         $method = $class->getMethod('getFormattedPhoto');
@@ -171,7 +171,7 @@ class FormatsTest extends \Codeception\Test\Unit
 
         $value = $method->invoke($vcard);
 
-        $this->tester->assertEquals('PHOTO;VALUE=URL;TYPE=PNG:http://2amigos.us/img/logo.png', $value);
+        $this->tester->assertEquals('PHOTO;VALUE=URL;TYPE=PNG:http://2am.tech/img/logo.png', $value);
 
         $vcard->photo = null;
         $this->tester->assertNull($method->invoke($vcard));
