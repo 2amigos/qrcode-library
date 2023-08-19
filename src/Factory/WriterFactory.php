@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -20,13 +20,6 @@ use Da\QrCode\Writer\SvgWriter;
 
 class WriterFactory
 {
-    protected static $map = [
-        'eps' => EpsWriter::class,
-        'jpg' => JpgWriter::class,
-        'png' => PngWriter::class,
-        'svg' => SvgWriter::class
-    ];
-
     /**
      * @param string $name
      *
@@ -35,10 +28,17 @@ class WriterFactory
      */
     public static function fromName(string $name): WriterInterface
     {
-        if (!array_key_exists($name, self::$map)) {
+        $writerMap = [
+            'eps' => EpsWriter::class,
+            'jpg' => JpgWriter::class,
+            'png' => PngWriter::class,
+            'svg' => SvgWriter::class
+        ];
+
+        if (!array_key_exists($name, $writerMap)) {
             throw new UnknownWriterException(sprintf('Unknown writer name "%s"', $name));
         }
 
-        return new self::$map[$name];
+        return new $writerMap[$name]();
     }
 }

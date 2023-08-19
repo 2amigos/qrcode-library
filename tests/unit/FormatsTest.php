@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -13,14 +13,14 @@ use Da\QrCode\Exception\InvalidConfigException;
 use Da\QrCode\Format\BookMarkFormat;
 use Da\QrCode\Format\BtcFormat;
 use Da\QrCode\Format\GeoFormat;
-use Da\QrCode\Format\iCalFormat;
+use Da\QrCode\Format\ICalFormat;
 use Da\QrCode\Format\MailMessageFormat;
 use Da\QrCode\Format\MailToFormat;
 use Da\QrCode\Format\MeCardFormat;
 use Da\QrCode\Format\MmsFormat;
 use Da\QrCode\Format\PhoneFormat;
 use Da\QrCode\Format\SmsFormat;
-use Da\QrCode\Format\vCardFormat;
+use Da\QrCode\Format\VCardFormat;
 use Da\QrCode\Format\WifiFormat;
 use Da\QrCode\Format\YoutubeFormat;
 
@@ -33,10 +33,10 @@ class FormatsTest extends \Codeception\Test\Unit
 
     public function testBookMark()
     {
-        $bookmark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2amigos.us']);
-        $this->tester->assertEquals('http://2amigos.us', $bookmark->getUrl());
+        $bookmark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2am.tech']);
+        $this->tester->assertEquals('http://2am.tech', $bookmark->getUrl());
         // using __toString()
-        $this->tester->assertEquals('MEBKM:TITLE:test-title;URL:http://2amigos.us;;', $bookmark);
+        $this->tester->assertEquals('MEBKM:TITLE:test-title;URL:http://2am.tech;;', $bookmark);
         $this->tester->expectThrowable(InvalidConfigException::class, function () use ($bookmark) {
             $bookmark->url = 'wrong!url';
         });
@@ -91,11 +91,11 @@ class FormatsTest extends \Codeception\Test\Unit
         $card->note = 'test-note';
         $card->birthday = '19711201';
         $card->address = 'test-address';
-        $card->url = 'http://2amigos.us';
+        $card->url = 'http://2am.tech';
         $card->nickName = 'tonydspaniard';
 
         $expected = 'MECARD:N:Ramirez Antonio;SOUND:docomotaro;TEL:657657657;TEL-AV:657657657;EMAIL:hola@2amigos.us;' .
-                    'NOTE:test-note;BDAY:19711201;ADR:test-address;URL:http://2amigos.us;NICKNAME:tonydspaniard;;';
+                    'NOTE:test-note;BDAY:19711201;ADR:test-address;URL:http://2am.tech;NICKNAME:tonydspaniard;;';
         $this->tester->assertEquals($expected, $card->getText());
 
         $this->tester->expectThrowable(InvalidConfigException::class, function () use ($card) {
@@ -143,7 +143,7 @@ class FormatsTest extends \Codeception\Test\Unit
 
     public function testVCard()
     {
-        $vcard = new vCardFormat();
+        $vcard = new VCardFormat();
         $vcard->name = 'Antonio';
         $vcard->fullName = 'Antonio Ramirez';
         $vcard->setEmail('hola@2amigos.us');
@@ -162,16 +162,16 @@ class FormatsTest extends \Codeception\Test\Unit
 
     public function testVCardPhoto()
     {
-        $vcard = new vCardFormat();
-        $vcard->photo = 'http://2amigos.us/img/logo.png';
+        $vcard = new VCardFormat();
+        $vcard->photo = 'http://2am.tech/img/logo.png';
 
-        $class = new ReflectionClass(vCardFormat::class);
+        $class = new ReflectionClass(VCardFormat::class);
         $method = $class->getMethod('getFormattedPhoto');
         $method->setAccessible(true);
 
         $value = $method->invoke($vcard);
 
-        $this->tester->assertEquals('PHOTO;VALUE=URL;TYPE=PNG:http://2amigos.us/img/logo.png', $value);
+        $this->tester->assertEquals('PHOTO;VALUE=URL;TYPE=PNG:http://2am.tech/img/logo.png', $value);
 
         $vcard->photo = null;
         $this->tester->assertNull($method->invoke($vcard));
@@ -194,9 +194,9 @@ class FormatsTest extends \Codeception\Test\Unit
         });
     }
 
-    public function testiCal()
+    public function testICal()
     {
-        $iCal = new iCalFormat(
+        $iCal = new ICalFormat(
             ['summary' => 'test-summary', 'startTimestamp' => 1260232200, 'endTimestamp' => 1260318600]
         );
 
@@ -204,6 +204,85 @@ class FormatsTest extends \Codeception\Test\Unit
             "BEGIN:VEVENT\nSUMMARY:test-summary\nDTSTART:20091208T003000Z\nDTEND:20091209T003000Z\nEND:VEVENT",
             $iCal->getText()
         );
+    }
+
+    public function testMsm()
+    {
+        $msm = new MmsFormat(['phone' => 9966716, 'msg' => 'testing-message']);
+
+        $this->tester->assertEquals('MMSTO:9966716:testing-message', $msm->getText());
+    }
+
+    public function testGettersAndSetters()
+    {
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->__set('email', $testEMail);
+
+        $emailAddress = $emailFormat->__get('email');
+
+        $this->assertEquals($testEMail, $emailAddress);
+    }
+
+    public function testGettersUnknownProperties()
+    {
+        $this->expectException('Da\QrCode\Exception\UnknownPropertyException');
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->setEmail($testEMail);
+
+        $emailFormat->__get('userEmail');
+    }
+
+    public function testSettersUnknownProperties()
+    {
+        $this->expectException('Da\QrCode\Exception\UnknownPropertyException');
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->__set('userEmail', $testEMail);
+    }
+
+    public function testSetReadOnlyProperties()
+    {
+        $this->expectException('Da\QrCode\Exception\InvalidCallException');
+
+        $bookMark = new BookMarkFormat(['title' => 'test-title', 'url' => 'http://2amigos.tech']);
+        $bookMark->__set('text', 'bookmark content');
+    }
+
+    public function testIsset()
+    {
+        $testEMail = 'hola@2amigos.us';
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->setEmail($testEMail);
+
+        $this->assertTrue($emailFormat->__isset('email'));
+
+        // invalid property
+        $this->assertFalse($emailFormat->__isset('userEmail'));
+    }
+
+    public function testCallInvalidMethod()
+    {
+        $this->expectException('Da\QrCode\Exception\UnknownMethodException');
+
+        $emailFormat = new MailToFormat();
+        $emailFormat->setEmailAddress('hola@2amigos.us');
+    }
+
+    public function testFormatPropertiesAndMethodsExistence()
+    {
+        $emailFormat = new MailToFormat();
+
+        $this->assertTrue($emailFormat->hasProperty('email'));
+        $this->assertFalse($emailFormat->hasProperty('emailAddress'));
+
+        $this->assertTrue($emailFormat->hasMethod('setEmail'));
+        $this->assertFalse($emailFormat->hasMethod('setEmailAddress'));
     }
 
     protected function _before()

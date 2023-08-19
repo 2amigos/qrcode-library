@@ -46,7 +46,6 @@ tests/_output/*
 codeception.yml
 
 # Code Style Checkers and Mess Detectors
-/phpcs.xml
 /.php_cs.cache
 /.php_cs
 
@@ -55,3 +54,6 @@ codeception.yml
 
 # composer.lock
 composer.lock
+
+/xdebug
+/tools

@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -21,7 +21,7 @@ interface QrCodeInterface
     /**
      * @return int
      */
-    public function getSize():int;
+    public function getSize(): int;
 
     /**
      * @return int

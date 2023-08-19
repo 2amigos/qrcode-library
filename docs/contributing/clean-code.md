@@ -52,4 +52,4 @@ We are using `PHPUnit` for testing the module. Do the following:
 - Run `./vendor/bin/phpunit`
 
 
-© [2amigos](https://2amigos.us/) 2013-2020
+© [2amigos](https://2am.tech/) 2013-2023

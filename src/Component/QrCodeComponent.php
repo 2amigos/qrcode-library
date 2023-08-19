@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -56,14 +56,17 @@ class QrCodeComponent extends Component
      * @var string
      */
     public $text = '';
+
     /**
      * @var int
      */
     public $size = 300;
+
     /**
      * @var int
      */
     public $margin = 10;
+
     /**
      * @var array the foreground color. Syntax is:
      *
@@ -76,6 +79,7 @@ class QrCodeComponent extends Component
      * ```
      */
     public $foregroundColor;
+
     /**
      * @var array the background color. Syntax is:
      *
@@ -89,30 +93,37 @@ class QrCodeComponent extends Component
      *
      */
     public $backgroundColor;
+
     /**
      * @var string
      */
     public $encoding = 'UTF-8';
+
     /**
      * @var string ErrorCorrectionLevelInterface value
      */
     public $errorCorrectionLevel;
+
     /**
      * @var string
      */
     public $logoPath;
+
     /**
      * @var int
      */
     public $logoWidth;
+
     /**
      * @var LabelInterface|string
      */
     public $label;
+
     /**
      * @var WriterInterface
      */
     public $writer;
+
     /**
      * @var QrCodeInterface
      */
@@ -140,14 +151,5 @@ class QrCodeComponent extends Component
         $this->qrCode = $this->logoPath ? $this->qrCode->setLogo($this->logoPath) : $this->qrCode;
         $this->qrCode = $this->logoWidth ? $this->qrCode->setLogoWidth($this->logoWidth) : $this->qrCode;
         $this->qrCode = $this->label ? $this->qrCode->setLabel($this->label) : $this->qrCode;
-
-        if ($this->foregroundColor) {
-            [$r, $g, $b] = $this->foregroundColor;
-            $this->qrCode = $this->qrCode->setForegroundColor($r, $g, $b);
-        }
-        if ($this->backgroundColor) {
-            [$r, $g, $b] = $this->backgroundColor;
-            $this->qrCode = $this->qrCode->setBackgroundColor($r, $g, $b);
-        }
     }
 }

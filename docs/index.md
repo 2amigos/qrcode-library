@@ -20,7 +20,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require 2amigos/qrcode-library:~1.1
+php composer.phar require 2amigos/qrcode-library
 ```
 or add
 
@@ -40,7 +40,7 @@ use Da\QrCode\QrCode;
 $qrCode = (new QrCode('This is my text'))
     ->setSize(250)
     ->setMargin(5)
-    ->useForegroundColor(51, 153, 255);
+    ->setBackgroundColor(51, 153, 255);
 
 // now we can display the qrcode in many ways
 // saving the result to a file:
@@ -61,39 +61,39 @@ echo '<img src="' . $qrCode->writeDataUri() . '">';
 
 In order to ease the task to write different formats into a QrCode, the library comes with a set of classes. These are: 
 
-- [BookmarkFormat](formats/bookmark.md)
-- [BtcFormat](formats/bitcoin.md) 
-- [GeoFormat](formats/geo.md)
-- [iCalFormat](formats/ical.md)
-- [MailMessageFormat](formats/geo.md)
-- [MailToFormat](formats/bookmark.md) 
-- [MeCardFormat](formats/me-card.md)
-- [MmsFormat](formats/mms.md)
-- [PhoneFormat](formats/phone.md)
-- [SmsFormat](formats/sms.md)
-- [vCardFormat](formats/vcard.md)
-- [WifiFormat](formats/wifi.md)
-- [YoutubeFormat](formats/youtube.md)
+-  [BookmarkFormat](formats/bookmark.md)
+-  [BtcFormat](formats/bitcoin.md) 
+-  [GeoFormat](formats/geo.md)
+-  [ICalFormat](formats/ical.md)
+-  [MailMessageFormat](formats/geo.md)
+-  [MailToFormat](formats/bookmark.md) 
+-  [MeCardFormat](formats/me-card.md)
+-  [MmsFormat](formats/mms.md)
+-  [PhoneFormat](formats/phone.md)
+-  [SmsFormat](formats/sms.md)
+-  [VCardFormat](formats/vcard.md)
+-  [WifiFormat](formats/wifi.md)
+-  [YoutubeFormat](formats/youtube.md)
 
 Yii2 
 ----
 
 This library comes also with two special classes to specifically work with the Yii2 framework. These are: 
 
-- [QrCodeComponent](yii/qrcode-component.md)
-- [QrCodeAction](yii/qrcode-action.md)
+-  [QrCodeComponent](yii/qrcode-component.md)
+-  [QrCodeAction](yii/qrcode-action.md)
 
 Helpful Guides
 --------------
 
-- [Advanced Usage](helpful-guides/advance-usage.md)
-- [Working with QrCodeComponent and QrCodeAction](helpful-guides/working-with-qrcode-component-and-qrcode-action.md)
+-  [Advanced Usage](helpful-guides/advance-usage.md)
+-  [Working with QrCodeComponent and QrCodeAction](helpful-guides/working-with-qrcode-component-and-qrcode-action.md)
 
 Contributing
 ------------
 
-- [How to Contribute](contributing/how-to.md)
-- [Clean Code](contributing/clean-code.md)
+-  [How to Contribute](contributing/how-to.md)
+-  [Clean Code](contributing/clean-code.md)
 
 
-© [2amigos](https://2amigos.us/) 2013-2020
+© [2amigos](https://2am.tech/) 2013-2023

@@ -17,7 +17,6 @@ class QrCodeTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-
     public function testRaw()
     {
         $qrCode = new QrCode('2amigOS');
@@ -64,28 +63,57 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testLogo()
     {
-        $out = (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
+        $out = (new QrCode(strtoupper('https://2am.tech'), ErrorCorrectionLevelInterface::HIGH))
             ->setLogo(codecept_data_dir('logo.png'))
             ->writeString();
 
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-logo.png')), $out);
     }
 
-    /** Travis fails with FreeType? */
+    public function testLogoInvalidPath()
+    {
+        $this->expectException('Da\QrCode\Exception\InvalidPathException');
+
+        (new QrCode(strtoupper('https://2am.tech'), ErrorCorrectionLevelInterface::HIGH))
+            ->setLogo(codecept_data_dir('testing_logo.png'))
+            ->writeString();
+    }
+
+    public function testSetOutputFormat()
+    {
+        $png = (new QrCode('https://2am.tech'))
+            ->setWriter(new \Da\QrCode\Writer\PngWriter())
+            ->writeString();
+
+        $jpeg = (new QrCode('https://2am.tech'))
+            ->setWriter(new \Da\QrCode\Writer\JpgWriter())
+            ->writeString();
+
+        $svg = (new QrCode('https://2am.tech'))
+            ->setWriter(new \Da\QrCode\Writer\SvgWriter())
+            ->writeString();
+
+        $eps = (new QrCode('https://2am.tech'))
+            ->setWriter(new \Da\QrCode\Writer\EpsWriter())
+            ->writeString();
+
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.png')), $png);
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.jpg')), $jpeg);
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.svg')), $svg);
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.eps')), $eps);
+    }
+
     public function testLabel()
     {
-        return true; // todo: try to figure out what is going on Travis and why is working locally.
-        $label = new Label('2amigos.us');
+        $label = new Label('2am.tech');
 
-        (new QrCode(strtoupper('https://2amigos.us'), ErrorCorrectionLevelInterface::HIGH))
+        (new QrCode(strtoupper('https://2am.tech'), ErrorCorrectionLevelInterface::HIGH))
             ->setLabel($label)
             ->writeFile(codecept_data_dir('data-label-new.png'));
         $out = file_get_contents(codecept_data_dir('data-label-new.png'));
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-label.png')), $out);
 
         unlink(codecept_data_dir('data-label-new.png'));
-
-
     }
 
     public function testQrColored()
@@ -100,7 +128,6 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testAttributes()
     {
-
         $qrCode = (new QrCode('Test text'))
             ->setLogo(codecept_data_dir('logo.png'))
             ->setForegroundColor(51, 153, 255)
@@ -108,7 +135,7 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setEncoding('UTF-8')
             ->setErrorCorrectionLevel(ErrorCorrectionLevelInterface::HIGH)
             ->setLogoWidth(60)
-            ->setText('https://2amigos.us')
+            ->setText('https://2am.tech')
             ->setSize(300)
             ->setMargin(5);
 
@@ -124,7 +151,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals('UTF-8', $qrCode->getEncoding());
         $this->tester->assertEquals(ErrorCorrectionLevelInterface::HIGH, $qrCode->getErrorCorrectionLevel());
         $this->tester->assertEquals(60, $qrCode->getLogoWidth());
-        $this->tester->assertEquals('https://2amigos.us', $qrCode->getText());
+        $this->tester->assertEquals('https://2am.tech', $qrCode->getText());
         $this->tester->assertEquals('image/png', $qrCode->getContentType());
 
         $out = $qrCode->writeString();

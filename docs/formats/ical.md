@@ -1,4 +1,4 @@
-iCalFormat
+ICalFormat
 ---------
 
 Though not observed in any QR Code or reader so far, it is conceivable that iCal format could be used to encode calendar 
@@ -10,9 +10,9 @@ Usage
 ```php 
 
 use Da\QrCode\QrCode;
-use Da\QrCode\Format\iCalFormat; 
+use Da\QrCode\Format\ICalFormat; 
 
-$format = new iCalFormat(['summary' => 'test-summary', 'startTimestamp' => 1260232200, 'endTimestamp' => 1260318600]);
+$format = new ICalFormat(['summary' => 'test-summary', 'startTimestamp' => 1260232200, 'endTimestamp' => 1260318600]);
 
 $qrCode = new QrCode($format);
 
@@ -22,4 +22,4 @@ echo $qrCode->writeString();
 
 ```
 
-© [2amigos](https://2amigos.us/) 2013-2020
+© [2amigos](https://2am.tech/) 2013-2023

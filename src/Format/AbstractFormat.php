@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -20,7 +20,7 @@ use Da\QrCode\Exception\UnknownPropertyException;
  * Abstract Class FormatAbstract for all formats
  *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @link https://2amigos.us/
+ * @link https://2am.tech/
  * @package Da\QrCode\Format
  */
 abstract class AbstractFormat implements FormatInterface
@@ -46,6 +46,7 @@ abstract class AbstractFormat implements FormatInterface
                 $this->$name = $value;
             }
         }
+
         $this->init();
     }
 
@@ -69,10 +70,6 @@ abstract class AbstractFormat implements FormatInterface
             return $this->$getter();
         }
 
-        if (method_exists($this, 'set' . $name)) {
-            throw new InvalidCallException('Getting write-only property: ' . get_class($this) . '::' . $name);
-        }
-
         throw new UnknownPropertyException('Getting unknown property: ' . get_class($this) . '::' . $name);
     }
 
@@ -92,13 +89,16 @@ abstract class AbstractFormat implements FormatInterface
     public function __set($name, $value)
     {
         $setter = 'set' . $name;
+
         if (method_exists($this, $setter)) {
             $this->$setter($value);
+
+            return;
         } elseif (method_exists($this, 'get' . $name)) {
             throw new InvalidCallException('Setting read-only property: ' . get_class($this) . '::' . $name);
-        } else {
-            throw new UnknownPropertyException('Setting unknown property: ' . get_class($this) . '::' . $name);
         }
+
+        throw new UnknownPropertyException('Setting unknown property: ' . get_class($this) . '::' . $name);
     }
 
     /**
@@ -122,30 +122,6 @@ abstract class AbstractFormat implements FormatInterface
         }
 
         return false;
-    }
-
-    /**
-     * Sets an object property to null.
-     *
-     * Do not call this method directly as it is a PHP magic method that
-     * will be implicitly called when executing `unset($object->property)`.
-     *
-     * Note that if the property is not defined, this method will do nothing.
-     * If the property is read-only, it will throw an exception.
-     *
-     * @param  string $name the property name
-     *
-     * @throws InvalidCallException if the property is read only.
-     * @see http://php.net/manual/en/function.unset.php
-     */
-    public function __unset($name)
-    {
-        $setter = 'set' . $name;
-        if (method_exists($this, $setter)) {
-            $this->$setter(null);
-        } elseif (method_exists($this, 'get' . $name)) {
-            throw new InvalidCallException('Unsetting read-only property: ' . get_class($this) . '::' . $name);
-        }
     }
 
     /**

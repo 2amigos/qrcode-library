@@ -3,7 +3,7 @@
 /*
  * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -11,13 +11,13 @@
 
 namespace Da\QrCode\Traits;
 
-use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Exception\BadMethodCallException;
 use Da\QrCode\Exception\ValidationException;
-use Da\QrCode\Renderer\Jpg;
 use Zxing\QrReader;
 
 trait ImageTrait
@@ -45,20 +45,22 @@ trait ImageTrait
      */
     public function writeString(QrCodeInterface $qrCode): string
     {
-        /** @var Png|Jpg $renderer */
-        $renderer = $this->renderer;
+        $fill = $this->buildQrCodeFillColor($qrCode);
 
-        $renderer->setWidth($qrCode->getSize());
-        $renderer->setHeight($qrCode->getSize());
-        $renderer->setMargin(0);
-        $renderer->setForegroundColor($this->convertColor($qrCode->getForegroundColor()));
-        $renderer->setBackgroundColor($this->convertColor($qrCode->getBackgroundColor()));
+        $rendererStyle = new RendererStyle($qrCode->getSize(), 0, null, null, $fill);
+
+        $renderer = new ImageRenderer(
+            $rendererStyle,
+            $this->renderBackEnd
+        );
+
         $writer = new Writer($renderer);
         $string = $writer->writeString(
             $qrCode->getText(),
             $qrCode->getEncoding(),
             $this->convertErrorCorrectionLevel($qrCode->getErrorCorrectionLevel())
         );
+
         $image = imagecreatefromstring($string);
         $image = $this->addMargin(
             $image,
@@ -80,22 +82,35 @@ trait ImageTrait
                 $qrCode->getBackgroundColor()
             );
         }
+
         $string = $this->imageToString($image);
         if ($this->validate) {
-            $reader = new QrReader($string, QrReader::SOURCE_TYPE_BLOB);
-            if ($reader->text() !== $qrCode->getText()) {
-                throw new ValidationException(
-                    sprintf(
-                        'Built-in validation reader read "%s" instead of "%s"' .
-                        'Adjust your parameters to increase readability or disable built-in validation.',
-                        $reader->text(),
-                        $qrCode->getText()
-                    )
-                );
-            }
+            $this->validateOutput($string, $qrCode);
         }
 
         return $string;
+    }
+
+    /**
+     * @param string $expectedImageString
+     * @param QrCodeInterface $qrCode
+     * @return void
+     * @throws ValidationException
+     */
+    public function validateOutput(string $expectedImageString, QrCodeInterface $qrCode)
+    {
+        $reader = new QrReader($expectedImageString, QrReader::SOURCE_TYPE_BLOB);
+
+        if ($reader->text() !== $qrCode->getText()) {
+            throw new ValidationException(
+                sprintf(
+                    'Built-in validation reader read "%s" instead of "%s"' .
+                    'Adjust your parameters to increase readability or disable built-in validation.',
+                    $reader->text(),
+                    $qrCode->getText()
+                )
+            );
+        }
     }
 
     /**
@@ -111,7 +126,7 @@ trait ImageTrait
     {
         $additionalWhitespace = $this->calculateAdditionalWhiteSpace($sourceImage, $foregroundColor);
 
-        if ($additionalWhitespace === 0 && $margin === 0) {
+        if ($margin === 0) {
             return $sourceImage;
         }
 
@@ -181,12 +196,11 @@ trait ImageTrait
         $logoImage = imagecreatefromstring(file_get_contents($logoPath));
         $logoSourceWidth = imagesx($logoImage);
         $logoSourceHeight = imagesy($logoImage);
-        $logoTargetWidth = $logoWidth;
 
-        if ($logoTargetWidth === null) {
-            $logoTargetWidth = $logoSourceWidth;
-            $logoTargetHeight = $logoSourceHeight;
-        } else {
+        $logoTargetWidth = $logoWidth ?: $logoSourceWidth;
+        $logoTargetHeight = $logoSourceHeight;
+
+        if ($logoTargetWidth !== null) {
             $scale = $logoTargetWidth / $logoSourceWidth;
             $logoTargetHeight = intval($scale * imagesy($logoImage));
         }
