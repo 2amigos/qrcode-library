@@ -20,13 +20,6 @@ use Da\QrCode\Writer\SvgWriter;
 
 class WriterFactory
 {
-    protected static $writerMap = [
-        'eps' => EpsWriter::class,
-        'jpg' => JpgWriter::class,
-        'png' => PngWriter::class,
-        'svg' => SvgWriter::class
-    ];
-
     /**
      * @param string $name
      *
@@ -35,10 +28,17 @@ class WriterFactory
      */
     public static function fromName(string $name): WriterInterface
     {
-        if (!array_key_exists($name, self::$writerMap)) {
+        $writerMap = [
+            'eps' => EpsWriter::class,
+            'jpg' => JpgWriter::class,
+            'png' => PngWriter::class,
+            'svg' => SvgWriter::class
+        ];
+
+        if (!array_key_exists($name, $writerMap)) {
             throw new UnknownWriterException(sprintf('Unknown writer name "%s"', $name));
         }
 
-        return new self::$writerMap[$name]();
+        return new $writerMap[$name]();
     }
 }

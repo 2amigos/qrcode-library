@@ -12,7 +12,7 @@
 namespace Da\QrCode\Format;
 
 /**
- * iCal creates a valid iCal format string
+ * ICal creates a valid ICal format string
  *
  * @author Antonio Ramirez <hola@2amigos.us>
  * @link https://www.2amigos.us/
@@ -41,21 +41,21 @@ class ICalFormat extends AbstractFormat
         $data = [];
         $data[] = 'BEGIN:VEVENT';
         $data[] = "SUMMARY:{$this->summary}";
-        $data[] = "DTSTART:{$this->unixToiCal($this->startTimestamp)}";
-        $data[] = "DTEND:{$this->unixToiCal($this->endTimestamp)}";
+        $data[] = "DTSTART:{$this->unixToICal($this->startTimestamp)}";
+        $data[] = "DTEND:{$this->unixToICal($this->endTimestamp)}";
         $data[] = 'END:VEVENT';
 
         return implode("\n", $data);
     }
 
     /**
-     * Converts a unix timestamp to iCal format. Timezones are assumed to be included into the timestamp.
+     * Converts a unix timestamp to ICal format. Timezones are assumed to be included into the timestamp.
      *
      * @param int $value the unix timestamp to convert
      *
      * @return bool|string the formatted date
      */
-    protected function unixToiCal($value)
+    protected function unixToICal($value)
     {
         return date("Ymd\THis\Z", $value);
     }

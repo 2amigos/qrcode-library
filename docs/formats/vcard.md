@@ -1,4 +1,4 @@
-vCardFormat
+VCardFormat
 -----------
 
 vCard is a file format standard for electronic business cards. vCards are often attached to e-mail messages, but can be
@@ -11,9 +11,9 @@ Usage
 ```php 
 
 use Da\QrCode\QrCode;
-use Da\QrCode\Format\vCardFormat; 
+use Da\QrCode\Format\VCardFormat; 
 
-$format = new vCardFormat();
+$format = new VCardFormat();
 $format->name = "Antonio";
 $format->fullName = "Antonio Ramirez";
 $format->email = "hola@2amigos.us";

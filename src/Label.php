@@ -55,9 +55,6 @@ class Label implements LabelInterface
         $this->margins = array_merge($this->margins, $margins);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function setFontSize(int $size): LabelInterface
     {
         $this->fontSize = $size;
@@ -66,7 +63,6 @@ class Label implements LabelInterface
     }
 
     /**
-     * @inheritdoc
      * @throws InvalidPathException
      */
     public function setFont(string $font): LabelInterface
@@ -75,47 +71,30 @@ class Label implements LabelInterface
         if (!is_file($path)) {
             throw new InvalidPathException(sprintf('Invalid label font path "%s"', $path));
         }
-
         $this->font = $path;
-
         return $this;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getFont(): string
     {
         return $this->font;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getFontSize(): int
     {
         return $this->fontSize;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getAlignment(): string
     {
         return $this->alignment;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getMargins(): array
     {
         return $this->margins;

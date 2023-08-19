@@ -13,14 +13,14 @@ use Da\QrCode\Exception\InvalidConfigException;
 use Da\QrCode\Format\BookMarkFormat;
 use Da\QrCode\Format\BtcFormat;
 use Da\QrCode\Format\GeoFormat;
-use Da\QrCode\Format\iCalFormat;
+use Da\QrCode\Format\ICalFormat;
 use Da\QrCode\Format\MailMessageFormat;
 use Da\QrCode\Format\MailToFormat;
 use Da\QrCode\Format\MeCardFormat;
 use Da\QrCode\Format\MmsFormat;
 use Da\QrCode\Format\PhoneFormat;
 use Da\QrCode\Format\SmsFormat;
-use Da\QrCode\Format\vCardFormat;
+use Da\QrCode\Format\VCardFormat;
 use Da\QrCode\Format\WifiFormat;
 use Da\QrCode\Format\YoutubeFormat;
 
@@ -143,7 +143,7 @@ class FormatsTest extends \Codeception\Test\Unit
 
     public function testVCard()
     {
-        $vcard = new vCardFormat();
+        $vcard = new VCardFormat();
         $vcard->name = 'Antonio';
         $vcard->fullName = 'Antonio Ramirez';
         $vcard->setEmail('hola@2amigos.us');
@@ -162,10 +162,10 @@ class FormatsTest extends \Codeception\Test\Unit
 
     public function testVCardPhoto()
     {
-        $vcard = new vCardFormat();
+        $vcard = new VCardFormat();
         $vcard->photo = 'http://2am.tech/img/logo.png';
 
-        $class = new ReflectionClass(vCardFormat::class);
+        $class = new ReflectionClass(VCardFormat::class);
         $method = $class->getMethod('getFormattedPhoto');
         $method->setAccessible(true);
 
@@ -194,9 +194,9 @@ class FormatsTest extends \Codeception\Test\Unit
         });
     }
 
-    public function testiCal()
+    public function testICal()
     {
-        $iCal = new iCalFormat(
+        $iCal = new ICalFormat(
             ['summary' => 'test-summary', 'startTimestamp' => 1260232200, 'endTimestamp' => 1260318600]
         );
 
