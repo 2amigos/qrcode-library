@@ -18,7 +18,7 @@ namespace Da\QrCode\Format;
  * @link https://www.2amigos.us/
  * @package Da\QrCode\Format
  */
-class iCalFormat extends AbstractFormat
+class ICalFormat extends AbstractFormat
 {
     /**
      * @var string the event summary

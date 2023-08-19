@@ -3,9 +3,8 @@ QrCode Library
 
 [![Latest Version](https://img.shields.io/github/tag/2amigos/qrcode-library.svg?style=flat-square&label=release)](https://github.com/2amigos/qrcode-library/tags)
 [![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://scrutinizer-ci.com/g/2amigos/qrcode-library/badges/build.png?b=master)](https://scrutinizer-ci.com/g/2amigos/qrcode-library/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/2amigos/qrcode-library/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/2amigos/qrcode-library/?branch=master)
-[![Quality Score](https://img.shields.io/scrutinizer/g/2amigos/qrcode-library.svg?style=flat-square)](https://scrutinizer-ci.com/g/2amigos/qrcode-library)
+[![tests](https://github.com/2amigos/qrcode-library/actions/workflows/ci.yml/badge.svg)](https://github.com/2amigos/qrcode-library/actions/workflows/ci.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b61a5b723c0d4799aedbb9150d4d544c)](https://app.codacy.com/gh/2amigos/qrcode-library/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Total Downloads](https://img.shields.io/packagist/dt/2amigos/qrcode-library.svg)](https://packagist.org/packages/2amigos/qrcode-library) 
 
 

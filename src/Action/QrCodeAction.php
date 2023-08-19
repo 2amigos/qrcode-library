@@ -43,14 +43,13 @@ class QrCodeAction extends Action
     public function run()
     {
         $text = call_user_func([Yii::$app->request, $this->method], $this->param, $this->text);
+        $qrCode = Yii::$app->get($this->component);
 
-        $qr = Yii::$app->get($this->component);
-
-        if ($text !== null && $qr instanceof QrCodeComponent) {
+        if ($text !== null && $qrCode instanceof QrCodeComponent) {
             Yii::$app->response->format = Response::FORMAT_RAW;
-            Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
+            Yii::$app->response->headers->add('Content-Type', $qrCode->getContentType());
 
-            return $qr->setText((string)$text)->writeString();
+            return $qrCode->setText((string)$text)->writeString();
         }
     }
 }

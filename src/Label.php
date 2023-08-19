@@ -32,9 +32,6 @@ class Label implements LabelInterface
      * @var string
      */
     protected $alignment;
-    /**
-     * @var array
-     */
     protected $margins = [
         't' => 0,
         'r' => 10,
@@ -43,8 +40,6 @@ class Label implements LabelInterface
     ];
 
     /**
-     * Label constructor.
-     *
      * @param string $text
      * @param string|null $font
      * @param int|null    $fontSize

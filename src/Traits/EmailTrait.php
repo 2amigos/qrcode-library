@@ -36,8 +36,6 @@ trait EmailTrait
      */
     public function setEmail(string $value): void
     {
-        $error = null;
-
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidConfigException('Email seems incorrect.');
         }

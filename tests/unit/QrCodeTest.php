@@ -17,7 +17,6 @@ class QrCodeTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-
     public function testRaw()
     {
         $qrCode = new QrCode('2amigOS');
@@ -129,7 +128,6 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testAttributes()
     {
-
         $qrCode = (new QrCode('Test text'))
             ->setLogo(codecept_data_dir('logo.png'))
             ->setForegroundColor(51, 153, 255)

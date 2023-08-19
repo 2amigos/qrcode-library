@@ -46,6 +46,7 @@ abstract class AbstractFormat implements FormatInterface
                 $this->$name = $value;
             }
         }
+
         $this->init();
     }
 
@@ -88,13 +89,16 @@ abstract class AbstractFormat implements FormatInterface
     public function __set($name, $value)
     {
         $setter = 'set' . $name;
+
         if (method_exists($this, $setter)) {
             $this->$setter($value);
+
+            return;
         } elseif (method_exists($this, 'get' . $name)) {
             throw new InvalidCallException('Setting read-only property: ' . get_class($this) . '::' . $name);
-        } else {
-            throw new UnknownPropertyException('Setting unknown property: ' . get_class($this) . '::' . $name);
         }
+
+        throw new UnknownPropertyException('Setting unknown property: ' . get_class($this) . '::' . $name);
     }
 
     /**

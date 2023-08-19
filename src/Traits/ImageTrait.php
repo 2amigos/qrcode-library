@@ -196,12 +196,11 @@ trait ImageTrait
         $logoImage = imagecreatefromstring(file_get_contents($logoPath));
         $logoSourceWidth = imagesx($logoImage);
         $logoSourceHeight = imagesy($logoImage);
-        $logoTargetWidth = $logoWidth;
 
-        if ($logoTargetWidth === null) {
-            $logoTargetWidth = $logoSourceWidth;
-            $logoTargetHeight = $logoSourceHeight;
-        } else {
+        $logoTargetWidth = $logoWidth ?: $logoSourceWidth;
+        $logoTargetHeight = $logoSourceHeight;
+
+        if ($logoTargetWidth !== null) {
             $scale = $logoTargetWidth / $logoSourceWidth;
             $logoTargetHeight = intval($scale * imagesy($logoImage));
         }
