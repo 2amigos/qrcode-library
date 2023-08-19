@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -15,9 +15,9 @@ use Da\QrCode\Exception\InvalidPathException;
 
 interface LabelInterface
 {
-    const ALIGN_LEFT = 'left';
-    const ALIGN_CENTER = 'center';
-    const ALIGN_RIGHT = 'right';
+    public const ALIGN_LEFT = 'left';
+    public const ALIGN_CENTER = 'center';
+    public const ALIGN_RIGHT = 'right';
 
     /**
      * Updates the font size and returns a copy of the instance with the new values.
@@ -26,7 +26,7 @@ interface LabelInterface
      *
      * @return LabelInterface
      */
-    public function updateFontSize($size);
+    public function setFontSize(int $size): LabelInterface;
 
     /**
      * Sets the font of the label in the QrCode. Returns a copy of the instance with the new values.
@@ -36,30 +36,30 @@ interface LabelInterface
      * @throws InvalidPathException
      * @return LabelInterface
      */
-    public function useFont($path);
+    public function setFont(string $path): LabelInterface;
 
     /**
      * @return string the font path.
      */
-    public function getFont();
+    public function getFont(): string;
 
     /**
      * @return string the label text
      */
-    public function getText();
+    public function getText(): string;
 
     /**
      * @return int the label font size
      */
-    public function getFontSize();
+    public function getFontSize(): int;
 
     /**
      * @return string the alignment value
      */
-    public function getAlignment();
+    public function getAlignment(): string;
 
     /**
      * @return array the margins to position the label.
      */
-    public function getMargins();
+    public function getMargins(): array;
 }

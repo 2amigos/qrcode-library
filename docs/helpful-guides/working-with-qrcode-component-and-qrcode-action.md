@@ -27,7 +27,7 @@ public function actions()
     return [
         'qr' => [
             'class' => QrCodeAction::className(),
-            'text' => 'https://2amigos.us', // default text
+            'text' => 'https://2am.tech', // default text
             'param' => 'v',
             'commponent' => 'qr' // if configured in our app as `qr` 
         ]
@@ -41,8 +41,8 @@ QrCode. According to the above configuration we could use it to display it on im
 ```html
 <img src="<?= Url::to(['controller/qr', 'v' => 'Hey! This is some content on my QrCode!']) ?>" />
 
-<!-- this will display https://2amigos.us (default text) -->
+<!-- this will display https://2am.tech (default text) -->
 <img src="<?= Url::to(['controller/qr']) ?>" />
 ```
 
-© [2amigos](http://www.2amigos.us/) 2013-2017
+© [2amigos](https://2am.tech/) 2013-2023

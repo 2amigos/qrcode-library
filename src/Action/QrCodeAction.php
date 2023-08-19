@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -42,15 +42,14 @@ class QrCodeAction extends Action
      */
     public function run()
     {
-        $text = call_user_func_array([Yii::$app->request, $this->method], [$this->param, $this->text]);
+        $text = call_user_func([Yii::$app->request, $this->method], $this->param, $this->text);
+        $qrCode = Yii::$app->get($this->component);
 
-        $qr = Yii::$app->get($this->component);
-
-        if ($text && $qr instanceof QrCodeComponent) {
+        if ($text !== null && $qrCode instanceof QrCodeComponent) {
             Yii::$app->response->format = Response::FORMAT_RAW;
-            Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
+            Yii::$app->response->headers->add('Content-Type', $qrCode->getContentType());
 
-            return $qr->setText($text)->writeString();
+            return $qrCode->setText((string)$text)->writeString();
         }
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -11,14 +11,14 @@
 
 namespace Da\QrCode\Traits;
 
-use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Exception\BadMethodCallException;
 use Da\QrCode\Exception\ValidationException;
-use Da\QrCode\Renderer\Jpg;
-use QrReader;
+use Zxing\QrReader;
 
 trait ImageTrait
 {
@@ -27,37 +27,40 @@ trait ImageTrait
     /**
      * Whether to validate result or not.
      *
-     * @param $validate
+     * @param bool $validate
      *
      * @return $this
      */
-    public function validateResult($validate)
+    public function validateResult(bool $validate): self
     {
-        $cloned = clone $this;
-        $cloned->validate = $validate;
+        $this->validate = $validate;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * {@inheritdoc}
+     * @throws ValidationException
+     * @throws BadMethodCallException
      */
-    public function writeString(QrCodeInterface $qrCode)
+    public function writeString(QrCodeInterface $qrCode): string
     {
-        /** @var Png|Jpg $renderer */
-        $renderer = $this->renderer;
+        $fill = $this->buildQrCodeFillColor($qrCode);
 
-        $renderer->setWidth($qrCode->getSize());
-        $renderer->setHeight($qrCode->getSize());
-        $renderer->setMargin(0);
-        $renderer->setForegroundColor($this->convertColor($qrCode->getForegroundColor()));
-        $renderer->setBackgroundColor($this->convertColor($qrCode->getBackgroundColor()));
+        $rendererStyle = new RendererStyle($qrCode->getSize(), 0, null, null, $fill);
+
+        $renderer = new ImageRenderer(
+            $rendererStyle,
+            $this->renderBackEnd
+        );
+
         $writer = new Writer($renderer);
         $string = $writer->writeString(
             $qrCode->getText(),
             $qrCode->getEncoding(),
             $this->convertErrorCorrectionLevel($qrCode->getErrorCorrectionLevel())
         );
+
         $image = imagecreatefromstring($string);
         $image = $this->addMargin(
             $image,
@@ -79,22 +82,35 @@ trait ImageTrait
                 $qrCode->getBackgroundColor()
             );
         }
+
         $string = $this->imageToString($image);
         if ($this->validate) {
-            $reader = new QrReader($string, QrReader::SOURCE_TYPE_BLOB);
-            if ($reader->text() !== $qrCode->getText()) {
-                throw new ValidationException(
-                    sprintf(
-                        'Built-in validation reader read "%s" instead of "%s"' .
-                        'Adjust your parameters to increase readability or disable built-in validation.',
-                        $reader->text(),
-                        $qrCode->getText()
-                    )
-                );
-            }
+            $this->validateOutput($string, $qrCode);
         }
 
         return $string;
+    }
+
+    /**
+     * @param string $expectedImageString
+     * @param QrCodeInterface $qrCode
+     * @return void
+     * @throws ValidationException
+     */
+    public function validateOutput(string $expectedImageString, QrCodeInterface $qrCode)
+    {
+        $reader = new QrReader($expectedImageString, QrReader::SOURCE_TYPE_BLOB);
+
+        if ($reader->text() !== $qrCode->getText()) {
+            throw new ValidationException(
+                sprintf(
+                    'Built-in validation reader read "%s" instead of "%s"' .
+                    'Adjust your parameters to increase readability or disable built-in validation.',
+                    $reader->text(),
+                    $qrCode->getText()
+                )
+            );
+        }
     }
 
     /**
@@ -110,7 +126,7 @@ trait ImageTrait
     {
         $additionalWhitespace = $this->calculateAdditionalWhiteSpace($sourceImage, $foregroundColor);
 
-        if ($additionalWhitespace == 0 && $margin == 0) {
+        if ($margin === 0) {
             return $sourceImage;
         }
 
@@ -144,7 +160,7 @@ trait ImageTrait
      *
      * @return int
      */
-    protected function calculateAdditionalWhiteSpace($image, array $foregroundColor)
+    protected function calculateAdditionalWhiteSpace($image, array $foregroundColor): int
     {
         $width = imagesx($image);
         $height = imagesy($image);
@@ -180,12 +196,11 @@ trait ImageTrait
         $logoImage = imagecreatefromstring(file_get_contents($logoPath));
         $logoSourceWidth = imagesx($logoImage);
         $logoSourceHeight = imagesy($logoImage);
-        $logoTargetWidth = $logoWidth;
 
-        if ($logoTargetWidth === null) {
-            $logoTargetWidth = $logoSourceWidth;
-            $logoTargetHeight = $logoSourceHeight;
-        } else {
+        $logoTargetWidth = $logoWidth ?: $logoSourceWidth;
+        $logoTargetHeight = $logoSourceHeight;
+
+        if ($logoTargetWidth !== null) {
             $scale = $logoTargetWidth / $logoSourceWidth;
             $logoTargetHeight = intval($scale * imagesy($logoImage));
         }
@@ -234,8 +249,8 @@ trait ImageTrait
         $labelAlignment = $label->getAlignment();
 
         $labelBox = imagettfbbox($labelFontSize, 0, $labelFontPath, $labelText);
-        $labelBoxWidth = intval($labelBox[2] - $labelBox[0]);
-        $labelBoxHeight = intval($labelBox[0] - $labelBox[7]);
+        $labelBoxWidth = ($labelBox[2] - $labelBox[0]);
+        $labelBoxHeight = ($labelBox[0] - $labelBox[7]);
         $sourceWidth = imagesx($sourceImage);
         $sourceHeight = imagesy($sourceImage);
         $targetWidth = $sourceWidth;
@@ -277,7 +292,7 @@ trait ImageTrait
                 $labelX = $targetWidth - $labelBoxWidth - $labelMargin['r'];
                 break;
             default:
-                $labelX = intval($targetWidth / 2 - $labelBoxWidth / 2);
+                $labelX = (int)($targetWidth / 2 - $labelBoxWidth / 2);
                 break;
         }
         $labelY = $targetHeight - $labelMargin['b'];

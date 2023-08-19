@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -16,7 +16,6 @@ use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Contracts\WriterInterface;
 use Da\QrCode\Exception\InvalidPathException;
-use Da\QrCode\Exception\UnknownWriterException;
 use Da\QrCode\Writer\PngWriter;
 
 class QrCode implements QrCodeInterface
@@ -77,13 +76,13 @@ class QrCode implements QrCodeInterface
     /**
      * QrCode constructor.
      *
-     * @param string               $text
-     * @param null                 $errorCorrectionLevel
+     * @param string|null $text
+     * @param string|null $errorCorrectionLevel
      * @param WriterInterface|null $writer
      */
-    public function __construct($text = '', $errorCorrectionLevel = null, WriterInterface $writer = null)
+    public function __construct(string $text, string $errorCorrectionLevel = null, WriterInterface $writer = null)
     {
-        $this->text = (string)$text;
+        $this->text = $text;
         $this->errorCorrectionLevel = $errorCorrectionLevel ?: ErrorCorrectionLevelInterface::LOW;
         $this->writer = $writer ?: new PngWriter();
     }
@@ -93,165 +92,154 @@ class QrCode implements QrCodeInterface
      * @param int $green
      * @param int $blue
      *
-     * @return QrCode
+     * @return $this
      */
-    public function useForegroundColor($red, $green, $blue)
+    public function setForegroundColor(int $red, int $green, int $blue): self
     {
-        $cloned = clone $this;
-        $cloned->foregroundColor = [
+        $this->foregroundColor = [
             'r' => $red,
             'g' => $green,
-            'b' => $blue
+            'b' => $blue,
         ];
 
-        return $cloned;
+        return $this;
     }
 
     /**
-     * @param $red
-     * @param $green
-     * @param $blue
+     * @param int $red
+     * @param int $green
+     * @param int $blue
      *
-     * @return QrCode
+     * @return $this
      */
-    public function useBackgroundColor($red, $green, $blue)
+    public function setBackgroundColor(int $red, int $green, int $blue): self
     {
-        $cloned = clone $this;
-        $cloned->backgroundColor = [
+        $this->backgroundColor = [
             'r' => $red,
             'g' => $green,
-            'b' => $blue
+            'b' => $blue,
         ];
 
-        return $cloned;
+        return $this;
     }
 
     /**
-     * @param $path
+     * @param string $path
      *
+     * @return $this
      * @throws InvalidPathException
-     * @return QrCode
      */
-    public function useLogo($path)
+    public function setLogo(string $path): self
     {
         $logo = realpath($path);
         if (!is_file($logo)) {
             throw new InvalidPathException(sprintf('Invalid logo path: "%s"', $logo));
         }
-        $cloned = clone $this;
-        $cloned->logoPath = $logo;
+        $this->logoPath = $logo;
 
-        return $cloned;
+        return $this;
     }
 
     /**
-     * @param $encoding
+     * @param string $encoding
      *
-     * @return QrCode
+     * @return $this
      */
-    public function useEncoding($encoding)
+    public function setEncoding(string $encoding): self
     {
-        $cloned = clone $this;
-        $cloned->encoding = $encoding;
+        $this->encoding = $encoding;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @param WriterInterface $writer
      *
-     * @return QrCode
+     * @return $this
      */
-    public function useWriter(WriterInterface $writer)
+    public function setWriter(WriterInterface $writer): self
     {
-        $cloned = clone $this;
-        $cloned->writer = $writer;
+        $this->writer = $writer;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @param string $errorCorrectionLevel
      *
-     * @return QrCode
+     * @return $this
      */
-    public function setErrorCorrectionLevel($errorCorrectionLevel)
+    public function setErrorCorrectionLevel(string $errorCorrectionLevel): self
     {
-        $cloned = clone $this;
-        $cloned->errorCorrectionLevel = $errorCorrectionLevel;
+        $this->errorCorrectionLevel = $errorCorrectionLevel;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @param string $text
      *
-     * @return QrCode
+     * @return $this
      */
-    public function setText($text)
+    public function setText(string $text): self
     {
-        $cloned = clone $this;
-        $cloned->text = $text;
+        $this->text = $text;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @param int $size
      *
-     * @return QrCode
+     * @return $this
      */
-    public function setSize($size)
+    public function setSize(int $size): self
     {
-        $cloned = clone $this;
-        $cloned->size = $size;
+        $this->size = $size;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @param int $margin
      *
-     * @return QrCode
+     * @return $this
      */
-    public function setMargin($margin)
+    public function setMargin(int $margin): self
     {
-        $cloned = clone $this;
-        $cloned->margin = $margin;
+        $this->margin = $margin;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @param int $width
      *
-     * @return QrCode
+     * @return $this
      */
-    public function setLogoWidth($width)
+    public function setLogoWidth(int $width): self
     {
-        $cloned = clone $this;
-        $cloned->logoWidth = $width;
+        $this->logoWidth = $width;
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @param LabelInterface|string $label
      *
-     * @return QrCode
+     * @return $this
      */
-    public function setLabel($label)
+    public function setLabel($label): self
     {
-        $cloned = clone $this;
-        $cloned->label = $label instanceof LabelInterface ? $label : new Label($label);
+        $this->label = $label instanceof LabelInterface ? $label : new Label($label);
 
-        return $cloned;
+        return $this;
     }
 
     /**
      * @inheritdoc
      */
-    public function getText()
+    public function getText(): ?string
     {
         return $this->text;
     }
@@ -259,7 +247,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getSize()
+    public function getSize(): int
     {
         return $this->size;
     }
@@ -267,7 +255,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getMargin()
+    public function getMargin(): int
     {
         return $this->margin;
     }
@@ -275,7 +263,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getForegroundColor()
+    public function getForegroundColor(): array
     {
         return $this->foregroundColor;
     }
@@ -283,7 +271,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getBackgroundColor()
+    public function getBackgroundColor(): array
     {
         return $this->backgroundColor;
     }
@@ -291,7 +279,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->encoding;
     }
@@ -299,7 +287,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getErrorCorrectionLevel()
+    public function getErrorCorrectionLevel(): string
     {
         return $this->errorCorrectionLevel;
     }
@@ -307,7 +295,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getLogoPath()
+    public function getLogoPath(): ?string
     {
         return $this->logoPath;
     }
@@ -315,7 +303,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getLogoWidth()
+    public function getLogoWidth(): ?int
     {
         return $this->logoWidth;
     }
@@ -323,7 +311,7 @@ class QrCode implements QrCodeInterface
     /**
      * @inheritdoc
      */
-    public function getLabel()
+    public function getLabel(): ?LabelInterface
     {
         return $this->label;
     }
@@ -331,7 +319,17 @@ class QrCode implements QrCodeInterface
     /**
      * @return string
      */
-    public function writeString()
+    public function getContentType(): string
+    {
+        return $this->writer->getContentType();
+    }
+
+    /**
+     * @throws Exception\ValidationException
+     * @throws Exception\BadMethodCallException
+     * @return string
+     */
+    public function writeString(): string
     {
         return $this->writer->writeString($this);
     }
@@ -339,27 +337,18 @@ class QrCode implements QrCodeInterface
     /**
      * @return string
      */
-    public function writeDataUri()
+    public function writeDataUri(): string
     {
         return $this->writer->writeDataUri($this);
     }
 
     /**
-     * @param $path
+     * @param string $path
      *
      * @return bool|int
      */
-    public function writeFile($path)
+    public function writeFile(string $path)
     {
         return $this->writer->writeFile($this, $path);
-    }
-
-    /**
-     * @throws UnknownWriterException
-     * @return string
-     */
-    public function getContentType()
-    {
-        return $this->writer->getContentType();
     }
 }

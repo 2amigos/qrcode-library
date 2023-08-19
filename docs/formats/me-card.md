@@ -27,7 +27,7 @@ $format->email = 'hola@2amigos.us';
 $format->note = 'test-note';
 $format->birthday = '19791201';
 $format->address = 'test-address';
-$format->url = 'http://2amigos.us';
+$format->url = 'http://2am.tech';
 $format->nickName = 'tonydspaniard';
 
 $qrCode = new QrCode($format);
@@ -39,4 +39,4 @@ echo $qrCode->writeString();
 ```
 
 
-© [2amigos](http://www.2amigos.us/) 2013-2017
+© [2amigos](https://2am.tech/) 2013-2023

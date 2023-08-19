@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -32,9 +32,6 @@ class Label implements LabelInterface
      * @var string
      */
     protected $alignment;
-    /**
-     * @var array
-     */
     protected $margins = [
         't' => 0,
         'r' => 10,
@@ -43,87 +40,62 @@ class Label implements LabelInterface
     ];
 
     /**
-     * Label constructor.
-     *
-     * @param $text
+     * @param string $text
      * @param string|null $font
      * @param int|null    $fontSize
      * @param string|null $alignment
      * @param array       $margins
      */
-    public function __construct($text, $font = null, $fontSize = null, $alignment = null, array $margins = [])
+    public function __construct(string $text, string $font = null, $fontSize = null, $align = null, array $margins = [])
     {
         $this->text = $text;
         $this->font = $font ?: __DIR__ . '/../resources/fonts/noto_sans.otf';
         $this->fontSize = $fontSize ?: 16;
-        $this->alignment = $alignment ?: LabelInterface::ALIGN_CENTER;
+        $this->alignment = $align ?: LabelInterface::ALIGN_CENTER;
         $this->margins = array_merge($this->margins, $margins);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function updateFontSize($size)
+    public function setFontSize(int $size): LabelInterface
     {
-        $cloned = clone $this;
-        $cloned->fontSize = $size;
+        $this->fontSize = $size;
 
-        return $cloned;
+        return $this;
     }
 
     /**
-     * @inheritdoc
+     * @throws InvalidPathException
      */
-    public function useFont($font)
+    public function setFont(string $font): LabelInterface
     {
         $path = realpath($font);
         if (!is_file($path)) {
             throw new InvalidPathException(sprintf('Invalid label font path "%s"', $path));
         }
-
-        $cloned = clone $this;
-
-        $cloned->font = $path;
-
-        return $cloned;
+        $this->font = $path;
+        return $this;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getFont()
+    public function getFont(): string
     {
         return $this->font;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getFontSize()
+    public function getFontSize(): int
     {
         return $this->fontSize;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getAlignment()
+    public function getAlignment(): string
     {
         return $this->alignment;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getMargins()
+    public function getMargins(): array
     {
         return $this->margins;
     }

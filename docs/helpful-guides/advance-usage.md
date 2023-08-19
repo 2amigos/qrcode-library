@@ -17,14 +17,14 @@ Remembering that fact, we can configure and use our instance like this:
 // Using the instance, we will have more control on how do we want the label to be displayed.
 // Immutability also applies to this class! 
 $label = (new Label('2amigos'))
-    ->useFont(__DIR__ . '/../resources/fonts/monsterrat.otf')
-    ->updateFontSize(12);
+    ->setFont(__DIR__ . '/../resources/fonts/monsterrat.otf')
+    ->setFontSize(12);
 
-$qrCode = (new QrCode('https://2amigos.us'))
-    ->useLogo(__DIR__ . '/data/logo.png')
-    ->useForegroundColor(51, 153, 255)
-    ->useBackgroundColor(200, 220, 210)
-    ->useEncoding('UTF-8')
+$qrCode = (new QrCode('https://2am.tech'))
+    ->setLogo(__DIR__ . '/data/logo.png')
+    ->setForegroundColor(51, 153, 255)
+    ->setBackgroundColor(200, 220, 210)
+    ->setEncoding('UTF-8')
     ->setErrorCorrectionLevel(ErrorCorrectionLevelInterface::HIGH)
     ->setLogoWidth(60)
     ->setSize(300)
@@ -36,4 +36,4 @@ $qrCode->writeFile(__DIR__ . '/codes/my-code.png');
 ```
 
 
-© [2amigos](http://www.2amigos.us/) 2013-2017
+© [2amigos](https://2am.tech/) 2013-2023

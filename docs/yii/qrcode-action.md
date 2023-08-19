@@ -21,7 +21,7 @@ public function actions()
     return [
         'qr' => [
             'class' => QrCodeAction::className(),
-            'text' => 'https://2amigos.us',
+            'text' => 'https://2am.tech',
             'param' => 'v',
             'commponent' => 'qr' // if configured in our app as `qr` 
         ]
@@ -31,4 +31,4 @@ public function actions()
 
 See [QrCodComponent](qrcode-component.md).
 
-© [2amigos](http://www.2amigos.us/) 2013-2017
+© [2amigos](https://2am.tech/) 2013-2023

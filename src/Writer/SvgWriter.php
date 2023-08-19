@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the 2amigos/yii2-qrcode-component project.
+ * This file is part of the 2amigos/qrcode-library project.
  *
- * (c) 2amigOS! <http://2amigos.us/>
+ * (c) 2amigOS! <http://2am.tech/>
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
@@ -11,7 +11,9 @@
 
 namespace Da\QrCode\Writer;
 
-use BaconQrCode\Renderer\Image\Svg;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\QrCodeInterface;
 use SimpleXMLElement;
@@ -23,21 +25,23 @@ class SvgWriter extends AbstractWriter
      */
     public function __construct()
     {
-        parent::__construct(new Svg());
+        parent::__construct(new SvgImageBackEnd());
     }
 
     /**
      * @inheritdoc
      */
-    public function writeString(QrCodeInterface $qrCode)
+    public function writeString(QrCodeInterface $qrCode): string
     {
-        /** @var Svg $renderer */
-        $renderer = $this->renderer;
-        $renderer->setWidth($qrCode->getSize());
-        $renderer->setHeight($qrCode->getSize());
-        $renderer->setMargin(0);
-        $renderer->setForegroundColor($this->convertColor($qrCode->getForegroundColor()));
-        $renderer->setBackgroundColor($this->convertColor($qrCode->getBackgroundColor()));
+        $fill = $this->buildQrCodeFillColor($qrCode);
+
+        $rendererStyle = new RendererStyle($qrCode->getSize(), $qrCode->getMargin(), null, null, $fill);
+
+        $renderer = new ImageRenderer(
+            $rendererStyle,
+            $this->renderBackEnd
+        );
+
         $writer = new Writer($renderer);
 
         $string = $writer->writeString(
@@ -46,50 +50,16 @@ class SvgWriter extends AbstractWriter
             $this->convertErrorCorrectionLevel($qrCode->getErrorCorrectionLevel())
         );
 
-        $string = $this->addMargin($string, $qrCode->getMargin(), $qrCode->getSize());
+        $svg = new SimpleXMLElement($string);
 
-        return $string;
+        return $svg->asXML();
     }
 
     /**
      * @return string
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return 'image/svg+xml';
-    }
-
-    /**
-     * @param  string $string
-     * @param  int    $margin
-     * @param  int    $size
-     * @return string
-     */
-    protected function addMargin($string, $margin, $size)
-    {
-        $targetSize = $size + $margin * 2;
-        $xml = new SimpleXMLElement($string);
-
-        $xml['width'] = $targetSize;
-        $xml['height'] = $targetSize;
-        $xml['viewBox'] = '0 0 '.$targetSize.' '.$targetSize;
-        $xml->rect['width'] = $targetSize;
-        $xml->rect['height'] = $targetSize;
-        $additionalWhitespace = $targetSize;
-
-        foreach ($xml->use as $block) {
-            $additionalWhitespace = min($additionalWhitespace, (int) $block['x']);
-        }
-        $sourceBlockSize = (int) $xml->defs->rect['width'];
-        $blockCount = ($size - 2 * $additionalWhitespace) / $sourceBlockSize;
-        $targetBlockSize = $size / $blockCount;
-        $xml->defs->rect['width'] = $targetBlockSize;
-        $xml->defs->rect['height'] = $targetBlockSize;
-
-        foreach ($xml->use as $block) {
-            $block['x'] = $margin + $targetBlockSize * ($block['x'] - $additionalWhitespace) / $sourceBlockSize;
-            $block['y'] = $margin + $targetBlockSize * ($block['y'] - $additionalWhitespace) / $sourceBlockSize;
-        }
-        return $xml->asXML();
     }
 }
