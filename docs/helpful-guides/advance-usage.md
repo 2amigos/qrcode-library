@@ -26,7 +26,7 @@ $qrCode = (new QrCode('https://2am.tech'))
     ->setBackgroundColor(200, 220, 210)
     ->setEncoding('UTF-8')
     ->setErrorCorrectionLevel(ErrorCorrectionLevelInterface::HIGH)
-    ->setLogoWidth(60)
+    ->setLogoWidth(48) // recommended to be 16% of qrcode width
     ->setSize(300)
     ->setMargin(5)
     ->setLabel($label);
