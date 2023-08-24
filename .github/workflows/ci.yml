@@ -19,10 +19,10 @@ jobs:
         run: composer install
 
       - name: Run unit tests
-        run: ./vendor/bin/codecept run --coverage --coverage-xml ./tests/_output/coverage/coverage.xml
+        run: ./vendor/bin/codecept run --coverage --coverage-xml ./coverage.xml
 
       - name: Upload coverage reports to Codacy
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ./tests/_output/coverage/coverage.xml
+          coverage-reports: ./tests/_output/coverage.xml
