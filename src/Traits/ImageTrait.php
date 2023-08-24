@@ -239,9 +239,6 @@ trait ImageTrait
         array $foregroundColor,
         array $backgroundColor
     ) {
-        if (!function_exists('imagettfbbox')) {
-            throw new BadMethodCallException('Missing function "imagettfbbox". Did you install the FreeType library?');
-        }
         $labelText = $label->getText();
         $labelFontSize = $label->getFontSize();
         $labelFontPath = $label->getFont();

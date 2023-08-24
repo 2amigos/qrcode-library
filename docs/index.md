@@ -15,17 +15,24 @@ it uses a modified version of its code for the writers included on this package.
 
 ## Getting Started
 
+### Server Requirements
+
+- PHP >= 7.3
+- Imagick
+- GD
+- FreeType
+
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 Either run
 
 ```
-php composer.phar require 2amigos/qrcode-library
+php composer.phar require 2amigos/qrcode-library:^3
 ```
 or add
 
 ```json
-    "2amigos/qrcode-library": "^2.0"
+    "2amigos/qrcode-library": "^3"
 ```
 
 ### Usage 
