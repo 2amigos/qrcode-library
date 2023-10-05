@@ -51,7 +51,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $out = $qrCode->writeString();
 
         $this->tester->assertEquals(
-            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data.eps'))),
+            $this->normalizeString(file_get_contents(codecept_data_dir('data.eps'))),
             $out
         );
     }
@@ -63,7 +63,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $out = $qrCode->writeString();
 
         $this->tester->assertEquals(
-            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data.svg'))),
+            $this->normalizeString(file_get_contents(codecept_data_dir('data.svg'))),
             $out
         );
     }
@@ -107,11 +107,11 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.png')), $png);
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.jpg')), $jpeg);
         $this->tester->assertEquals(
-            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('writers/qrcode.eps'))),
+            $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.eps'))),
             $eps
         );
         $this->tester->assertEquals(
-            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('writers/qrcode.svg'))),
+            $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.svg'))),
             $svg
         );
     }
@@ -210,7 +210,7 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_LEFT));
 
         $this->tester->assertEquals(
-            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data-svg-with-label.svg'))),
+            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label.svg'))),
             $qrCode->writeString()
         );
     }
@@ -222,7 +222,7 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_CENTER));
 
         $this->tester->assertEquals(
-            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data-svg-with-label2.svg'))),
+            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label2.svg'))),
             $qrCode->writeString()
         );
     }
@@ -234,7 +234,7 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLabel(new Label('2am. Technologies', null, null, LabelInterface::ALIGN_RIGHT));
 
         $this->tester->assertEquals(
-            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data-svg-with-label3.svg'))),
+            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label3.svg'))),
             $qrCode->writeString()
         );
     }
@@ -255,5 +255,14 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setScaleLogoHeight(true);
 
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('svg-with-logo-scale.svg')), $qrCode->writeString());
+    }
+
+    protected function normalizeString($string)
+    {
+        return str_replace(
+            "\r\n", "\n", str_replace(
+                "$#13;", null, $string
+            )
+        );
     }
 }
