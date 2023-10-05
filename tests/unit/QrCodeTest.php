@@ -210,8 +210,8 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_LEFT));
 
         $this->tester->assertEquals(
-            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label.svg'))),
-            $qrCode->writeString()
+            file_get_contents(codecept_data_dir('data-svg-with-label.svg')),
+            $this->normalizeString($qrCode->writeString())
         );
     }
 
@@ -223,7 +223,7 @@ class QrCodeTest extends \Codeception\Test\Unit
 
         $this->tester->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label2.svg'))),
-            $qrCode->writeString()
+            $this->normalizeString($qrCode->writeString())
         );
     }
 
@@ -235,7 +235,7 @@ class QrCodeTest extends \Codeception\Test\Unit
 
         $this->tester->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label3.svg'))),
-            $qrCode->writeString()
+            $this->normalizeString($qrCode->writeString())
         );
     }
 
@@ -261,7 +261,7 @@ class QrCodeTest extends \Codeception\Test\Unit
     {
         return str_replace(
             "\r\n", "\n", str_replace(
-                "$#13;", "", $string
+                "&#13;", "", $string
             )
         );
     }
