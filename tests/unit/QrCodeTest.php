@@ -175,4 +175,13 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals(realpath(__DIR__ . '/../../resources/fonts/monsterrat.otf'), $label->getFont());
         $this->tester->assertEquals(12, $label->getFontSize());
     }
+
+    public function testQrCodeAlphaForeground()
+    {
+        $qrCode = (new QrCode('2am. Technologies'))
+            ->setForegroundColor(0, 0, 0, 50)
+            ->writeString();
+
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('qrcode-alpha.png')), $qrCode);
+    }
 }

@@ -12,6 +12,7 @@
 namespace Da\QrCode\Writer;
 
 use BaconQrCode\Common\ErrorCorrectionLevel;
+use BaconQrCode\Renderer\Color\Alpha;
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\Image\ImageBackEndInterface;
 use BaconQrCode\Renderer\RendererStyle\Fill;
@@ -80,11 +81,13 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * @param array $color
      *
-     * @return Rgb
+     * @return Alpha
      */
-    protected function convertColor(array $color): Rgb
+    protected function convertColor(array $color): Alpha
     {
-        return new Rgb($color['r'], $color['g'], $color['b']);
+        $baseColor = new Rgb($color['r'], $color['g'], $color['b']);
+
+        return new Alpha($color['a'], $baseColor);
     }
 
     /**
