@@ -261,7 +261,7 @@ class QrCodeTest extends \Codeception\Test\Unit
     {
         return str_replace(
             "\r\n", "\n", str_replace(
-                "$#13;", null, $string
+                "$#13;", "", $string
             )
         );
     }
