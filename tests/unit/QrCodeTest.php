@@ -209,7 +209,10 @@ class QrCodeTest extends \Codeception\Test\Unit
         $qrCode->setWriter(new SvgWriter())
             ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_LEFT));
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-svg-with-label.svg')), $qrCode->writeString());
+        $this->tester->assertEquals(
+            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data-svg-with-label.svg'))),
+            $qrCode->writeString()
+        );
     }
 
     public function testSvgLabelAlignmentCenter()
@@ -218,7 +221,10 @@ class QrCodeTest extends \Codeception\Test\Unit
         $qrCode->setWriter(new SvgWriter())
             ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_CENTER));
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-svg-with-label2.svg')), $qrCode->writeString());;
+        $this->tester->assertEquals(
+            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data-svg-with-label2.svg'))),
+            $qrCode->writeString()
+        );
     }
 
     public function testSvgLabelAlignmentRight()
@@ -227,7 +233,10 @@ class QrCodeTest extends \Codeception\Test\Unit
         $qrCode->setWriter(new SvgWriter())
             ->setLabel(new Label('2am. Technologies', null, null, LabelInterface::ALIGN_RIGHT));
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-svg-with-label3.svg')), $qrCode->writeString());
+        $this->tester->assertEquals(
+            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data-svg-with-label3.svg'))),
+            $qrCode->writeString()
+        );
     }
 
     public function testScaleLogo()
