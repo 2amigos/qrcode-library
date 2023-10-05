@@ -11,6 +11,7 @@
 
 namespace Da\QrCode\Writer;
 
+use BaconQrCode\Encoder\Encoder;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
@@ -21,6 +22,8 @@ use SimpleXMLElement;
 
 class SvgWriter extends AbstractWriter
 {
+    private const PRECISION = 3;
+
     /**
      * SvgWriter constructor.
      */
@@ -73,18 +76,19 @@ class SvgWriter extends AbstractWriter
      */
     protected function addMargin($svg, $qrCode)
     {
-        $matrix = 21;
-        $precision = 3;
+        // encode QR to get proper matrix size to scale SVG
+        $encoded = Encoder::encode(
+            $qrCode->getText(),
+            $this->convertErrorCorrectionLevel($qrCode->getErrorCorrectionLevel()),
+            $qrCode->getEncoding()
+        );
+
+        $matrix = $encoded->getMatrix()->getWidth();
         $margin = $qrCode->getMargin();
         $size = $qrCode->getSize();
+        $scale = round(($size - ($margin * 2))  / $matrix, self::PRECISION);
 
-        $scale = round(($size - ($margin * 2))  / $matrix, $precision);
-        $translate = round($margin/$size * $matrix, $precision);
-
-        $svg->rect->attributes()->width = $size;
-        $svg->rect->attributes()->height = $size;
-        $svg->g->attributes()->transform = "scale($scale)";
-        $svg->g->children()->g->attributes()->transform = sprintf('translate(%s, %s)', $translate, $translate);
+        $svg->g->attributes()->transform = sprintf("translate(%s, %s), scale(%s)", $margin, $margin, $scale);
     }
 
     /**

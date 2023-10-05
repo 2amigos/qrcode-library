@@ -50,7 +50,10 @@ class QrCodeTest extends \Codeception\Test\Unit
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.eps')), $out);
+        $this->tester->assertEquals(
+            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data.eps'))),
+            $out
+        );
     }
 
     public function testSvg()
@@ -58,7 +61,11 @@ class QrCodeTest extends \Codeception\Test\Unit
         $writer = new SvgWriter();
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.svg')), $out);
+
+        $this->tester->assertEquals(
+            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('data.svg'))),
+            $out
+        );
     }
 
     public function testLogo()
@@ -99,8 +106,14 @@ class QrCodeTest extends \Codeception\Test\Unit
 
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.png')), $png);
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.jpg')), $jpeg);
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.svg')), $svg);
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.eps')), $eps);
+        $this->tester->assertEquals(
+            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('writers/qrcode.eps'))),
+            $eps
+        );
+        $this->tester->assertEquals(
+            str_replace("\r\n", "\n", file_get_contents(codecept_data_dir('writers/qrcode.svg'))),
+            $svg
+        );
     }
 
     public function testLabel()
