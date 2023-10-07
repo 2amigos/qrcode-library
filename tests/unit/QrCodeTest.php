@@ -189,6 +189,15 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals(12, $label->getFontSize());
     }
 
+    public function testQrCodeAlphaForeground()
+    {
+        $qrCode = (new QrCode('2am. Technologies'))
+            ->setForegroundColor(0, 0, 0, 50)
+            ->writeString();
+
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('qrcode-alpha.png')), $qrCode);
+    }
+
     public function testSvgWithLogo()
     {
         $qrCode = new QrCode('2am. Technologies');
@@ -200,7 +209,10 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLogo(codecept_data_dir('logo.png'))
             ->setScaleLogoHeight(true);
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-svg-with-logo.svg')), $qrCode->writeString());
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-logo.svg'))),
+            $this->normalizeString($qrCode->writeString())
+        );
     }
 
     public function testSvgWithLabel()
@@ -210,7 +222,7 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_LEFT));
 
         $this->tester->assertEquals(
-            file_get_contents(codecept_data_dir('data-svg-with-label.svg')),
+            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label.svg'))),
             $this->normalizeString($qrCode->writeString())
         );
     }
@@ -254,7 +266,10 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLogo(codecept_data_dir('logo.png'))
             ->setScaleLogoHeight(true);
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('svg-with-logo-scale.svg')), $qrCode->writeString());
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('svg-with-logo-scale.svg'))),
+            $this->normalizeString($qrCode->writeString())
+        );
     }
 
     protected function normalizeString($string)
