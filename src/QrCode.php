@@ -65,6 +65,10 @@ class QrCode implements QrCodeInterface
      */
     protected $logoWidth;
     /**
+     * @var bool
+     */
+    protected $scaleLogoHeight = false;
+    /**
      * @var LabelInterface
      */
     protected $label;
@@ -225,6 +229,17 @@ class QrCode implements QrCodeInterface
     }
 
     /**
+     * @param bool $scale
+     * @return $this
+     */
+    public function setScaleLogoHeight(bool $scale): self
+    {
+        $this->scaleLogoHeight = $scale;
+
+        return $this;
+    }
+
+    /**
      * @param LabelInterface|string $label
      *
      * @return $this
@@ -350,5 +365,13 @@ class QrCode implements QrCodeInterface
     public function writeFile(string $path)
     {
         return $this->writer->writeFile($this, $path);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getScaleLogoHeight(): bool
+    {
+        return $this->scaleLogoHeight;
     }
 }

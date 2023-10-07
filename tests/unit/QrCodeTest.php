@@ -50,7 +50,10 @@ class QrCodeTest extends \Codeception\Test\Unit
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.eps')), $out);
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('data.eps'))),
+            $out
+        );
     }
 
     public function testSvg()
@@ -58,7 +61,11 @@ class QrCodeTest extends \Codeception\Test\Unit
         $writer = new SvgWriter();
         $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
         $out = $qrCode->writeString();
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.svg')), $out);
+
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('data.svg'))),
+            $out
+        );
     }
 
     public function testLogo()
@@ -99,8 +106,14 @@ class QrCodeTest extends \Codeception\Test\Unit
 
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.png')), $png);
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.jpg')), $jpeg);
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.svg')), $svg);
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.eps')), $eps);
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.eps'))),
+            $eps
+        );
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.svg'))),
+            $svg
+        );
     }
 
     public function testLabel()
@@ -174,5 +187,82 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals(10, $margins['l']);
         $this->tester->assertEquals(realpath(__DIR__ . '/../../resources/fonts/monsterrat.otf'), $label->getFont());
         $this->tester->assertEquals(12, $label->getFontSize());
+    }
+
+    public function testSvgWithLogo()
+    {
+        $qrCode = new QrCode('2am. Technologies');
+        $qrCode->setWriter(new SvgWriter())
+            ->setLogo(codecept_data_dir('logo.png'));
+
+        (new QrCode('2am. Technologies'))
+            ->setWriter(new SvgWriter())
+            ->setLogo(codecept_data_dir('logo.png'))
+            ->setScaleLogoHeight(true);
+
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-svg-with-logo.svg')), $qrCode->writeString());
+    }
+
+    public function testSvgWithLabel()
+    {
+        $qrCode = new QrCode('2am. Technologies');
+        $qrCode->setWriter(new SvgWriter())
+            ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_LEFT));
+
+        $this->tester->assertEquals(
+            file_get_contents(codecept_data_dir('data-svg-with-label.svg')),
+            $this->normalizeString($qrCode->writeString())
+        );
+    }
+
+    public function testSvgLabelAlignmentCenter()
+    {
+        $qrCode = new QrCode('2am. Technologies');
+        $qrCode->setWriter(new SvgWriter())
+            ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_CENTER));
+
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label2.svg'))),
+            $this->normalizeString($qrCode->writeString())
+        );
+    }
+
+    public function testSvgLabelAlignmentRight()
+    {
+        $qrCode = new QrCode('2am. Technologies');
+        $qrCode->setWriter(new SvgWriter())
+            ->setLabel(new Label('2am. Technologies', null, null, LabelInterface::ALIGN_RIGHT));
+
+        $this->tester->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label3.svg'))),
+            $this->normalizeString($qrCode->writeString())
+        );
+    }
+
+    public function testScaleLogo()
+    {
+        $qrCode = new QrCode('2am. Technologies');
+        $qrCode->setLogo(codecept_data_dir('logo.png'))
+            ->setScaleLogoHeight(true);
+    }
+
+    public function testScaleLogoSvg()
+    {
+        $qrCode = new QrCode('2am. Technologies');
+        $qrCode
+            ->setWriter(new SvgWriter())
+            ->setLogo(codecept_data_dir('logo.png'))
+            ->setScaleLogoHeight(true);
+
+        $this->tester->assertEquals(file_get_contents(codecept_data_dir('svg-with-logo-scale.svg')), $qrCode->writeString());
+    }
+
+    protected function normalizeString($string)
+    {
+        return str_replace(
+            "\r\n", "\n", str_replace(
+                "&#13;", "", $string
+            )
+        );
     }
 }
