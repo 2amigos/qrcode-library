@@ -47,10 +47,11 @@ abstract class AbstractWriter implements WriterInterface
     {
         $background = $qrCode->getBackgroundColor();
         $foreground = $qrCode->getForegroundColor();
+        $isAlphaColor = ! $qrCode->getWriter() instanceof EpsWriter;
 
         return Fill::uniformColor(
-            $this->convertColor($background),
-            $this->convertColor($foreground),
+            $this->convertColor($background, $isAlphaColor),
+            $this->convertColor($foreground, $isAlphaColor),
         );
     }
 
@@ -82,13 +83,17 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * @param array $color
      *
-     * @return Alpha
+     * @return Alpha|Rgb
      */
-    protected function convertColor(array $color): Alpha
+    protected function convertColor(array $color, bool $isAlphaColor = true)
     {
         $baseColor = new Rgb($color['r'], $color['g'], $color['b']);
 
-        return new Alpha($color['a'], $baseColor);
+        if ($isAlphaColor) {
+            return new Alpha($color['a'], $baseColor);
+        }
+
+        return $baseColor;
     }
 
     /**

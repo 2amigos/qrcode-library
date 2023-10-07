@@ -173,6 +173,14 @@ class QrCode implements QrCodeInterface
     }
 
     /**
+     * @return WriterInterface
+     */
+    public function getWriter(): WriterInterface
+    {
+        return $this->writer;
+    }
+
+    /**
      * @param string $errorCorrectionLevel
      *
      * @return $this
