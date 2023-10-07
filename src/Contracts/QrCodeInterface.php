@@ -59,6 +59,11 @@ interface QrCodeInterface
     public function getLogoWidth(): ?int;
 
     /**
+     * @var
+     */
+    public function getScaleLogoHeight(): bool;
+
+    /**
      * @return LabelInterface
      */
     public function getLabel(): ?LabelInterface;

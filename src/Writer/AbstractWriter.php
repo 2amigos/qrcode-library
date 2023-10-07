@@ -18,6 +18,7 @@ use BaconQrCode\Renderer\Image\ImageBackEndInterface;
 use BaconQrCode\Renderer\RendererStyle\Fill;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Contracts\WriterInterface;
+use Da\QrCode\Dto\LogoDto;
 use ReflectionClass;
 use ReflectionException;
 
@@ -101,5 +102,28 @@ abstract class AbstractWriter implements WriterInterface
         $errorCorrectionLevel = ErrorCorrectionLevel::$name();
 
         return $errorCorrectionLevel;
+    }
+
+    /**
+     * @param string $logoPath
+     * @param int $logoWidth
+     * @param bool $scale
+     * @return LogoDto
+     */
+    protected function transformLogo($logoPath, $logoWidth = null, $scale = false)
+    {
+        $logoImage = imagecreatefromstring(file_get_contents($logoPath));
+        $logoSourceWidth = imagesx($logoImage);
+        $logoSourceHeight = imagesy($logoImage);
+
+        $logoTargetWidth = $logoWidth ?: $logoSourceWidth;
+        $logoTargetHeight = $logoWidth ?: $logoSourceHeight;
+
+        if ($logoTargetWidth !== null && $scale) {
+            $scale = $logoTargetWidth / $logoSourceWidth;
+            $logoTargetHeight = intval($scale * imagesy($logoImage));
+        }
+
+        return LogoDto::create($logoImage, $logoSourceWidth, $logoSourceHeight, $logoTargetWidth, $logoTargetHeight);
     }
 }
