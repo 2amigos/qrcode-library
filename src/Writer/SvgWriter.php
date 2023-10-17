@@ -150,7 +150,10 @@ class SvgWriter extends AbstractWriter
         $svg->attributes()->viewBox = sprintf("0 0 %s %s", $qrCodeOriginalWidth, $qrCodeOriginalHeight + $blockSize);
         $svg->rect->attributes()->height = $qrCodeOriginalHeight + $blockSize;
 
-        $labelFontPath = 'data:application/x-font-otf;charset=utf-8;base64,' . base64_encode(file_get_contents($label->getFont()));
+        $labelFontPath = 'data:application/x-font-otf;charset=utf-8;base64,'
+            . base64_encode(
+                file_get_contents($label->getFont())
+            );
         $svg->addChild(
             'style',
             <<<CSS
