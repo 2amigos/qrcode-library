@@ -71,7 +71,12 @@ trait ImageTrait
         );
 
         if ($qrCode->getLogoPath()) {
-            $image = $this->addLogo($image, $qrCode->getLogoPath(), $qrCode->getLogoWidth(), $qrCode->getScaleLogoHeight());
+            $image = $this->addLogo(
+                $image,
+                $qrCode->getLogoPath(),
+                $qrCode->getLogoWidth(),
+                $qrCode->getScaleLogoHeight()
+            );
         }
 
         if ($qrCode->getLabel()) {

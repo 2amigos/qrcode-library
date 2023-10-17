@@ -59,7 +59,13 @@ class SvgWriter extends AbstractWriter
         $this->addMargin($svg, $qrCode);
 
         if ($qrCode->getLogoPath()) {
-            $this->addLogo($svg, $qrCode, $qrCode->getLogoPath(), $qrCode->getLogoWidth(), $qrCode->getScaleLogoHeight());
+            $this->addLogo(
+                $svg,
+                $qrCode,
+                $qrCode->getLogoPath(),
+                $qrCode->getLogoWidth(),
+                $qrCode->getScaleLogoHeight()
+            );
         }
 
         if ($qrCode->getLabel()) {
