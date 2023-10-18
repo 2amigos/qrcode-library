@@ -14,7 +14,19 @@ class SiteController extends Controller
         return [
             'qr' => [
                 'class' => QrCodeAction::className(),
-                'text' => (new MailToFormat(['email' => 'hola@2amigos.us']))
+                'text' => (new MailToFormat(['email' => 'hola@2amigos.us'])),
+                'label' => '2am. Technologies',
+                'background' => [
+                    'r' => 255,
+                    'g' => 255,
+                    'b' => 255,
+                ],
+                'foreground' => [
+                    'r' => 0,
+                    'g' => 0,
+                    'b' => 0,
+                    'a' => 100,
+                ],
             ]
         ];
     }

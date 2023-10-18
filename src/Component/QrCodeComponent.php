@@ -24,11 +24,11 @@ use yii\base\Component;
  * @author Antonio Ramirez <hola@2amigos.us>
  * @package Da\QrCode\Component
  *
- * @method QrCode useForegroundColor(integer $red, integer $green, integer $blue)
- * @method QrCode useBackgroundColor(integer $red, integer $green, integer $blue)
- * @method QrCode useEncoding(string $encoding)
- * @method QrCode useWriter(WriterInterface $writer)
- * @method QrCode useLogo(string $logo)
+ * @method QrCode setForegroundColor(integer $red, integer $green, integer $blue, integer $alpha)
+ * @method QrCode setBackgroundColor(integer $red, integer $green, integer $blue)
+ * @method QrCode setEncoding(string $encoding)
+ * @method QrCode setWriter(WriterInterface $writer)
+ * @method QrCode setLogo(string $logo)
  * @method QrCode setText(string $text)
  * @method QrCode setSize(integer $size)
  * @method QrCode setLogoWidth(integer $width)
@@ -75,6 +75,7 @@ class QrCodeComponent extends Component
      *  'r' => 0, // RED
      *  'g' => 0, // GREEN
      *  'b' => 0  // BLUE
+     *  'a => 100 // ALPHA
      * ]
      * ```
      */

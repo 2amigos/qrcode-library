@@ -59,7 +59,13 @@ class SvgWriter extends AbstractWriter
         $this->addMargin($svg, $qrCode);
 
         if ($qrCode->getLogoPath()) {
-            $this->addLogo($svg, $qrCode, $qrCode->getLogoPath(), $qrCode->getLogoWidth(), $qrCode->getScaleLogoHeight());
+            $this->addLogo(
+                $svg,
+                $qrCode,
+                $qrCode->getLogoPath(),
+                $qrCode->getLogoWidth(),
+                $qrCode->getScaleLogoHeight()
+            );
         }
 
         if ($qrCode->getLabel()) {
@@ -130,9 +136,7 @@ class SvgWriter extends AbstractWriter
 
         $labelText = $label->getText();
         $labelFontSize = $label->getFontSize();
-        $labelFontPath = str_contains($label->getFont(), '../')
-            ? explode('../', $label->getFont())[1]
-            : $label->getFont();
+        $labelFontPath = $label->getFont();
 
         $labelMargin = $label->getMargins();
         $labelAlignment = $label->getAlignment();
@@ -146,6 +150,10 @@ class SvgWriter extends AbstractWriter
         $svg->attributes()->viewBox = sprintf("0 0 %s %s", $qrCodeOriginalWidth, $qrCodeOriginalHeight + $blockSize);
         $svg->rect->attributes()->height = $qrCodeOriginalHeight + $blockSize;
 
+        $labelFontPath = 'data:application/x-font-otf;charset=utf-8;base64,'
+            . base64_encode(
+                file_get_contents($label->getFont())
+            );
         $svg->addChild(
             'style',
             <<<CSS
@@ -156,7 +164,7 @@ class SvgWriter extends AbstractWriter
             CSS
         );
 
-        $labelY = ($qrCodeOriginalHeight + $blockSize) - $labelMargin['b'];
+        $labelY = max(($qrCodeOriginalHeight + $blockSize) - $labelMargin['b'], $qrCodeOriginalHeight + 4);
 
         switch ($labelAlignment) {
             case LabelInterface::ALIGN_LEFT:

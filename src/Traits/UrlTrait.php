@@ -27,8 +27,6 @@ trait UrlTrait
      */
     public function setUrl(string $value)
     {
-        $error = null;
-
         if (!filter_var($value, FILTER_VALIDATE_URL)) {
             throw new InvalidConfigException('Url seems invalid.');
         }
