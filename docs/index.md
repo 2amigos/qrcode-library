@@ -66,14 +66,25 @@ echo '<img src="' . $qrCode->writeDataUri() . '">';
 ?>
 ```
 
+You can set the foreground color, defining RGBA values, where the alpha is optional.
+
+```PHP
+$qrCode = (new QrCode('This is my text'))
+    ->setForeground(0, 0, 0);
+
+// or, setting alpha too
+$qrCode = (new QrCode('This is my text'))
+    ->setForeground(0, 0, 0, 50);
+```
+
 In order to ease the task to write different formats into a QrCode, the library comes with a set of classes. These are: 
 
 -  [BookmarkFormat](formats/bookmark.md)
 -  [BtcFormat](formats/bitcoin.md) 
 -  [GeoFormat](formats/geo.md)
 -  [ICalFormat](formats/ical.md)
--  [MailMessageFormat](formats/geo.md)
--  [MailToFormat](formats/bookmark.md) 
+-  [MailMessageFormat](formats/mail-message.md)
+-  [MailToFormat](formats/mail-to.md) 
 -  [MeCardFormat](formats/me-card.md)
 -  [MmsFormat](formats/mms.md)
 -  [PhoneFormat](formats/phone.md)

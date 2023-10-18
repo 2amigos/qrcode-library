@@ -71,7 +71,12 @@ trait ImageTrait
         );
 
         if ($qrCode->getLogoPath()) {
-            $image = $this->addLogo($image, $qrCode->getLogoPath(), $qrCode->getLogoWidth());
+            $image = $this->addLogo(
+                $image,
+                $qrCode->getLogoPath(),
+                $qrCode->getLogoWidth(),
+                $qrCode->getScaleLogoHeight()
+            );
         }
 
         if ($qrCode->getLabel()) {
@@ -191,19 +196,14 @@ trait ImageTrait
      *
      * @return resource
      */
-    protected function addLogo($sourceImage, $logoPath, $logoWidth = null)
+    protected function addLogo($sourceImage, $logoPath, $logoWidth = null, $scale = false)
     {
-        $logoImage = imagecreatefromstring(file_get_contents($logoPath));
-        $logoSourceWidth = imagesx($logoImage);
-        $logoSourceHeight = imagesy($logoImage);
-
-        $logoTargetWidth = $logoWidth ?: $logoSourceWidth;
-        $logoTargetHeight = $logoSourceHeight;
-
-        if ($logoTargetWidth !== null) {
-            $scale = $logoTargetWidth / $logoSourceWidth;
-            $logoTargetHeight = intval($scale * imagesy($logoImage));
-        }
+        $logoContents = $this->transformLogo($logoPath, $logoWidth, $scale);
+        $logoImage = $logoContents->image();
+        $logoSourceWidth = $logoContents->width();
+        $logoSourceHeight = $logoContents->height();
+        $logoTargetWidth = $logoContents->targetWidth();
+        $logoTargetHeight = $logoContents->targetHeight();
 
         $logoX = imagesx($sourceImage) / 2 - $logoTargetWidth / 2;
         $logoY = imagesy($sourceImage) / 2 - $logoTargetHeight / 2;

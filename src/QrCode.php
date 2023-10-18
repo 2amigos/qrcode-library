@@ -38,7 +38,8 @@ class QrCode implements QrCodeInterface
     protected $foregroundColor = [
         'r' => 0,
         'g' => 0,
-        'b' => 0
+        'b' => 0,
+        'a' => 100,
     ];
     /**
      * @var array
@@ -46,7 +47,8 @@ class QrCode implements QrCodeInterface
     protected $backgroundColor = [
         'r' => 255,
         'g' => 255,
-        'b' => 255
+        'b' => 255,
+        'a' => 100,
     ];
     /**
      * @var string
@@ -64,6 +66,10 @@ class QrCode implements QrCodeInterface
      * @var int
      */
     protected $logoWidth;
+    /**
+     * @var bool
+     */
+    protected $scaleLogoHeight = false;
     /**
      * @var LabelInterface
      */
@@ -94,12 +100,13 @@ class QrCode implements QrCodeInterface
      *
      * @return $this
      */
-    public function setForegroundColor(int $red, int $green, int $blue): self
+    public function setForegroundColor(int $red, int $green, int $blue, int $alpha = 100): self
     {
         $this->foregroundColor = [
             'r' => $red,
             'g' => $green,
             'b' => $blue,
+            'a' => $alpha,
         ];
 
         return $this;
@@ -118,6 +125,7 @@ class QrCode implements QrCodeInterface
             'r' => $red,
             'g' => $green,
             'b' => $blue,
+            'a' => 100,
         ];
 
         return $this;
@@ -162,6 +170,14 @@ class QrCode implements QrCodeInterface
         $this->writer = $writer;
 
         return $this;
+    }
+
+    /**
+     * @return WriterInterface
+     */
+    public function getWriter(): WriterInterface
+    {
+        return $this->writer;
     }
 
     /**
@@ -220,6 +236,17 @@ class QrCode implements QrCodeInterface
     public function setLogoWidth(int $width): self
     {
         $this->logoWidth = $width;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $scale
+     * @return $this
+     */
+    public function setScaleLogoHeight(bool $scale): self
+    {
+        $this->scaleLogoHeight = $scale;
 
         return $this;
     }
@@ -350,5 +377,13 @@ class QrCode implements QrCodeInterface
     public function writeFile(string $path)
     {
         return $this->writer->writeFile($this, $path);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getScaleLogoHeight(): bool
+    {
+        return $this->scaleLogoHeight;
     }
 }

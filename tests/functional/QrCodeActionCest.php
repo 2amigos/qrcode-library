@@ -10,6 +10,7 @@ class QrCodeActionCest
         $I->amGoingTo('Call the configured action "qr" and should receive the "png" image.');
         $I->amOnRoute('/site/qr');
         $source = $I->grabPageSource();
+
         $I->openFile(codecept_data_dir('data-action.png'));
         $I->seeInThisFile($source);
     }

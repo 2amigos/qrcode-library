@@ -35,5 +35,16 @@ $qrCode->writeFile(__DIR__ . '/codes/my-code.png');
 
 ```
 
+By default, the logo image height will be transformed to fit the image width,
+keeping a square shaped pattern. You can choose to scale the height 
+instead:
+
+```PHP
+$qrCode = (new QrCode('https://2am.tech'))
+    ->setLogo(__DIR__ . '/data/logo.png')
+    ->setLogoWidth(48)
+    ->setScaleLogoHeight(false);
+```
+
 
 © [2amigos](https://2am.tech/) 2013-2023

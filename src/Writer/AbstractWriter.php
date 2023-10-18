@@ -12,11 +12,13 @@
 namespace Da\QrCode\Writer;
 
 use BaconQrCode\Common\ErrorCorrectionLevel;
+use BaconQrCode\Renderer\Color\Alpha;
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\Image\ImageBackEndInterface;
 use BaconQrCode\Renderer\RendererStyle\Fill;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Contracts\WriterInterface;
+use Da\QrCode\Dto\LogoDto;
 use ReflectionClass;
 use ReflectionException;
 
@@ -45,10 +47,11 @@ abstract class AbstractWriter implements WriterInterface
     {
         $background = $qrCode->getBackgroundColor();
         $foreground = $qrCode->getForegroundColor();
+        $isAlphaColor = ! $qrCode->getWriter() instanceof EpsWriter;
 
         return Fill::uniformColor(
-            $this->convertColor($background),
-            $this->convertColor($foreground),
+            $this->convertColor($background, $isAlphaColor),
+            $this->convertColor($foreground, $isAlphaColor),
         );
     }
 
@@ -80,11 +83,17 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * @param array $color
      *
-     * @return Rgb
+     * @return Alpha|Rgb
      */
-    protected function convertColor(array $color): Rgb
+    protected function convertColor(array $color, bool $isAlphaColor = true)
     {
-        return new Rgb($color['r'], $color['g'], $color['b']);
+        $baseColor = new Rgb($color['r'], $color['g'], $color['b']);
+
+        if ($isAlphaColor) {
+            return new Alpha($color['a'], $baseColor);
+        }
+
+        return $baseColor;
     }
 
     /**
@@ -98,5 +107,28 @@ abstract class AbstractWriter implements WriterInterface
         $errorCorrectionLevel = ErrorCorrectionLevel::$name();
 
         return $errorCorrectionLevel;
+    }
+
+    /**
+     * @param string $logoPath
+     * @param int $logoWidth
+     * @param bool $scale
+     * @return LogoDto
+     */
+    protected function transformLogo($logoPath, $logoWidth = null, $scale = false)
+    {
+        $logoImage = imagecreatefromstring(file_get_contents($logoPath));
+        $logoSourceWidth = imagesx($logoImage);
+        $logoSourceHeight = imagesy($logoImage);
+
+        $logoTargetWidth = $logoWidth ?: $logoSourceWidth;
+        $logoTargetHeight = $logoWidth ?: $logoSourceHeight;
+
+        if ($logoTargetWidth !== null && $scale) {
+            $scale = $logoTargetWidth / $logoSourceWidth;
+            $logoTargetHeight = intval($scale * imagesy($logoImage));
+        }
+
+        return LogoDto::create($logoImage, $logoSourceWidth, $logoSourceHeight, $logoTargetWidth, $logoTargetHeight);
     }
 }

@@ -12,6 +12,7 @@
 namespace Da\QrCode\Action;
 
 use Da\QrCode\Component\QrCodeComponent;
+use Da\QrCode\Label;
 use Yii;
 use yii\base\Action;
 use yii\web\Response;
@@ -31,6 +32,28 @@ class QrCodeAction extends Action
      * @var string whether the URL parameter is passed via GET or POST. Defaults to 'get'.
      */
     public $method = 'get';
+
+    /**
+     * @var string|Label|null
+     */
+    public $label = null;
+
+    /**
+     * @var array|null
+     * 'r' => 0 //RED
+     * 'g' => 0 //GREEN
+     * 'B' => 0 //BLUE
+     */
+    public $background = null;
+
+    /**
+     * @var array|null
+     * 'r' => 0 //RED
+     * 'g' => 0 //GREEN
+     * 'B' => 0 //BLUE
+     * 'a  => 100 //ALPHA
+     */
+    public $foreground = null;
     /**
      * @var string the qr component name configured on the Yii2 app. The component should have configured all the
      *             possible options like adding a logo, styling, labelling, etc.
@@ -49,6 +72,26 @@ class QrCodeAction extends Action
             Yii::$app->response->format = Response::FORMAT_RAW;
             Yii::$app->response->headers->add('Content-Type', $qrCode->getContentType());
 
+            if ($this->label) {
+                $qrCode->setLabel($this->label);
+            }
+
+            if (is_array($this->background)) {
+                $qrCode->setBackgroundColor(
+                    $this->background['r'],
+                    $this->background['g'],
+                    $this->background['b'],
+                );
+            }
+
+            if (is_array($this->foreground)) {
+                $qrCode->setForegroundColor(
+                    $this->foreground['r'],
+                    $this->foreground['g'],
+                    $this->foreground['b'],
+                    ! empty($this->foreground['a']) ? $this->foreground['a'] : 100,
+                );
+            }
             return $qrCode->setText((string)$text)->writeString();
         }
     }
