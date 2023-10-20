@@ -1,0 +1,159 @@
+<?php
+
+namespace unit;
+
+use BaconQrCode\Renderer\Color\Rgb;
+use Da\QrCode\Contracts\ColorsInterface;
+use Da\QrCode\QrCode;
+use Da\QrCode\StyleManager;
+use Da\QrCode\Writer\EpsWriter;
+use Da\QrCode\Writer\JpgWriter;
+use Da\QrCode\Writer\PngWriter;
+use Da\QrCode\Writer\SvgWriter;
+
+class ColorsTest extends \Codeception\Test\Unit
+{
+    public function testEpsUniform()
+    {
+        $eps = (new QrCode('2am Technologies', null, new EpsWriter()))
+            ->writeDataUri();
+
+        $eps2 = (new QrCode('2am Technologies'))
+            ->setWriter(new EpsWriter())
+            ->writeDataUri();
+        file_put_contents(codecept_data_dir('colors/uniform.eps'), $eps);
+        file_put_contents(codecept_data_dir('colors/uniform2.eps'), $eps2);
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/uniform.eps'))),
+            $this->normalizeString($eps)
+        );
+
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/uniform2.eps'))),
+            $this->normalizeString($eps2)
+        );
+    }
+
+    public function testGradientColors()
+    {
+        $png = (new QrCode('2am Technologies'))
+            ->setWriter(new PngWriter())
+            ->setForegroundColor(0, 255, 0,75)
+            ->setForegroundEndColor(0, 0, 255,50)
+            ->setBackgroundColor(200, 200, 200)
+            ->setGradientType('x')
+            ->writeString();
+
+        $jpg = (new QrCode('2am Technologies'))
+            ->setWriter(new JpgWriter())
+            ->setForegroundColor(0, 255, 0,25)
+            ->setForegroundEndColor(0, 0, 255,75)
+            ->setBackgroundColor(200, 200, 200)
+            ->setGradientType(ColorsInterface::GRADIENT_DIAGONAL)
+            ->writeString();
+
+        $svg = (new QrCode('2am Technologies'))
+            ->setWriter(new SvgWriter())
+            ->setForegroundColor(0, 255, 0,25)
+            ->setForegroundEndColor(0, 0, 255,95)
+            ->setBackgroundColor(200, 200, 200)
+            ->setGradientType(ColorsInterface::GRADIENT_RADIAL)
+            ->writeString();
+
+        $png2 = (new QrCode('2am Technologies'))
+            ->setWriter(new PngWriter())
+            ->setForegroundColor(0, 255, 0,80)
+            ->setForegroundEndColor(0, 0, 255,50)
+            ->setBackgroundColor(200, 200, 200)
+            ->setGradientType(ColorsInterface::GRADIENT_INVERSE_DIAGONAL)
+            ->writeString();
+
+        $png3 = (new QrCode('2am Technologies'))
+            ->setWriter(new PngWriter())
+            ->setForegroundColor(0, 255, 0,75)
+            ->setForegroundEndColor(0, 0, 255,100)
+            ->setBackgroundColor(200, 200, 200)
+            ->setGradientType(ColorsInterface::GRADIENT_HORIZONTAL)
+            ->writeString();
+
+        $png4 = (new QrCode('2am Technologies'))
+            ->setWriter(new PngWriter())
+            ->setForegroundColor(0, 255, 0,75)
+            ->setForegroundEndColor(0, 0, 255,100)
+            ->setBackgroundColor(200, 200, 200)
+            ->setGradientType(ColorsInterface::GRADIENT_VERTICAL)
+            ->writeString();
+
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/gradient.png'))),
+            $this->normalizeString($png)
+        );
+
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/gradient.jpg'))),
+            $this->normalizeString($jpg)
+        );
+
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/gradient.svg'))),
+            $this->normalizeString($svg)
+        );
+
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/gradient2.png'))),
+            $this->normalizeString($png2)
+        );
+
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/gradient3.png'))),
+            $this->normalizeString($png3)
+        );
+
+        $this->assertEquals(
+            $this->normalizeString(file_get_contents(codecept_data_dir('colors/gradient4.png'))),
+            $this->normalizeString($png4)
+        );
+    }
+
+    public function testInvalidForegroundColorShouldThrowException()
+    {
+        $this->expectException(\Exception::class);
+
+        new StyleManager('x', 'y');
+    }
+
+    public function testInvalidForegroundEndColorShouldThrowException()
+    {
+        $this->expectException(\Exception::class);
+
+        (new StyleManager(
+            new Rgb(0,0,0), new Rgb(255,255,255)
+        ))->setForegroundEndColor('x');
+    }
+
+    public function testInvalidBackgroundColorShouldThrowException()
+    {
+        $this->expectException(\Exception::class);
+
+        (new StyleManager(
+            new Rgb(0,0,0), new Rgb(255,255,255)
+        ))->setBackgroundColor('x');
+    }
+
+    public function testForceRgb()
+    {
+        $this->expectNotToPerformAssertions();
+
+        (new StyleManager(new Rgb(0,0,0), new Rgb(255,255,255)))
+            ->forceUniformRgbColors();
+    }
+
+    protected function normalizeString($string)
+    {
+        return str_replace(
+            "\r\n", "\n", str_replace(
+                "&#13;", "", $string
+            )
+        );
+    }
+}

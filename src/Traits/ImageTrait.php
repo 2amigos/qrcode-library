@@ -11,8 +11,6 @@
 
 namespace Da\QrCode\Traits;
 
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
-use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
@@ -45,14 +43,7 @@ trait ImageTrait
      */
     public function writeString(QrCodeInterface $qrCode): string
     {
-        $fill = $this->buildQrCodeFillColor($qrCode);
-
-        $rendererStyle = new RendererStyle($qrCode->getSize(), 0, null, null, $fill);
-
-        $renderer = new ImageRenderer(
-            $rendererStyle,
-            $this->renderBackEnd
-        );
+        $renderer = $this->buildRenderer($qrCode);
 
         $writer = new Writer($renderer);
         $string = $writer->writeString(
@@ -75,7 +66,7 @@ trait ImageTrait
                 $image,
                 $qrCode->getLogoPath(),
                 $qrCode->getLogoWidth(),
-                $qrCode->getScaleLogoHeight()
+                $qrCode->isScaleLogoHeight()
             );
         }
 

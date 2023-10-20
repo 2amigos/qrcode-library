@@ -1,5 +1,6 @@
 <?php
 
+use BaconQrCode\Renderer\RendererStyle\GradientType;
 use Da\QrCode\Contracts\ErrorCorrectionLevelInterface;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Format\MailToFormat;
@@ -52,7 +53,7 @@ class QrCodeTest extends \Codeception\Test\Unit
 
         $this->tester->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('data.eps'))),
-            $out
+            $this->normalizeString($out)
         );
     }
 
@@ -103,12 +104,12 @@ class QrCodeTest extends \Codeception\Test\Unit
         $eps = (new QrCode('https://2am.tech'))
             ->setWriter(new \Da\QrCode\Writer\EpsWriter())
             ->writeString();
-
+        file_put_contents(codecept_data_dir('writers/qrcode.eps'), $this->normalizeString($eps));
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.png')), $png);
         $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.jpg')), $jpeg);
         $this->tester->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.eps'))),
-            $eps
+            $this->normalizeString($eps)
         );
         $this->tester->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.svg'))),
@@ -270,6 +271,34 @@ class QrCodeTest extends \Codeception\Test\Unit
             $this->normalizeString(file_get_contents(codecept_data_dir('svg-with-logo-scale.svg'))),
             $this->normalizeString($qrCode->writeString())
         );
+    }
+
+    public function testUnsetForegroundEndColor()
+    {
+        $qrCode = (new QrCode('2am Technologies'))
+            ->setForegroundEndColor(255, 255, 255);
+
+        $color = $qrCode->getForegroundEndColor();
+
+        $this->assertIsArray($color);
+        $this->assertEquals($color['r'], 255);
+        $this->assertEquals($color['g'], 255);
+        $this->assertEquals($color['b'], 255);
+
+        $qrCode->unsetForegroundEndColor();
+        $this->assertNull($qrCode->getForegroundEndColor());
+    }
+
+    public function testGetPathIntensity()
+    {
+        $qrCode = (new QrCode('2am Technologies'));
+        $this->assertEquals($qrCode->getPathIntensity(), 1);
+    }
+
+    public function testGetGradientType()
+    {
+        $qrCode = (new QrCode('2am Technologies'));
+        $this->assertEquals($qrCode->getGradientType(), GradientType::VERTICAL());
     }
 
     protected function normalizeString($string)

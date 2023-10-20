@@ -12,10 +12,9 @@
 namespace Da\QrCode\Writer;
 
 use BaconQrCode\Common\ErrorCorrectionLevel;
-use BaconQrCode\Renderer\Color\Alpha;
-use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\Image\ImageBackEndInterface;
-use BaconQrCode\Renderer\RendererStyle\Fill;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Contracts\WriterInterface;
 use Da\QrCode\Dto\LogoDto;
@@ -37,22 +36,6 @@ abstract class AbstractWriter implements WriterInterface
     protected function __construct(ImageBackEndInterface $renderBackEnd)
     {
         $this->renderBackEnd = $renderBackEnd;
-    }
-
-    /**
-     * @param QrCodeInterface $qrCode
-     * @return Fill
-     */
-    protected function buildQrCodeFillColor(QrCodeInterface $qrCode): Fill
-    {
-        $background = $qrCode->getBackgroundColor();
-        $foreground = $qrCode->getForegroundColor();
-        $isAlphaColor = ! $qrCode->getWriter() instanceof EpsWriter;
-
-        return Fill::uniformColor(
-            $this->convertColor($background, $isAlphaColor),
-            $this->convertColor($foreground, $isAlphaColor),
-        );
     }
 
     /**
@@ -78,22 +61,6 @@ abstract class AbstractWriter implements WriterInterface
     public function getName(): string
     {
         return strtolower(str_replace('Writer', '', (new ReflectionClass($this))->getShortName()));
-    }
-
-    /**
-     * @param array $color
-     *
-     * @return Alpha|Rgb
-     */
-    protected function convertColor(array $color, bool $isAlphaColor = true)
-    {
-        $baseColor = new Rgb($color['r'], $color['g'], $color['b']);
-
-        if ($isAlphaColor) {
-            return new Alpha($color['a'], $baseColor);
-        }
-
-        return $baseColor;
     }
 
     /**
@@ -130,5 +97,36 @@ abstract class AbstractWriter implements WriterInterface
         }
 
         return LogoDto::create($logoImage, $logoSourceWidth, $logoSourceHeight, $logoTargetWidth, $logoTargetHeight);
+    }
+
+    /**
+     * @param QrCodeInterface $qrCode
+     * @return RendererStyle
+     */
+    protected function getRendererStyle(QrCodeInterface $qrCode)
+    {
+        $margin = $qrCode->getWriter() instanceof EpsWriter
+            ? $qrCode->getMargin()
+            : 0;
+
+        return new RendererStyle(
+            $qrCode->getSize(),
+            $margin,
+            $qrCode->getStyleManager()->buildModule(),
+            $qrCode->getStyleManager()->buildEye(),
+            $qrCode->getStyleManager()->buildFillColor()
+        );
+    }
+
+    /**
+     * @param QrCodeInterface $qrCode
+     * @return ImageRenderer
+     */
+    protected function buildRenderer(QrCodeInterface $qrCode)
+    {
+        return new ImageRenderer(
+            $this->getRendererStyle($qrCode),
+            $this->renderBackEnd
+        );
     }
 }

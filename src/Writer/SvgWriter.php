@@ -14,7 +14,6 @@ namespace Da\QrCode\Writer;
 use BaconQrCode\Encoder\Encoder;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
@@ -37,14 +36,7 @@ class SvgWriter extends AbstractWriter
      */
     public function writeString(QrCodeInterface $qrCode): string
     {
-        $fill = $this->buildQrCodeFillColor($qrCode);
-
-        $rendererStyle = new RendererStyle($qrCode->getSize(), 0, null, null, $fill);
-
-        $renderer = new ImageRenderer(
-            $rendererStyle,
-            $this->renderBackEnd
-        );
+        $renderer = $this->buildRenderer($qrCode);
 
         $writer = new Writer($renderer);
 
@@ -64,7 +56,7 @@ class SvgWriter extends AbstractWriter
                 $qrCode,
                 $qrCode->getLogoPath(),
                 $qrCode->getLogoWidth(),
-                $qrCode->getScaleLogoHeight()
+                $qrCode->isScaleLogoHeight()
             );
         }
 
