@@ -39,6 +39,11 @@ interface QrCodeInterface
     public function getBackgroundColor(): array;
 
     /**
+     * @return array|null
+     */
+    public function getForegroundEndColor();
+
+    /**
      * @return string
      */
     public function getEncoding(): string;
@@ -60,8 +65,9 @@ interface QrCodeInterface
 
     /**
      * @var
+     * @return bool
      */
-    public function getScaleLogoHeight(): bool;
+    public function isScaleLogoHeight(): bool;
 
     /**
      * @return LabelInterface
