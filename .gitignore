@@ -1,6 +1,6 @@
 # yii console command
 /yii
-
+/laravel
 # phpstorm project files
 .idea
 

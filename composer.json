@@ -36,7 +36,8 @@
         "ext-gd": "*",
         "ext-simplexml": "*",
         "bacon/bacon-qr-code": "^2.0",
-        "khanamiryan/qrcode-detector-decoder": "^1.0"
+        "khanamiryan/qrcode-detector-decoder": "^1.0",
+        "illuminate/support": "^10.29"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
@@ -60,6 +61,11 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Da\\Providers\\QrCodeServiceProvider"
+            ]
         }
     },
     "config": {

@@ -1,3 +1,1 @@
-<div>
-    QR Code
-</div>
+<img src="{{$buildQrCodeUri}}" {!! $attributes !!}/>
