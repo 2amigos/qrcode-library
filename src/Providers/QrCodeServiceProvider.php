@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace Da\QrCode\Providers;
-require_once '../../vendor/autoload.php';
+
 use Da\QrCode\Component\QrCodeBladeComponent;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
