@@ -21,8 +21,7 @@ class ColorsTest extends \Codeception\Test\Unit
         $eps2 = (new QrCode('2am Technologies'))
             ->setWriter(new EpsWriter())
             ->writeDataUri();
-        file_put_contents(codecept_data_dir('colors/uniform.eps'), $eps);
-        file_put_contents(codecept_data_dir('colors/uniform2.eps'), $eps2);
+
         $this->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('colors/uniform.eps'))),
             $this->normalizeString($eps)
