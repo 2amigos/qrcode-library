@@ -218,9 +218,9 @@ class LaravelQrCodeFactory
         if (! is_null($label)) {
             $qrCode->setLabel(new Label(
                 $label,
-                $fontPath,
-                $size,
-                $alignment
+                $fontPath ?? config('2am-qrcode.label.fontPath'),
+                $size ?? config('2am-qrcode.label.size'),
+                $alignment ?? config('2am-qrcode.label.align')
             ));
         }
     }

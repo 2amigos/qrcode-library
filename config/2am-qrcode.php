@@ -91,4 +91,17 @@ return [
         'b' => 0,
         'a' => 100,
     ],
+
+    /*
+     * ------------------------------------------------------------------------
+     * QR Code Label Style
+     *
+     * Defines the default style for the QR Code label style
+     * ------------------------------------------------------------------------
+     */
+    'label' => [
+        'fontPath' => null,
+        'size' => 16,
+        'align' => \Da\QrCode\Enums\Label::AlignCenter,
+    ]
 ];
