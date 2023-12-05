@@ -5,13 +5,15 @@ namespace Da\QrCode\Factory;
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Enums\Format;
 use Da\QrCode\Format\AbstractFormat;
+use Da\QrCode\Label;
 use Da\QrCode\QrCode;
 use Exception;
 
 class LaravelQrCodeFactory
 {
     private function __construct()
-    {}
+    {
+    }
 
     /**
      * @param $content
@@ -27,6 +29,7 @@ class LaravelQrCodeFactory
      * @param string|null $logoSize
      * @param bool|null $scaleLogoHeight
      * @param string|null $gradientType
+     * @param string|null $label
      * @return QrCode
      */
     public static function make(
@@ -42,8 +45,12 @@ class LaravelQrCodeFactory
         ?string $logoPath = null,
         ?string $logoSize = null,
         ?bool $scaleLogoHeight = null,
-        ?string $gradientType = null
-    )
+        ?string $gradientType = null,
+        ?string $label = null,
+        ?string $fontPath = null,
+        ?int $fontSize = null,
+        ?string $alignment = null
+    ): QrCodeInterface
     {
         $qrCode = self::buildQrCode($content, $format);
 
@@ -54,6 +61,7 @@ class LaravelQrCodeFactory
         self::applyMargin($qrCode, $margin);
         self::applySize($qrCode, $size);
         self::applyLogo($qrCode, $logoPath, $logoSize, $scaleLogoHeight);
+        self::applyLabel($qrCode, $label, $fontPath, $fontSize, $alignment);
 
         return $qrCode;
     }
@@ -63,7 +71,7 @@ class LaravelQrCodeFactory
      * @param array|null $foreground
      * @return void
      */
-    protected static function applyForeground(QrCodeInterface $qrCode, ?array $foreground)
+    protected static function applyForeground(QrCodeInterface $qrCode, ?array $foreground): void
     {
         $foreground = $foreground ?: config('2am-qrcode.foreground');
 
@@ -81,7 +89,7 @@ class LaravelQrCodeFactory
      * @param string|null $gradientType
      * @return void
      */
-    protected static function applyForeground2(QrCodeInterface $qrCode, ?array $foreground2, ?string $gradientType)
+    protected static function applyForeground2(QrCodeInterface $qrCode, ?array $foreground2, ?string $gradientType): void
     {
         if (is_null($foreground2)) {
             return;
@@ -94,7 +102,7 @@ class LaravelQrCodeFactory
             isset($foreground2['a']) ? $foreground2['a'] : 100,
         );
 
-        if (is_null ($gradientType)) {
+        if (is_null($gradientType)) {
             return;
         }
 
@@ -106,7 +114,7 @@ class LaravelQrCodeFactory
      * @param array|null $background
      * @return void
      */
-    protected static function applyBackground(QrCodeInterface $qrCode, ?array $background)
+    protected static function applyBackground(QrCodeInterface $qrCode, ?array $background): void
     {
         $background = $background ?: config('2am-qrcode.background');
 
@@ -123,13 +131,13 @@ class LaravelQrCodeFactory
      * @param float|null $intensity
      * @return void
      */
-    protected static function applyPathStyle(QrCodeInterface $qrCode, ?string $style, ?float $intensity)
+    protected static function applyPathStyle(QrCodeInterface $qrCode, ?string $style, ?float $intensity): void
     {
-        if (! is_null($style)) {
+        if (!is_null($style)) {
             $qrCode->setPathStyle($style);
         }
 
-        if (! is_null($intensity)) {
+        if (!is_null($intensity)) {
             $qrCode->setPathIntensity($intensity);
         }
     }
@@ -139,7 +147,7 @@ class LaravelQrCodeFactory
      * @param int|null $margin
      * @return void
      */
-    protected static function applyMargin(QrCodeInterface $qrCode, ?int $margin)
+    protected static function applyMargin(QrCodeInterface $qrCode, ?int $margin): void
     {
         $margin = $margin ?: config('2am-qrcode.margin');
 
@@ -151,7 +159,7 @@ class LaravelQrCodeFactory
      * @param int|null $size
      * @return void
      */
-    protected static function applySize(QrCodeInterface $qrCode, ?int $size)
+    protected static function applySize(QrCodeInterface $qrCode, ?int $size): void
     {
         $size = $size ?: config('2am-qrcode.size');
 
@@ -166,11 +174,11 @@ class LaravelQrCodeFactory
      * @return void
      * @throws \Da\QrCode\Exception\InvalidPathException
      */
-    protected static function applyLogo(QrCodeInterface $qrCode, ?string $logoPath, ?int $logoSize, ?bool $scale)
+    protected static function applyLogo(QrCodeInterface $qrCode, ?string $logoPath, ?int $logoSize, ?bool $scale): void
     {
         $logoPath = $logoPath ?: config('2am-qrcode.logoPath');
         $logoSize = $logoSize ?: config('2am-qrcode.logoSize');
-        $scale    = $scale ?: config('2am-qrcode.scaleLogoHeight');
+        $scale = $scale ?: config('2am-qrcode.scaleLogoHeight');
 
         if (is_null($logoPath)) {
             return;
@@ -178,8 +186,8 @@ class LaravelQrCodeFactory
 
         $qrCode->setLogo($logoPath);
 
-        if (! is_null($logoSize) && is_numeric($logoSize)) {
-            $qrCode->setLogoWidth((int) $logoSize);
+        if (!is_null($logoSize) && is_numeric($logoSize)) {
+            $qrCode->setLogoWidth((int)$logoSize);
         }
 
         if ($scale) {
@@ -192,7 +200,7 @@ class LaravelQrCodeFactory
      * @param string|null $format
      * @return QrCode
      */
-    protected static function buildQrCode($content, ?string $format)
+    protected static function buildQrCode($content, ?string $format): QrCodeInterface
     {
         if (is_null($format) || $format === Format::Text) {
             return is_array($content)
@@ -205,13 +213,25 @@ class LaravelQrCodeFactory
         return new QrCode($qrCodeFormat->getText());
     }
 
+    protected static function applyLabel(QrCodeInterface $qrCode, ?string $label = null, ?string $fontPath = null, ?int $size = null, ?string $alignment = null): void
+    {
+        if (! is_null($label)) {
+            $qrCode->setLabel(new Label(
+                $label,
+                $fontPath,
+                $size,
+                $alignment
+            ));
+        }
+    }
+
     /**
      * @param string|array $content
      * @param string|null $format
      * @return void
      * @throws Exception
      */
-    protected static function validate($content, ?string $format)
+    protected static function validate($content, ?string $format): void
     {
         if (! is_array($content) && ! is_string($content)) {
             throw new Exception('Invalid content. It should be String or Array, ' . gettype($content) . ' given');

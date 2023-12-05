@@ -30,6 +30,6 @@ class QrCodeServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../../config/2am-qrcode.php', '2am-qrcode');
 
         /** Declares package's components */
-        Blade::component('qr-code', QrCodeBladeComponent::class, config('2am-qrcode.prefix'));
+        Blade::component('qrcode', QrCodeBladeComponent::class, config('2am-qrcode.prefix'));
     }
 }

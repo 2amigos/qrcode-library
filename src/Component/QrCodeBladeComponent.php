@@ -63,6 +63,26 @@ class QrCodeBladeComponent extends Component
     public $gradientType = null;
 
     /**
+     * @var string|null
+     */
+    public $label = null;
+
+    /**
+     * @var string|null
+     */
+    public $fontPath = null;
+
+    /**
+     * @var int|null
+     */
+    public $fontSize = null;
+
+    /**
+     * @var string|null
+     */
+    public $alignment = null;
+
+    /**
      * @param string|array $content
      * @param string|null $format
      * @param array|null $foreground
@@ -70,6 +90,8 @@ class QrCodeBladeComponent extends Component
      * @param string|null $pathStyle
      * @param float|null $intensity
      * @param array|null $foreground2
+     * @param string|null $label
+     * @param string|null $font
      */
     public function __construct(
         $content,
@@ -84,7 +106,11 @@ class QrCodeBladeComponent extends Component
         ?string $logoPath = null,
         ?string $logoSize = null,
         ?bool $scaleLogoHeight = null,
-        ?string $gradientType = null
+        ?string $gradientType = null,
+        ?string $label = null,
+        ?string $font = null,
+        ?int $fontSize = null,
+        ?string $fontAlign = null
     ){
         $this->content = $content;
         $this->format = $format;
@@ -99,6 +125,10 @@ class QrCodeBladeComponent extends Component
         $this->logoSize = $logoSize;
         $this->scaleLogoHeight = $scaleLogoHeight;
         $this->gradientType = $gradientType;
+        $this->label = $label;
+        $this->fontPath = $font;
+        $this->fontSize = $fontSize;
+        $this->alignment = $fontAlign;
     }
 
     /**
@@ -120,7 +150,11 @@ class QrCodeBladeComponent extends Component
             $this->logoPath,
             $this->logoSize,
             $this->scaleLogoHeight,
-            $this->gradientType
+            $this->gradientType,
+            $this->label,
+            $this->fontPath,
+            $this->fontSize,
+            $this->alignment
         );
 
         return $qrCode->writeDataUri();

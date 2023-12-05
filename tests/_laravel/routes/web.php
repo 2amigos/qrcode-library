@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::name('app.')->prefix('/')->group(function () {
+    Route::name('blade')->get('/', function () {
+        return view('blade-components');
+    });
 });
