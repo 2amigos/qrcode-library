@@ -18,6 +18,9 @@ jobs:
       - name: Install dependencies
         run: composer install
 
+      - name: Install laravel dependencies (testings purpose)
+        run: (cd ./tests/_laravel && composer install)
+
       - name: Run unit tests
         run: ./vendor/bin/codecept run --coverage --coverage-xml ./coverage.xml
 

@@ -17,6 +17,9 @@ modules:
         Yii2:
             configFile: 'tests/_app/config/test.php'
             cleanup: false
+        Laravel:
+            root: 'tests/_laravel/'
+            cleanup: false
 coverage:
     enabled: true
     whitelist:
