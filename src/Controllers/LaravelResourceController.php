@@ -12,6 +12,7 @@ final class LaravelResourceController
     {
         $data = $request->only([
             'content',
+            'label',
             'margin',
             'size',
         ]);
@@ -29,7 +30,12 @@ final class LaravelResourceController
             null,
             null,
             $data['margin'] ?? null,
-            $data['size'] ?? null
+            $data['size'] ?? null,
+            null,
+            null,
+            null,
+            null,
+            $data['label'] ?? null
         );
 
         return response($qrCode->writeString())
