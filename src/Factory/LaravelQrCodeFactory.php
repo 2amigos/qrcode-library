@@ -11,10 +11,6 @@ use Exception;
 
 class LaravelQrCodeFactory
 {
-    private function __construct()
-    {
-    }
-
     /**
      * @param $content
      * @param string|null $format
@@ -30,6 +26,7 @@ class LaravelQrCodeFactory
      * @param bool|null $scaleLogoHeight
      * @param string|null $gradientType
      * @param string|null $label
+     * @throws Exception
      * @return QrCode
      */
     public static function make(
@@ -198,10 +195,13 @@ class LaravelQrCodeFactory
     /**
      * @param string|array $content
      * @param string|null $format
+     * @throws Exception
      * @return QrCode
      */
     protected static function buildQrCode($content, ?string $format): QrCodeInterface
     {
+        self::validate($content, $format);
+
         if (is_null($format) || $format === Format::Text) {
             return is_array($content)
                 ? new QrCode($content['text'])
@@ -235,6 +235,10 @@ class LaravelQrCodeFactory
     {
         if (! is_array($content) && ! is_string($content)) {
             throw new Exception('Invalid content. It should be String or Array, ' . gettype($content) . ' given');
+        }
+
+        if (! is_null($format) && $format !== 'text' && ! class_exists($format)) {
+            throw new Exception('Invalid format. The given format class , `' . $format . '` does not exists');
         }
 
         if (! is_null($format) && $format !== 'text' && ! (new $format($content)) instanceof AbstractFormat) {

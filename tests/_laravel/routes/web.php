@@ -14,7 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('app.')->prefix('/')->group(function () {
-    Route::name('blade')->get('/', function () {
+    Route::name('blade')->get('/', function() {
         return view('blade-components');
+    });
+    Route::name('label')->get('/label', function() {
+        return view('label');
+    });
+    Route::name('logo')->get('/logo', function() {
+        return view('logo');
+    });
+    Route::name('path')->get('/path', function() {
+        return view('path');
+    });
+    Route::name('colors')->get('/colors', function() {
+        return view('colors');
+    });
+    Route::name('gradient')->get('/gradient', function() {
+        return view('gradient');
     });
 });

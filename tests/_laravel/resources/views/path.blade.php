@@ -7,6 +7,14 @@
     <body class="antialiased">
         <x-2am-qrcode
             :content="'2am. Technologies'"
+            :pathStyle="\Da\QrCode\Enums\Path::DOTS"
+            :intensity="0.9"
+        />
+
+        <x-2am-qrcode
+            :content="'2am. Technologies'"
+            :pathStyle="\Da\QrCode\Enums\Path::ROUNDED"
+            :intensity="0.9"
         />
     </body>
 </html>

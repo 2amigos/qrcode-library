@@ -102,6 +102,6 @@ return [
     'label' => [
         'fontPath' => null,
         'size' => 16,
-        'align' => \Da\QrCode\Enums\Label::AlignCenter,
+        'align' => \Da\QrCode\Enums\Label::ALIGN_CENTER,
     ]
 ];

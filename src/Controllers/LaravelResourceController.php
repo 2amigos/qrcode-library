@@ -8,6 +8,12 @@ use Exception;
 
 final class LaravelResourceController
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     * @throws Exception
+     * @throws \Da\QrCode\Exception\ValidationException
+     */
     public function __invoke(Request $request)
     {
         $data = $request->only([
@@ -17,7 +23,7 @@ final class LaravelResourceController
             'size',
         ]);
 
-        if (is_null($data['content'])) {
+        if (! isset($data['content'])) {
             throw new Exception('The param `content` is required');
         }
 

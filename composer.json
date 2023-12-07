@@ -51,7 +51,7 @@
         "yiisoft/yii2": "^2.0",
         "codeception/module-filesystem": "^1.0",
         "codeception/module-yii2": "^1.0",
-        "codeception/module-asserts": "^1.1",
+        "codeception/module-asserts": "2.0.1",
         "codeception/module-laravel": "^2.1",
         "laravel/framework": "^8.83"
     },

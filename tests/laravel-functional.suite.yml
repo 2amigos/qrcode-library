@@ -11,3 +11,4 @@ modules:
         - Filesystem
         - \Helper\Functional
         - Laravel
+        - Asserts
