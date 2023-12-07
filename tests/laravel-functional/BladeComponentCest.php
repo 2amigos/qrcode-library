@@ -71,7 +71,7 @@ class BladeComponentCest
         $I->wantTo('Blade Component: Assert simple text QR Code creation');
         $I->amOnRoute('app.blade');
 
-        $qrCode = $this->normalizeString(file_get_contents(codecept_data_dir('blade/qrcode-blade.png')));
+        $qrCode = file_get_contents(codecept_data_dir('blade/qrcode-blade.png'));
 
         $I->seeInSource(base64_encode($qrCode));
     }
@@ -80,8 +80,8 @@ class BladeComponentCest
     {
         $I->wantTo('Blade Component: Assert QR Code with Logo creation');
         $I->amOnRoute('app.logo');
-        $qrCode = $this->normalizeString(file_get_contents(codecept_data_dir('blade/qrcode-logo.png')));
-        $qrCode2 = $this->normalizeString(file_get_contents(codecept_data_dir('blade/qrcode-logo2.png')));
+        $qrCode = file_get_contents(codecept_data_dir('blade/qrcode-logo.png'));
+        $qrCode2 = file_get_contents(codecept_data_dir('blade/qrcode-logo2.png'));
         $I->seeInSource(base64_encode($qrCode));
         $I->seeInSource(base64_encode($qrCode2));
     }
@@ -90,8 +90,8 @@ class BladeComponentCest
     {
         $I->wantTo('Blade Component: Assert QR Code with Path Style creation');
         $I->amOnRoute('app.path');
-        $qrCodeDots = $this->normalizeString(file_get_contents(codecept_data_dir('blade/qrcode-dots.png')));
-        $qrCodeRounded = $this->normalizeString(file_get_contents(codecept_data_dir('blade/qrcode-rounded.png')));
+        $qrCodeDots = file_get_contents(codecept_data_dir('blade/qrcode-dots.png'));
+        $qrCodeRounded = file_get_contents(codecept_data_dir('blade/qrcode-rounded.png'));
         $I->seeInSource(base64_encode($qrCodeDots));
         $I->seeInSource(base64_encode($qrCodeRounded));
     }
@@ -100,18 +100,9 @@ class BladeComponentCest
     {
         $I->wantTo('Blade Component: Assert QR Code with Colors creation');
         $I->amOnRoute('app.colors');
-        $qrCodeBackground = $this->normalizeString(file_get_contents(codecept_data_dir('blade/qrcode-background.png')));
-        $qrCodeForeground = $this->normalizeString(file_get_contents(codecept_data_dir('blade/qrcode-foreground.png')));
+        $qrCodeBackground = file_get_contents(codecept_data_dir('blade/qrcode-background.png'));
+        $qrCodeForeground = file_get_contents(codecept_data_dir('blade/qrcode-foreground.png'));
         $I->seeInSource(base64_encode($qrCodeBackground));
         $I->seeInSource(base64_encode($qrCodeForeground));
-    }
-
-    protected function normalizeString($string)
-    {
-        return str_replace(
-            "\r\n", "\n", str_replace(
-                "&#13;", "", $string
-            )
-        );
     }
 }
