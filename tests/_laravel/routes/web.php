@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('app.')->prefix('/')->group(function () {
     Route::name('blade')->get('/', function() {
-        return view('blade-components');
+        abort(500);
+        //return view('blade-components');
     });
     Route::name('label')->get('/label', function() {
         return view('label');
