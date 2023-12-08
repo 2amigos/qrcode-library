@@ -70,10 +70,19 @@ class BladeComponentCest
     {
         $I->wantTo('Blade Component: Assert simple text QR Code creation');
         $I->amOnRoute('app.blade');
+        $source = $I->grabPageSource();
 
         $qrCode = file_get_contents(codecept_data_dir('blade/qrcode-blade.png'));
 
-        $I->seeInSource(base64_encode($qrCode));
+        $I->assertEquals(base64_encode($qrCode), $this->grabBase64($source));
+    }
+
+    protected function grabBase64(string $source)
+    {
+        $data = explode('base64,', $source)[1];
+        $data = explode('=="', $data)[0];
+
+        return $data . '==';
     }
 
     public function testQrCodeComponentWithImage(FunctionalTester $I)
