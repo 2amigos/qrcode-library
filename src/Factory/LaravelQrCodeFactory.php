@@ -47,8 +47,7 @@ class LaravelQrCodeFactory
         ?string $fontPath = null,
         ?int $fontSize = null,
         ?string $alignment = null
-    ): QrCodeInterface
-    {
+    ): QrCodeInterface {
         $qrCode = self::buildQrCode($content, $format);
 
         self::applyForeground($qrCode, $foreground);

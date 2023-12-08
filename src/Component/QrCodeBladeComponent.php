@@ -1,4 +1,6 @@
+
 <?php
+
 declare(strict_types=1);
 
 namespace Da\QrCode\Component;
@@ -83,15 +85,23 @@ class QrCodeBladeComponent extends Component
     public $alignment = null;
 
     /**
-     * @param string|array $content
+     * @param $content
      * @param string|null $format
      * @param array|null $foreground
      * @param array|null $background
      * @param string|null $pathStyle
      * @param float|null $intensity
      * @param array|null $foreground2
+     * @param int|null $margin
+     * @param int|null $size
+     * @param string|null $logoPath
+     * @param string|null $logoSize
+     * @param bool|null $scaleLogoHeight
+     * @param string|null $gradientType
      * @param string|null $label
      * @param string|null $font
+     * @param int|null $fontSize
+     * @param string|null $fontAlign
      */
     public function __construct(
         $content,
@@ -111,7 +121,7 @@ class QrCodeBladeComponent extends Component
         ?string $font = null,
         ?int $fontSize = null,
         ?string $fontAlign = null
-    ){
+    ) {
         $this->content = $content;
         $this->format = $format;
         $this->foreground = $foreground;

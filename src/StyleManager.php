@@ -190,7 +190,8 @@ class StyleManager implements PathStyleInterface, ColorsInterface
             case GradientEnum::GRADIENT_RADIAL: {
                 return GradientType::RADIAL();
             }
-            default: return GradientType::VERTICAL();
+            default:
+                return GradientType::VERTICAL();
         }
     }
 
@@ -244,8 +245,7 @@ class StyleManager implements PathStyleInterface, ColorsInterface
                     $this->getGradientTye(),
                 )
             );
-        }
-        else {
+        } else {
             return Fill::uniformColor(
                 $this->getBackgroundColor(),
                 $this->getForegroundColor()
@@ -259,9 +259,12 @@ class StyleManager implements PathStyleInterface, ColorsInterface
     public function buildModule()
     {
         switch ($this->getPathStyle()) {
-            case PathStyleInterface::DOTS: return new DotsModule($this->getIntensity());
-            case PathStyleInterface::ROUNDED: return new RoundnessModule($this->getIntensity());
-            default: return SquareModule::instance();
+            case PathStyleInterface::DOTS:
+                return new DotsModule($this->getIntensity());
+            case PathStyleInterface::ROUNDED:
+                return new RoundnessModule($this->getIntensity());
+            default:
+                return SquareModule::instance();
         }
     }
 

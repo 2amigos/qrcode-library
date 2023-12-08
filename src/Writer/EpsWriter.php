@@ -32,7 +32,8 @@ class EpsWriter extends AbstractWriter
      */
     public function writeString(QrCodeInterface $qrCode): string
     {
-        $renderer = $this->buildRenderer($qrCode);;
+        $renderer = $this->buildRenderer($qrCode);
+        ;
 
         $writer = new Writer($renderer);
 
