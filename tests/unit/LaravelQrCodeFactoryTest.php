@@ -55,7 +55,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             $foreground2
         )
         ->writeString();
-
+        file_put_contents(codecept_data_dir('blade/qrcode-gradient.png'), $qrCode);
         $uri = file_get_contents(codecept_data_dir('blade/qrcode-gradient.png'));
 
         $this->assertEquals(
@@ -79,7 +79,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             Gradient::GRADIENT_RADIAL
         )
         ->writeString();
-
+        file_put_contents(codecept_data_dir('blade/qrcode-gradient-radial.png'), $qrCodeRadial);
         $uri = file_get_contents(codecept_data_dir('blade/qrcode-gradient-radial.png'));
 
         $this->assertEquals(
