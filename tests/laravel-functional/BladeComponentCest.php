@@ -79,6 +79,8 @@ class BladeComponentCest
 
     protected function grabBase64(string $source)
     {
+        var_dump($source);
+        die;
         $data = explode('base64,', $source)[1];
         $data = explode('=="', $data)[0];
 
