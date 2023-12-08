@@ -58,7 +58,10 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
 
         $uri = file_get_contents(codecept_data_dir('blade/qrcode-gradient.png'));
 
-        $this->assertEquals($qrCode, $uri);
+        $this->assertEquals(
+            $this->normalizeString($qrCode),
+            $this->normalizeString($uri)
+        );
 
         $qrCodeRadial = LaravelQrCodeFactory::make(
             '2am. Technologies',
@@ -79,6 +82,18 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
 
         $uri = file_get_contents(codecept_data_dir('blade/qrcode-gradient-radial.png'));
 
-        $this->assertEquals($qrCodeRadial, $uri);
+        $this->assertEquals(
+            $this->normalizeString($qrCodeRadial),
+            $this->normalizeString($uri)
+        );
+    }
+
+    protected function normalizeString($string)
+    {
+        return str_replace(
+            "\r\n", "\n", str_replace(
+                "&#13;", "", $string
+            )
+        );
     }
 }

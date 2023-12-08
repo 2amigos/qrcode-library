@@ -70,10 +70,7 @@ class BladeComponentCest
     {
         $I->wantTo('Blade Component: Assert simple text QR Code creation');
         $I->amOnPage('/');
-        $source = $I->grabPageSource();
-        var_dump($source);
         $qrCode = file_get_contents(codecept_data_dir('blade/qrcode-blade.png'));
-
         $I->seeInSource(base64_encode($qrCode));
     }
 
