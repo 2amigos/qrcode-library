@@ -20,6 +20,9 @@ jobs:
 
       - name: Install laravel dependencies (testings purpose)
         run: (cd ./tests/_laravel && composer install)
+
+      - name: Create laravel env file
+        run: (cd ./tests/_laravel && cp .env.example .env)
         
       - name: Create Laravel Tests app Key
         run: (cd ./tests/_laravel && php artisan key:generate)
