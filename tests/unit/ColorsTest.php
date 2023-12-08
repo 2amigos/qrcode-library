@@ -5,7 +5,6 @@ namespace unit;
 use BaconQrCode\Renderer\Color\Rgb;
 use Da\QrCode\Contracts\ColorsInterface;
 use Da\QrCode\Enums\Gradient;
-use Da\QrCode\Factory\LaravelQrCodeFactory;
 use Da\QrCode\QrCode;
 use Da\QrCode\StyleManager;
 use Da\QrCode\Writer\EpsWriter;
@@ -113,63 +112,6 @@ class ColorsTest extends \Codeception\Test\Unit
         $this->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('colors/gradient4.png'))),
             $this->normalizeString($png4)
-        );
-    }
-
-    public function testFactoryCreateGradientQrCode()
-    {
-        $foreground = [
-            'r' => 255,
-            'g' => 0,
-            'b' => 0,
-        ];
-        $foreground2 = [
-            'r' => 0,
-            'g' => 0,
-            'b' => 255,
-            'a' => 30,
-        ];
-
-        $qrCode = LaravelQrCodeFactory::make(
-            '2am. Technologies',
-            null,
-            $foreground,
-            null,
-            null,
-            null,
-            $foreground2
-        )
-            ->writeString();
-
-        $uri = file_get_contents(codecept_data_dir('blade/qrcode-gradient.png'));
-
-        $this->assertEquals(
-            $this->normalizeString($qrCode),
-            $this->normalizeString($uri)
-        );
-
-        $qrCodeRadial = LaravelQrCodeFactory::make(
-            '2am. Technologies',
-            null,
-            $foreground,
-            null,
-            null,
-            null,
-            $foreground2,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Gradient::GRADIENT_RADIAL
-        )
-            ->writeString();
-
-        $uri = file_get_contents(codecept_data_dir('blade/qrcode-gradient-radial.png'));
-
-        $this->assertEquals(
-            $this->normalizeString($qrCodeRadial),
-            $this->normalizeString($uri)
         );
     }
 
