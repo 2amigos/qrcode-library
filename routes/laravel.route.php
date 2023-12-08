@@ -1,5 +1,5 @@
-
 <?php
+
 use Illuminate\Support\Facades\Route;
 use Da\QrCode\Controllers\LaravelResourceController;
 
