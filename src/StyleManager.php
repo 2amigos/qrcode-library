@@ -53,8 +53,13 @@ class StyleManager implements PathStyleInterface, ColorsInterface
      * @param string|null $gradientType
      * @throws Exception
      */
-    public function __construct($foregroundColor, $backgroundColor, string $pathStyle = null, float $styleIntensity = null, $gradientType = null)
-    {
+    public function __construct(
+        $foregroundColor,
+        $backgroundColor,
+        string $pathStyle = null,
+        float $styleIntensity = null,
+        $gradientType = null
+    ) {
         $this->setForegroundColor($foregroundColor);
         $this->setBackgroundColor($backgroundColor);
 
@@ -238,12 +243,12 @@ class StyleManager implements PathStyleInterface, ColorsInterface
                     $this->getGradientTye(),
                 )
             );
-        } else {
-            return Fill::uniformColor(
-                $this->getBackgroundColor(),
-                $this->getForegroundColor()
-            );
         }
+
+        return Fill::uniformColor(
+            $this->getBackgroundColor(),
+            $this->getForegroundColor()
+        );
     }
 
     /**

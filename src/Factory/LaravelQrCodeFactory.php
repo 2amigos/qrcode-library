@@ -85,11 +85,8 @@ class LaravelQrCodeFactory
      * @param string|null $gradientType
      * @return void
      */
-    protected static function applyForeground2(
-        QrCodeInterface $qrCode,
-        ?array $foreground2,
-        ?string $gradientType
-    ): void
+    protected static function applyForeground2(QrCodeInterface $qrCode, ?array $foreground2,
+        ?string $gradientType): void
     {
         if (is_null($foreground2)) {
             return;
@@ -216,13 +213,8 @@ class LaravelQrCodeFactory
         return new QrCode($qrCodeFormat->getText());
     }
 
-    protected static function applyLabel(
-        QrCodeInterface $qrCode,
-        ?string $label = null,
-        ?string $fontPath = null,
-        ?int $size = null,
-        ?string $alignment = null
-    ): void
+    protected static function applyLabel(QrCodeInterface $qrCode, ?string $label = null,
+                                         ?string $fontPath = null, ?int $size = null, ?string $alignment = null ): void
     {
         if (! is_null($label)) {
             $qrCode->setLabel(new Label(
