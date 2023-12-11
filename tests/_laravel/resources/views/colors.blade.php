@@ -25,7 +25,7 @@
         @endphp
         <x-2am-qrcode
             :content="$content"
-            :format="\Da\QrCode\Enums\Format::BookMark"
+            :format="\Da\QrCode\Enums\Format::BOOK_MARK"
             :background="$background"
         />
 

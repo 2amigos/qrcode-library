@@ -4,7 +4,7 @@ namespace Da\QrCode\Enums;
 
 use MabeEnum\Enum;
 
-class Gradient extends Enum
+final class Gradient extends Enum
 {
     public const GRADIENT_VERTICAL = 'vertical';
     public const GRADIENT_HORIZONTAL = 'horizontal';

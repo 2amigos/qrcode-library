@@ -175,21 +175,14 @@ class StyleManager implements PathStyleInterface, ColorsInterface
     public function getGradientTye()
     {
         switch ($this->gradientType) {
-            case GradientEnum::GRADIENT_VERTICAL: {
-                return GradientType::VERTICAL();
-            }
-            case GradientEnum::GRADIENT_DIAGONAL: {
+            case GradientEnum::GRADIENT_DIAGONAL:
                 return GradientType::DIAGONAL();
-            }
-            case GradientEnum::GRADIENT_INVERSE_DIAGONAL: {
+            case GradientEnum::GRADIENT_INVERSE_DIAGONAL:
                 return GradientType::INVERSE_DIAGONAL();
-            }
-            case GradientEnum::GRADIENT_HORIZONTAL: {
+            case GradientEnum::GRADIENT_HORIZONTAL:
                 return GradientType::HORIZONTAL();
-            }
-            case GradientEnum::GRADIENT_RADIAL: {
+            case GradientEnum::GRADIENT_RADIAL:
                 return GradientType::RADIAL();
-            }
             default:
                 return GradientType::VERTICAL();
         }

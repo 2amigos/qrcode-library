@@ -85,7 +85,11 @@ class LaravelQrCodeFactory
      * @param string|null $gradientType
      * @return void
      */
-    protected static function applyForeground2(QrCodeInterface $qrCode, ?array $foreground2, ?string $gradientType): void
+    protected static function applyForeground2(
+        QrCodeInterface $qrCode,
+        ?array $foreground2,
+        ?string $gradientType
+    ): void
     {
         if (is_null($foreground2)) {
             return;
@@ -201,7 +205,7 @@ class LaravelQrCodeFactory
     {
         self::validate($content, $format);
 
-        if (is_null($format) || $format === Format::Text) {
+        if (is_null($format) || $format === Format::TEXT) {
             return is_array($content)
                 ? new QrCode($content['text'])
                 : new QrCode($content);
@@ -212,7 +216,13 @@ class LaravelQrCodeFactory
         return new QrCode($qrCodeFormat->getText());
     }
 
-    protected static function applyLabel(QrCodeInterface $qrCode, ?string $label = null, ?string $fontPath = null, ?int $size = null, ?string $alignment = null): void
+    protected static function applyLabel(
+        QrCodeInterface $qrCode,
+        ?string $label = null,
+        ?string $fontPath = null,
+        ?int $size = null,
+        ?string $alignment = null
+    ): void
     {
         if (! is_null($label)) {
             $qrCode->setLabel(new Label(
@@ -233,15 +243,27 @@ class LaravelQrCodeFactory
     protected static function validate($content, ?string $format): void
     {
         if (! is_array($content) && ! is_string($content)) {
-            throw new Exception('Invalid content. It should be String or Array, ' . gettype($content) . ' given');
+            throw new Exception(
+                'Invalid content. It should be String or Array, '
+                . gettype($content)
+                . ' given'
+            );
         }
 
         if (! is_null($format) && $format !== 'text' && ! class_exists($format)) {
-            throw new Exception('Invalid format. The given format class , `' . $format . '` does not exists');
+            throw new Exception(
+                'Invalid format. The given format class , `'
+                . $format
+                . '` does not exists'
+            );
         }
 
         if (! is_null($format) && $format !== 'text' && ! (new $format($content)) instanceof AbstractFormat) {
-            throw new Exception('Invalid format. It should be instance of Enum or null, ' . gettype($format) . ' given');
+            throw new Exception(
+                'Invalid format. It should be instance of Enum or null, '
+                . gettype($format)
+                . ' given'
+            );
         }
     }
 }

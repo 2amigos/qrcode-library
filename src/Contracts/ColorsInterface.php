@@ -76,4 +76,3 @@ interface ColorsInterface
      */
     public function forceUniformRgbColors(): void;
 }
-

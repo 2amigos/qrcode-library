@@ -19,18 +19,18 @@ use MabeEnum\Enum;
 
 final class Format extends Enum
 {
-    const Text = 'text';
-    const BookMark = BookMarkFormat::class;
-    const Btc = BtcFormat::class;
-    const Geo = GeoFormat::class;
-    const ICal = ICalFormat::class;
-    const MailMessage = MailMessageFormat::class;
-    const MailTo = MailToFormat::class;
-    const MeCard = MeCardFormat::class;
-    const Mms = MmsFormat::class;
-    const PhoneFormat = PhoneFormat::class;
-    const SmsFormat = SmsFormat::class;
-    const VCard = VCardFormat::class;
-    const Wifi = WifiFormat::class;
-    const Youtube = YoutubeFormat::class;
+    public const TEXT = 'text';
+    public const BOOK_MARK = BookMarkFormat::class;
+    public const BTC = BtcFormat::class;
+    public const GEO = GeoFormat::class;
+    public const I_CAL = ICalFormat::class;
+    public const MAIL_MESSAGE = MailMessageFormat::class;
+    public const MAIL_TO = MailToFormat::class;
+    public const ME_CARD = MeCardFormat::class;
+    public const MMS = MmsFormat::class;
+    public const PHONE_FORMAT = PhoneFormat::class;
+    public const SNS_FORMAT = SmsFormat::class;
+    public const VCARD = VCardFormat::class;
+    public const WIFI = WifiFormat::class;
+    public const YOUTUBE = YoutubeFormat::class;
 }
