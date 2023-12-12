@@ -16,6 +16,8 @@ final class LaravelResourceController
      */
     public function __invoke(Request $request)
     {
+        ob_end_clean();
+
         $data = $request->only([
             'content',
             'label',
