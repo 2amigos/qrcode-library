@@ -14,6 +14,7 @@ use BaconQrCode\Renderer\RendererStyle\Fill;
 use BaconQrCode\Renderer\RendererStyle\Gradient;
 use BaconQrCode\Renderer\RendererStyle\GradientType;
 use Da\QrCode\Contracts\ColorsInterface;
+use Da\QrCode\Enums\Gradient as GradientEnum;
 use Da\QrCode\Contracts\PathStyleInterface;
 use Exception;
 
@@ -52,14 +53,19 @@ class StyleManager implements PathStyleInterface, ColorsInterface
      * @param string|null $gradientType
      * @throws Exception
      */
-    public function __construct($foregroundColor, $backgroundColor, string $pathStyle = null, float $styleIntensity = null, $gradientType = null)
-    {
+    public function __construct(
+        $foregroundColor,
+        $backgroundColor,
+        string $pathStyle = null,
+        float $styleIntensity = null,
+        $gradientType = null
+    ) {
         $this->setForegroundColor($foregroundColor);
         $this->setBackgroundColor($backgroundColor);
 
         $this->pathStyle = $pathStyle ?: PathStyleInterface::SQUARE;
         $this->styleIntensity = $styleIntensity ?: 1;
-        $this->gradientType = $gradientType ?: ColorsInterface::GRADIENT_VERTICAL;
+        $this->gradientType = $gradientType ?: GradientEnum::GRADIENT_VERTICAL;
     }
 
     /**
@@ -174,22 +180,16 @@ class StyleManager implements PathStyleInterface, ColorsInterface
     public function getGradientTye()
     {
         switch ($this->gradientType) {
-            case ColorsInterface::GRADIENT_VERTICAL: {
-                return GradientType::VERTICAL();
-            }
-            case ColorsInterface::GRADIENT_DIAGONAL: {
+            case GradientEnum::GRADIENT_DIAGONAL:
                 return GradientType::DIAGONAL();
-            }
-            case ColorsInterface::GRADIENT_INVERSE_DIAGONAL: {
+            case GradientEnum::GRADIENT_INVERSE_DIAGONAL:
                 return GradientType::INVERSE_DIAGONAL();
-            }
-            case ColorsInterface::GRADIENT_HORIZONTAL: {
+            case GradientEnum::GRADIENT_HORIZONTAL:
                 return GradientType::HORIZONTAL();
-            }
-            case ColorsInterface::GRADIENT_RADIAL: {
+            case GradientEnum::GRADIENT_RADIAL:
                 return GradientType::RADIAL();
-            }
-            default: return GradientType::VERTICAL();
+            default:
+                return GradientType::VERTICAL();
         }
     }
 
@@ -244,12 +244,11 @@ class StyleManager implements PathStyleInterface, ColorsInterface
                 )
             );
         }
-        else {
-            return Fill::uniformColor(
-                $this->getBackgroundColor(),
-                $this->getForegroundColor()
-            );
-        }
+
+        return Fill::uniformColor(
+            $this->getBackgroundColor(),
+            $this->getForegroundColor()
+        );
     }
 
     /**
@@ -258,9 +257,12 @@ class StyleManager implements PathStyleInterface, ColorsInterface
     public function buildModule()
     {
         switch ($this->getPathStyle()) {
-            case PathStyleInterface::DOTS: return new DotsModule($this->getIntensity());
-            case PathStyleInterface::ROUNDED: return new RoundnessModule($this->getIntensity());
-            default: return SquareModule::instance();
+            case PathStyleInterface::DOTS:
+                return new DotsModule($this->getIntensity());
+            case PathStyleInterface::ROUNDED:
+                return new RoundnessModule($this->getIntensity());
+            default:
+                return SquareModule::instance();
         }
     }
 

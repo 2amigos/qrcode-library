@@ -15,9 +15,15 @@ it uses a modified version of its code for the writers included on this package.
 
 ## Getting Started
 
+### Supported PHP Versions  
+| Tag | PHP Version |
+| :---: |:----------:|
+| ^ 3.0.2 |  7.3 - 8.0 |
+| 3.1.0 |  7.4 - 8.1 |
+
 ### Server Requirements
 
-- PHP >= 7.3
+- PHP >= 7.4
 - Imagick
 - GD
 - FreeType
@@ -27,12 +33,15 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require 2amigos/qrcode-library:^3
+php composer.phar require 2amigos/qrcode-library:^3.1.0
 ```
 or add
 
 ```json
-    "2amigos/qrcode-library": "^3"
+{
+  ...
+  "2amigos/qrcode-library": "^3.1.0"
+}
 ```
 
 ### Usage 
@@ -72,10 +81,12 @@ You can set the foreground color, defining RGBA values, where the alpha is optio
 $qrCode = (new QrCode('This is my text'))
     ->setForeground(0, 0, 0);
 
-// or, setting alpha too
+// or, setting alpha as well
 $qrCode = (new QrCode('This is my text'))
     ->setForeground(0, 0, 0, 50);
 ```
+
+### Formats
 
 In order to ease the task to write different formats into a QrCode, the library comes with a set of classes. These are: 
 
@@ -92,6 +103,15 @@ In order to ease the task to write different formats into a QrCode, the library 
 -  [VCardFormat](formats/vcard.md)
 -  [WifiFormat](formats/wifi.md)
 -  [YoutubeFormat](formats/youtube.md)
+
+Laravel
+----
+
+This library bundles a blade component and a file route to easily work with the Laravel framework.
+
+- [LaravelBladeComponent](laravel/blade-component.md)
+- [File Route](laravel/file-route.md)
+- [Customization](laravel/customization.md)
 
 Yii2 
 ----
