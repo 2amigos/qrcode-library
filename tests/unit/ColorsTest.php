@@ -4,6 +4,7 @@ namespace unit;
 
 use BaconQrCode\Renderer\Color\Rgb;
 use Da\QrCode\Contracts\ColorsInterface;
+use Da\QrCode\Enums\Gradient;
 use Da\QrCode\QrCode;
 use Da\QrCode\StyleManager;
 use Da\QrCode\Writer\EpsWriter;
@@ -21,8 +22,7 @@ class ColorsTest extends \Codeception\Test\Unit
         $eps2 = (new QrCode('2am Technologies'))
             ->setWriter(new EpsWriter())
             ->writeDataUri();
-        file_put_contents(codecept_data_dir('colors/uniform.eps'), $eps);
-        file_put_contents(codecept_data_dir('colors/uniform2.eps'), $eps2);
+
         $this->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('colors/uniform.eps'))),
             $this->normalizeString($eps)
@@ -49,7 +49,7 @@ class ColorsTest extends \Codeception\Test\Unit
             ->setForegroundColor(0, 255, 0,25)
             ->setForegroundEndColor(0, 0, 255,75)
             ->setBackgroundColor(200, 200, 200)
-            ->setGradientType(ColorsInterface::GRADIENT_DIAGONAL)
+            ->setGradientType(Gradient::GRADIENT_DIAGONAL)
             ->writeString();
 
         $svg = (new QrCode('2am Technologies'))
@@ -57,7 +57,7 @@ class ColorsTest extends \Codeception\Test\Unit
             ->setForegroundColor(0, 255, 0,25)
             ->setForegroundEndColor(0, 0, 255,95)
             ->setBackgroundColor(200, 200, 200)
-            ->setGradientType(ColorsInterface::GRADIENT_RADIAL)
+            ->setGradientType(Gradient::GRADIENT_RADIAL)
             ->writeString();
 
         $png2 = (new QrCode('2am Technologies'))
@@ -65,7 +65,7 @@ class ColorsTest extends \Codeception\Test\Unit
             ->setForegroundColor(0, 255, 0,80)
             ->setForegroundEndColor(0, 0, 255,50)
             ->setBackgroundColor(200, 200, 200)
-            ->setGradientType(ColorsInterface::GRADIENT_INVERSE_DIAGONAL)
+            ->setGradientType(Gradient::GRADIENT_INVERSE_DIAGONAL)
             ->writeString();
 
         $png3 = (new QrCode('2am Technologies'))
@@ -73,7 +73,7 @@ class ColorsTest extends \Codeception\Test\Unit
             ->setForegroundColor(0, 255, 0,75)
             ->setForegroundEndColor(0, 0, 255,100)
             ->setBackgroundColor(200, 200, 200)
-            ->setGradientType(ColorsInterface::GRADIENT_HORIZONTAL)
+            ->setGradientType(Gradient::GRADIENT_HORIZONTAL)
             ->writeString();
 
         $png4 = (new QrCode('2am Technologies'))
@@ -81,7 +81,7 @@ class ColorsTest extends \Codeception\Test\Unit
             ->setForegroundColor(0, 255, 0,75)
             ->setForegroundEndColor(0, 0, 255,100)
             ->setBackgroundColor(200, 200, 200)
-            ->setGradientType(ColorsInterface::GRADIENT_VERTICAL)
+            ->setGradientType(Gradient::GRADIENT_VERTICAL)
             ->writeString();
 
         $this->assertEquals(

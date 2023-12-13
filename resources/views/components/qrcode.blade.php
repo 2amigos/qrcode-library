@@ -1,0 +1,1 @@
+<img src="{{$buildQrCodeUri}}" {!! $attributes !!}/>

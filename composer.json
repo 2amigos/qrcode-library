@@ -36,7 +36,8 @@
         "ext-gd": "*",
         "ext-simplexml": "*",
         "bacon/bacon-qr-code": "^2.0",
-        "khanamiryan/qrcode-detector-decoder": "^1.0"
+        "khanamiryan/qrcode-detector-decoder": "^1.0",
+        "marc-mabe/php-enum": "^4.7"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
@@ -50,7 +51,9 @@
         "yiisoft/yii2": "^2.0",
         "codeception/module-filesystem": "^1.0",
         "codeception/module-yii2": "^1.0",
-        "codeception/module-asserts": "^1.1"
+        "codeception/module-asserts": "2.0.1",
+        "codeception/module-laravel": "^2.1",
+        "laravel/framework": "^8.83"
     },
     "autoload": {
         "psr-4": {
@@ -60,6 +63,11 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Da\\QrCode\\Providers\\QrCodeServiceProvider"
+            ]
         }
     },
     "config": {
