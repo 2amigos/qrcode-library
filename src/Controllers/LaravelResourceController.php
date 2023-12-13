@@ -16,7 +16,9 @@ final class LaravelResourceController
      */
     public function __invoke(Request $request)
     {
-        ob_end_clean();
+        if (ini_get('output_buffering')) {
+            ob_clean();
+        }
 
         $data = $request->only([
             'content',

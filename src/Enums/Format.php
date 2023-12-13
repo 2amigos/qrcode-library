@@ -30,7 +30,7 @@ final class Format extends Enum
     public const MMS = MmsFormat::class;
     public const PHONE_FORMAT = PhoneFormat::class;
     public const SNS_FORMAT = SmsFormat::class;
-    public const VCARD = VCardFormat::class;
+    public const V_CARD = VCardFormat::class;
     public const WIFI = WifiFormat::class;
     public const YOUTUBE = YoutubeFormat::class;
 }
