@@ -7,8 +7,10 @@
 - Enh #34: `MeCardFormat` gains an `organization` property, emitted as an `ORG:` entry only when set (tonydspaniard)
 - Doc #32: Documented how to save / right-click-save the generated QR using `writeFile()` and `writeDataUri()` (tonydspaniard)
 - New pure-GD render backend `Da\QrCode\Renderer\GdImageBackEnd` (tonydspaniard)
+- New framework-agnostic PSR-15 `Da\QrCode\Bridge\Psr\QrCodeAction` (a `RequestHandlerInterface`) for Yii3 and any PSR-15 app (Mezzio, Slim, ...) (tonydspaniard)
 
 ### Changed
+- Reorganized framework adapters under `Da\QrCode\Bridge\<Framework>\` (Yii2, Laravel, Psr); dropped redundant `Laravel` class-name prefixes. See [UPGRADE-2.0](UPGRADE-2.0.md) §7 for the namespace map (tonydspaniard)
 - Enh #73: Require PHP 8.3, 8.4 or 8.5; dropped support for everything below 8.3 (tonydspaniard)
 - Dropped the `marc-mabe/php-enum` dependency; `Enums\*` classes are now plain `final class`es exposing the same `public const` values (tonydspaniard)
 - Bumped `bacon/bacon-qr-code` to `^3` and `khanamiryan/qrcode-detector-decoder` to `^2` (tonydspaniard)

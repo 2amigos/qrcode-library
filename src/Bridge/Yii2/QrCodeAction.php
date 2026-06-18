@@ -9,9 +9,8 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Da\QrCode\Action;
+namespace Da\QrCode\Bridge\Yii2;
 
-use Da\QrCode\Component\QrCodeComponent;
 use Da\QrCode\Label;
 use Yii;
 use yii\base\Action;

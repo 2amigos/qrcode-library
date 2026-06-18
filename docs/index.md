@@ -18,29 +18,29 @@ it uses a modified version of its code for the writers included on this package.
 ### Supported PHP Versions  
 | Tag | PHP Version |
 | :---: |:----------:|
-| ^ 3.0.2 |  7.3 - 8.0 |
-| 3.1.0 |  7.4 - 8.1 |
+| ^1.1 |  7.3 - 8.x |
+| ^2.0 |  8.3 - 8.5 |
 
 ### Server Requirements
 
-- PHP >= 7.4
-- Imagick
+- PHP >= 8.3
 - GD
 - FreeType
+- Imagick *(optional — only if you opt into the ImageMagick render backend; GD is the default)*
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 Either run
 
 ```
-php composer.phar require 2amigos/qrcode-library:^3.1.0
+php composer.phar require 2amigos/qrcode-library:^2.0
 ```
 or add
 
 ```json
 {
   ...
-  "2amigos/qrcode-library": "^3.1.0"
+  "2amigos/qrcode-library": "^2.0"
 }
 ```
 
@@ -120,6 +120,14 @@ This library comes also with two special classes to specifically work with the Y
 
 -  [QrCodeComponent](yii/qrcode-component.md)
 -  [QrCodeAction](yii/qrcode-action.md)
+
+Yii3 / PSR-15
+----
+
+For Yii3 — and any PSR-15 application (Mezzio, Slim, …) — the library ships a framework-agnostic
+request handler:
+
+-  [PSR-15 QrCode Action](psr/qrcode-action.md)
 
 Helpful Guides
 --------------

@@ -9,13 +9,12 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Da\QrCode\Controllers;
+namespace Da\QrCode\Bridge\Laravel;
 
-use Da\QrCode\Factory\LaravelQrCodeFactory;
 use Exception;
 use Illuminate\Http\Request;
 
-final class LaravelResourceController
+final class ResourceController
 {
     /**
      * @param Request $request
@@ -40,7 +39,7 @@ final class LaravelResourceController
             throw new Exception('The param `content` is required');
         }
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $data['content'],
             null,
             null,

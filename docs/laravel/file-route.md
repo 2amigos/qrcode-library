@@ -3,7 +3,7 @@ Laravel File Route
 
 This library realeases a blade component to make it easy to build qrcode with the Laravel Framework.
 
-Before get started, make sure you have the class `\Da\QrCode\Providers\QrCodeServiceProvider::class`
+Before get started, make sure you have the class `\Da\QrCode\Bridge\Laravel\QrCodeServiceProvider::class`
 listed on you config/app.php file, on providers section.
 
 ```php
@@ -11,7 +11,7 @@ listed on you config/app.php file, on providers section.
     ...
     'providers' => [
         ...
-        \Da\QrCode\Providers\QrCodeServiceProvider::class,
+        \Da\QrCode\Bridge\Laravel\QrCodeServiceProvider::class,
     ],
 ];
 ```

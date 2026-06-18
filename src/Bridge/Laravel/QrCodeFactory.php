@@ -9,7 +9,7 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Da\QrCode\Factory;
+namespace Da\QrCode\Bridge\Laravel;
 
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Enums\Format;
@@ -19,7 +19,7 @@ use Da\QrCode\Label;
 use Da\QrCode\QrCode;
 use Exception;
 
-class LaravelQrCodeFactory
+class QrCodeFactory
 {
     /**
      * @param $content

@@ -15,7 +15,7 @@ Usage
 'components' => [
 // ... 
     'qr' => [
-        'class' => '\Da\QrCode\Component\QrCodeComponent',
+        'class' => '\Da\QrCode\Bridge\Yii2\QrCodeComponent',
         // ... you can configure more properties of the component here
     ]
 // ...

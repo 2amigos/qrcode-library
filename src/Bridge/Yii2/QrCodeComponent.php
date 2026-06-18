@@ -9,7 +9,7 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Da\QrCode\Component;
+namespace Da\QrCode\Bridge\Yii2;
 
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
@@ -22,7 +22,7 @@ use yii\base\Component;
  * Class QrCodeComponent
  *
  * @author Antonio Ramirez <hola@2amigos.us>
- * @package Da\QrCode\Component
+ * @package Da\QrCode\Bridge\Yii2
  *
  * @method QrCode setForegroundColor(integer $red, integer $green, integer $blue, integer $alpha)
  * @method QrCode setBackgroundColor(integer $red, integer $green, integer $blue)

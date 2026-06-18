@@ -12,6 +12,7 @@ class and the `Da\QrCode\Enums\*` constants is unchanged.
 - [ ] Re-run any image snapshot/byte-comparison tests for PNG/JPG output.
 - [ ] Replace `StyleManager::getGradientTye()` with `StyleManager::getGradientType()`.
 - [ ] Treat `QrCode::getGradientType()` as returning a `GradientType` object, not a `string`.
+- [ ] Update framework-adapter namespaces — they moved under `Da\QrCode\Bridge\<Framework>\` (see §7).
 
 ---
 
@@ -107,6 +108,49 @@ works for now but will emit deprecations and disappear in 3.0.
 
 **What to do:** If you consumed the return value as a string, update your code to work with the
 `GradientType` object instead. If you only pass it back into the library, no action is needed.
+
+## 7. Framework adapters moved under `Da\QrCode\Bridge\<Framework>\`
+
+The framework-specific classes were scattered across `Action/`, `Component/`, `Controllers/`,
+`Providers/` and `Factory/`. They are now grouped by framework under `Da\QrCode\Bridge\`, and the
+redundant `Laravel` prefixes were dropped. The framework-agnostic core (`QrCode`, `StyleManager`,
+`Writer\*`, `Format\*`, `Renderer\*`, `Factory\WriterFactory`, the `Enums`, etc.) is **unchanged**.
+
+| 1.x class | 2.0 class |
+| --- | --- |
+| `Da\QrCode\Action\QrCodeAction` | `Da\QrCode\Bridge\Yii2\QrCodeAction` |
+| `Da\QrCode\Component\QrCodeComponent` | `Da\QrCode\Bridge\Yii2\QrCodeComponent` |
+| `Da\QrCode\Component\QrCodeBladeComponent` | `Da\QrCode\Bridge\Laravel\QrCodeBladeComponent` |
+| `Da\QrCode\Controllers\LaravelResourceController` | `Da\QrCode\Bridge\Laravel\ResourceController` |
+| `Da\QrCode\Providers\QrCodeServiceProvider` | `Da\QrCode\Bridge\Laravel\QrCodeServiceProvider` |
+| `Da\QrCode\Factory\LaravelQrCodeFactory` | `Da\QrCode\Bridge\Laravel\QrCodeFactory` |
+
+**What to do:**
+
+- **Yii2:** update the `class` of your `qr` component and the `use` for the action to the new
+  `Da\QrCode\Bridge\Yii2\…` namespaces.
+- **Laravel:** the service provider is auto-discovered, so most apps need no change. If you registered
+  it manually in `config/app.php`, update it to `Da\QrCode\Bridge\Laravel\QrCodeServiceProvider`. If
+  you referenced `LaravelQrCodeFactory` directly, it is now `Bridge\Laravel\QrCodeFactory`.
+
+## 8. New: framework-agnostic PSR-15 action (Yii3, Mezzio, Slim, …)
+
+`2.0` adds [`Da\QrCode\Bridge\Psr\QrCodeAction`](src/Bridge/Psr/QrCodeAction.php), a PSR-15
+`RequestHandlerInterface` that renders a QR from a request parameter and depends only on PSR-7/PSR-17
+interfaces. Use it with **Yii3** or any PSR-15 application. It requires `psr/http-message`,
+`psr/http-factory` and `psr/http-server-handler` (all listed under `suggest`).
+
+```php
+use Da\QrCode\Bridge\Psr\QrCodeAction;
+
+$action = (new QrCodeAction($responseFactory, $streamFactory))
+    ->withSize(400)
+    ->withForegroundColor(20, 30, 90);
+
+$response = $action->handle($request); // e.g. GET /qr?text=hello
+```
+
+See [docs/psr/qrcode-action.md](docs/psr/qrcode-action.md) for a full Yii3 wiring example.
 
 ---
 

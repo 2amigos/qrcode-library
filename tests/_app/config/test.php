@@ -11,7 +11,7 @@ return [
     ],
     'components' => [
         'qr' => [
-            'class' => '\Da\QrCode\Component\QrCodeComponent',
+            'class' => '\Da\QrCode\Bridge\Yii2\QrCodeComponent',
         ],
         'assetManager' => [
             'basePath' => __DIR__ . '/../assets',

@@ -9,9 +9,8 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Da\QrCode\Component;
+namespace Da\QrCode\Bridge\Laravel;
 
-use Da\QrCode\Factory\LaravelQrCodeFactory;
 use Exception;
 use Illuminate\View\Component;
 
@@ -153,7 +152,7 @@ class QrCodeBladeComponent extends Component
      */
     public function buildQrCodeUri(): string
     {
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $this->content,
             $this->format,
             $this->foreground,

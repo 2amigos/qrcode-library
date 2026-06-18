@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Da\QrCode\Controllers\LaravelResourceController;
+use Da\QrCode\Bridge\Laravel\ResourceController;
 
 Route::prefix('da-qrcode')->name('da-qrcode.')->group(function () {
-    Route::get('/build', LaravelResourceController::class)->name('build');
+    Route::get('/build', ResourceController::class)->name('build');
 });

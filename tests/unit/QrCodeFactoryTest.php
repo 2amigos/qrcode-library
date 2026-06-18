@@ -3,13 +3,13 @@
 namespace unit;
 use Da\QrCode\Enums\Format;
 use Da\QrCode\Enums\Gradient;
-use Da\QrCode\Factory\LaravelQrCodeFactory;
+use Da\QrCode\Bridge\Laravel\QrCodeFactory;
 use Da\QrCode\QrCode;
 use Da\QrCode\Writer\PngWriter;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 
-class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
+class QrCodeFactoryTest extends \Codeception\Test\Unit
 {
     protected $tester;
 
@@ -31,7 +31,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
         ]));
         Container::setInstance($container);
 
-        $qrCode = LaravelQrCodeFactory::make('2am. Technologies', Format::TEXT);
+        $qrCode = QrCodeFactory::make('2am. Technologies', Format::TEXT);
 
         // Values come straight from config/2am-qrcode.php (size 300, margin 15).
         $this->assertSame(300, $qrCode->getSize());
@@ -46,21 +46,21 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
     {
         $this->expectExceptionMessage('Invalid format. The given format class , `1` does not exists');
 
-        LaravelQrCodeFactory::make('2am. Technologies', 1);
+        QrCodeFactory::make('2am. Technologies', 1);
     }
 
     public function testInvalidQrCodeContentInteger()
     {
         $this->expectExceptionMessage('Invalid content. It should be String or Array, integer given');
 
-        LaravelQrCodeFactory::make(100);
+        QrCodeFactory::make(100);
     }
 
     public function testInvalidQrCodeFormatInvalidClass()
     {
         $this->expectException(\Exception::class);
 
-        LaravelQrCodeFactory::make('2am. Technologies', PngWriter::class);
+        QrCodeFactory::make('2am. Technologies', PngWriter::class);
     }
 
     public function testCreateGradientQrCode()
@@ -79,7 +79,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'a' => 30,
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             '2am. Technologies',
             null,
             $foreground,
@@ -97,7 +97,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             $this->normalizeString($uri)
         );
 
-        $qrCodeRadial = LaravelQrCodeFactory::make(
+        $qrCodeRadial = QrCodeFactory::make(
             '2am. Technologies',
             null,
             $foreground,
@@ -126,7 +126,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
     public function testFactoryFormatText()
     {
         $content = '2am. Technologies';
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::TEXT
         );
@@ -141,7 +141,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'url' => 'https://2am.tech',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::BOOK_MARK
         );
@@ -160,7 +160,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'message' => 'unt test',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::BTC
         );
@@ -176,7 +176,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'altitude' => 1,
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::GEO
         );
@@ -192,7 +192,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'endTimestamp' => 1702454654,
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::I_CAL
         );
@@ -215,7 +215,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'email' => 'testing@2am.tech',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::MAIL_MESSAGE
         );
@@ -234,7 +234,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'email' => 'testing@2am.tech',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::MAIL_TO
         );
@@ -257,7 +257,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'email' => 'testing@2am.tech',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::ME_CARD
         );
@@ -286,7 +286,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
 
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::MMS
         );
@@ -301,7 +301,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'phone' => '1 111 122',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::PHONE_FORMAT
         );
@@ -316,7 +316,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'phone' => '1 111 122',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::SNS_FORMAT
         );
@@ -332,7 +332,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'fullName' => 'unit testing',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::V_CARD
         );
@@ -352,7 +352,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'password' => 'xxxxxxxxxx',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::WIFI
         );
@@ -371,7 +371,7 @@ class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
             'videoId' => '123456',
         ];
 
-        $qrCode = LaravelQrCodeFactory::make(
+        $qrCode = QrCodeFactory::make(
             $content,
             Format::YOUTUBE
         );

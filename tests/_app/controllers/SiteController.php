@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use Da\QrCode\Action\QrCodeAction;
+use Da\QrCode\Bridge\Yii2\QrCodeAction;
 use Da\QrCode\Format\MailToFormat;
 use yii\web\Controller;
 use yii\web\Response;

@@ -51,12 +51,19 @@
         "codeception/specify": "^2.0",
         "codeception/verify": "^3.0",
         "yiisoft/yii2": "^2.0.52",
-        "laravel/framework": "^12.0"
+        "laravel/framework": "^12.0",
+        "psr/http-message": "^2.0",
+        "psr/http-factory": "^1.0",
+        "nyholm/psr7": "^1.8",
+        "psr/http-server-handler": "^1.0"
     },
     "suggest": {
         "ext-imagick": "To render QR codes with the ImageMagick backend instead of the default GD backend",
         "yiisoft/yii2": "To use the Yii2 QrCode component and action",
-        "laravel/framework": "To use the Laravel QrCode blade component, service provider and factory"
+        "laravel/framework": "To use the Laravel QrCode blade component, service provider and factory",
+        "psr/http-message": "To use the framework-agnostic PSR-15 Da\\QrCode\\Bridge\\Psr\\QrCodeAction (Yii3, Mezzio, Slim, ...)",
+        "psr/http-factory": "Provides the PSR-17 factories required by the PSR-15 Da\\QrCode\\Bridge\\Psr\\QrCodeAction",
+        "psr/http-server-handler": "Provides the PSR-15 RequestHandlerInterface implemented by Da\\QrCode\\Bridge\\Psr\\QrCodeAction"
     },
     "autoload": {
         "psr-4": {
@@ -69,7 +76,7 @@
         },
         "laravel": {
             "providers": [
-                "Da\\QrCode\\Providers\\QrCodeServiceProvider"
+                "Da\\QrCode\\Bridge\\Laravel\\QrCodeServiceProvider"
             ]
         }
     },
