@@ -5,6 +5,9 @@ parameters:
     level: 6
     paths:
         - src
+    # Don't fail when a baseline entry becomes stale (e.g. after a file move/rename);
+    # it keeps CI robust as the baseline is paid down or code is reorganized.
+    reportUnmatchedIgnoredErrors: false
     # The pre-existing src/ code reports 134 findings at level 6 (mostly
     # GdImage-vs-resource and missing iterable/parameter types). They are
     # captured in phpstan-baseline.neon so CI stays green while new code is

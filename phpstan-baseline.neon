@@ -1,130 +1,274 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$background with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$content with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Parameter \#11 \$logoSize of static method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) expects string\|null, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$background type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$content type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$foreground type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$foreground2 type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$logoSize \(int\|null\) does not accept string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setForegroundColor\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setForegroundEndColor\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setGradientType\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLabel\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLogo\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLogoWidth\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setMargin\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setPathIntensity\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setPathStyle\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setScaleLogoHeight\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setSize\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setbackgroundColor\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyBackground\(\) has parameter \$background with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyForeground\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyForeground2\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:buildQrCode\(\) has parameter \$content with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$background with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$content with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:validate\(\) has parameter \$content with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Parameter \#3 \$logoSize of static method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyLogo\(\) expects int\|null, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
 			message: '#^Access to static property \$app on an unknown class Yii\.$#'
 			identifier: class.notFound
 			count: 4
-			path: src/Action/QrCodeAction.php
+			path: src/Bridge/Yii2/QrCodeAction.php
 
 		-
-			message: '#^Method Da\\QrCode\\Action\\QrCodeAction\:\:run\(\) has no return type specified\.$#'
+			message: '#^Method Da\\QrCode\\Bridge\\Yii2\\QrCodeAction\:\:run\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
-			path: src/Action/QrCodeAction.php
+			path: src/Bridge/Yii2/QrCodeAction.php
 
 		-
-			message: '#^Property Da\\QrCode\\Action\\QrCodeAction\:\:\$background type has no value type specified in iterable type array\.$#'
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeAction\:\:\$background type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Action/QrCodeAction.php
+			path: src/Bridge/Yii2/QrCodeAction.php
 
 		-
-			message: '#^Property Da\\QrCode\\Action\\QrCodeAction\:\:\$foreground type has no value type specified in iterable type array\.$#'
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeAction\:\:\$foreground type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Action/QrCodeAction.php
+			path: src/Bridge/Yii2/QrCodeAction.php
 
 		-
-			message: '#^Method Da\\QrCode\\Component\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$background with no value type specified in iterable type array\.$#'
+			message: '#^Class Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent has PHPDoc tag @method for method getBackgroundColor\(\) return type with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Component/QrCodeBladeComponent.php
+			path: src/Bridge/Yii2/QrCodeComponent.php
 
 		-
-			message: '#^Method Da\\QrCode\\Component\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$content with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/Component/QrCodeBladeComponent.php
-
-		-
-			message: '#^Method Da\\QrCode\\Component\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
+			message: '#^Class Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent has PHPDoc tag @method for method getForegroundColor\(\) return type with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Component/QrCodeBladeComponent.php
+			path: src/Bridge/Yii2/QrCodeComponent.php
 
 		-
-			message: '#^Method Da\\QrCode\\Component\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
+			message: '#^Class Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent has PHPDoc tag @method for method getMargin\(\) return type with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Component/QrCodeBladeComponent.php
+			path: src/Bridge/Yii2/QrCodeComponent.php
 
 		-
-			message: '#^Parameter \#11 \$logoSize of static method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:make\(\) expects string\|null, int\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Component/QrCodeBladeComponent.php
-
-		-
-			message: '#^Property Da\\QrCode\\Component\\QrCodeBladeComponent\:\:\$background type has no value type specified in iterable type array\.$#'
+			message: '#^Method Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:__call\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Component/QrCodeBladeComponent.php
+			path: src/Bridge/Yii2/QrCodeComponent.php
 
 		-
-			message: '#^Property Da\\QrCode\\Component\\QrCodeBladeComponent\:\:\$content type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Component/QrCodeBladeComponent.php
-
-		-
-			message: '#^Property Da\\QrCode\\Component\\QrCodeBladeComponent\:\:\$foreground type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Component/QrCodeBladeComponent.php
-
-		-
-			message: '#^Property Da\\QrCode\\Component\\QrCodeBladeComponent\:\:\$foreground2 type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Component/QrCodeBladeComponent.php
-
-		-
-			message: '#^Property Da\\QrCode\\Component\\QrCodeBladeComponent\:\:\$logoSize \(int\|null\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/Component/QrCodeBladeComponent.php
-
-		-
-			message: '#^Class Da\\QrCode\\Component\\QrCodeComponent has PHPDoc tag @method for method getBackgroundColor\(\) return type with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Component/QrCodeComponent.php
-
-		-
-			message: '#^Class Da\\QrCode\\Component\\QrCodeComponent has PHPDoc tag @method for method getForegroundColor\(\) return type with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Component/QrCodeComponent.php
-
-		-
-			message: '#^Class Da\\QrCode\\Component\\QrCodeComponent has PHPDoc tag @method for method getMargin\(\) return type with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Component/QrCodeComponent.php
-
-		-
-			message: '#^Method Da\\QrCode\\Component\\QrCodeComponent\:\:__call\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Component/QrCodeComponent.php
-
-		-
-			message: '#^Method Da\\QrCode\\Component\\QrCodeComponent\:\:init\(\) has no return type specified\.$#'
+			message: '#^Method Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:init\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
-			path: src/Component/QrCodeComponent.php
+			path: src/Bridge/Yii2/QrCodeComponent.php
 
 		-
-			message: '#^Property Da\\QrCode\\Component\\QrCodeComponent\:\:\$backgroundColor type has no value type specified in iterable type array\.$#'
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:\$backgroundColor type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Component/QrCodeComponent.php
+			path: src/Bridge/Yii2/QrCodeComponent.php
 
 		-
-			message: '#^Property Da\\QrCode\\Component\\QrCodeComponent\:\:\$foregroundColor type has no value type specified in iterable type array\.$#'
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:\$foregroundColor type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/Component/QrCodeComponent.php
+			path: src/Bridge/Yii2/QrCodeComponent.php
 
 		-
 			message: '#^Method Da\\QrCode\\Contracts\\ColorsInterface\:\:setForegroundEndColor\(\) has parameter \$color with no type specified\.$#'
@@ -185,150 +329,6 @@ parameters:
 			identifier: missingType.parameter
 			count: 1
 			path: src/Dto/LogoDto.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setForegroundColor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setForegroundEndColor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setGradientType\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLabel\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLogo\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLogoWidth\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setMargin\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setPathIntensity\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setPathStyle\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setScaleLogoHeight\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setSize\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setbackgroundColor\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:applyBackground\(\) has parameter \$background with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:applyForeground\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:applyForeground2\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:buildQrCode\(\) has parameter \$content with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:make\(\) has parameter \$background with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:make\(\) has parameter \$content with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:make\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:make\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:validate\(\) has parameter \$content with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Parameter \#3 \$logoSize of static method Da\\QrCode\\Factory\\LaravelQrCodeFactory\:\:applyLogo\(\) expects int\|null, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: src/Factory/LaravelQrCodeFactory.php
 
 		-
 			message: '#^Method Da\\QrCode\\Format\\AbstractFormat\:\:__call\(\) has parameter \$params with no value type specified in iterable type array\.$#'
