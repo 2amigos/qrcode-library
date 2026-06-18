@@ -56,8 +56,8 @@ class StyleManager implements PathStyleInterface, ColorsInterface
     public function __construct(
         $foregroundColor,
         $backgroundColor,
-        string $pathStyle = null,
-        float $styleIntensity = null,
+        ?string $pathStyle = null,
+        ?float $styleIntensity = null,
         $gradientType = null
     ) {
         $this->setForegroundColor($foregroundColor);

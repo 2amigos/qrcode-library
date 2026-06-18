@@ -75,7 +75,7 @@ class QrCode implements QrCodeInterface
      * @param string|null $errorCorrectionLevel
      * @param WriterInterface|null $writer
      */
-    public function __construct(string $text, string $errorCorrectionLevel = null, WriterInterface $writer = null)
+    public function __construct(string $text, ?string $errorCorrectionLevel = null, ?WriterInterface $writer = null)
     {
         $this->text = $text;
         $this->errorCorrectionLevel = $errorCorrectionLevel ?: ErrorCorrectionLevelInterface::LOW;
