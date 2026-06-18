@@ -173,11 +173,10 @@ final class GdImageBackEnd implements ImageBackEndInterface
         $image = $this->requireImage();
 
         ob_start();
-        if ($this->imageFormat === 'jpeg' || $this->imageFormat === 'jpg') {
-            imagejpeg($image, null, $this->compressionQuality);
-        } else {
-            imagepng($image);
-        }
+        match ($this->imageFormat) {
+            'jpeg', 'jpg' => imagejpeg($image, null, $this->compressionQuality),
+            default => imagepng($image),
+        };
         $blob = (string) ob_get_clean();
 
         // Note: imagedestroy() is intentionally not called — it is a no-op since PHP 8.0 and

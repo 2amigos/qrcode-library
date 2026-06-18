@@ -1,18 +1,15 @@
 ---
 # Codacy configuration.
 #
-# This project runs a tuned PHPMD ruleset (phpmd.xml) and php-cs-fixer/PHPStan in its
-# own CI (GitHub Actions, PHP 8.3/8.4/8.5). Codacy's built-in PHPMD engine uses default
-# rules that produce false positives for a graphics/math library — short, spec-matching
-# variable names (x, y, rx, cx, r, g, b, t), static access to factory methods / framework
-# facades / BaconQrCode static enums, and intentional boolean-flag accessor APIs — so it
-# is disabled here to avoid duplicate, noisy reporting. PHP_CodeSniffer and Codacy's other
-# analyses (security patterns, duplication, etc.) remain enabled.
-engines:
-  phpmd:
-    enabled: false
-
+# PHP code quality is enforced in this project's own CI (GitHub Actions, PHP 8.3/8.4/8.5)
+# via php-cs-fixer, PHPStan and a tuned PHPMD ruleset (phpmd.xml). The paths below are
+# excluded from Codacy to avoid low-value/duplicate reporting:
+#   - tests / vendor: not product code.
+#   - markdown (*.md): project prose (README, CHANGELOG, upgrade & docs guides) is written
+#     and reviewed by hand; markdownlint's 80-column/whitespace nits are noise here.
 exclude_paths:
   - 'tests/**'
   - 'vendor/**'
   - 'docs/**'
+  - '*.md'
+  - '**/*.md'
