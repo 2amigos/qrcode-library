@@ -79,7 +79,10 @@ class QrCodeFactory
      */
     protected static function applyForeground(QrCodeInterface $qrCode, ?array $foreground): void
     {
-        $foreground = $foreground ?: self::resolveConfig('2am-qrcode.foreground', ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 100]);
+        $foreground = $foreground ?: self::resolveConfig(
+            '2am-qrcode.foreground',
+            ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 100]
+        );
 
         $qrCode->setForegroundColor(
             $foreground['r'],

@@ -84,6 +84,7 @@
         "cs": "php-cs-fixer fix --dry-run --diff",
         "cs-fix": "php-cs-fixer fix",
         "stan": "phpstan analyse",
+        "md": "phpmd src text phpmd.xml",
         "test": "codecept run"
     },
     "config": {

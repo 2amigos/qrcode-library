@@ -182,7 +182,11 @@ class VCardFormat extends AbstractFormat
 
         // Readable local file: inline it as a Base64 data URI.
         if (is_file($this->photo)) {
-            $contents = @file_get_contents($this->photo);
+            if (! is_readable($this->photo)) {
+                throw new InvalidConfigException('Unable to read photo file: ' . $this->photo);
+            }
+
+            $contents = file_get_contents($this->photo);
 
             if ($contents === false) {
                 throw new InvalidConfigException('Unable to read photo file: ' . $this->photo);
@@ -211,10 +215,17 @@ class VCardFormat extends AbstractFormat
      */
     private function detectPhotoMimeType(string $path, string $contents): string
     {
-        $info = @getimagesizefromstring($contents);
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
-        if ($info !== false && isset($info['mime'])) {
-            return $info['mime'];
+            if ($finfo !== false) {
+                $mime = finfo_buffer($finfo, $contents);
+                finfo_close($finfo);
+
+                if (is_string($mime) && str_starts_with($mime, 'image/')) {
+                    return $mime;
+                }
+            }
         }
 
         $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));

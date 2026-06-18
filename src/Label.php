@@ -46,8 +46,13 @@ class Label implements LabelInterface
      * @param string|null $alignment
      * @param array       $margins
      */
-    public function __construct(string $text, ?string $font = null, ?int $fontSize = null, ?string $align = null, array $margins = [])
-    {
+    public function __construct(
+        string $text,
+        ?string $font = null,
+        ?int $fontSize = null,
+        ?string $align = null,
+        array $margins = []
+    ) {
         $this->text = $text;
         $this->font = $font ?: __DIR__ . '/../resources/fonts/noto_sans.otf';
         $this->fontSize = $fontSize ?: 16;

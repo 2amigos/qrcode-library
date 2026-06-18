@@ -57,7 +57,6 @@ trait ImageTrait
             $image,
             $qrCode->getMargin(),
             $qrCode->getSize(),
-            $qrCode->getForegroundColor(),
             $qrCode->getBackgroundColor()
         );
 
@@ -113,12 +112,11 @@ trait ImageTrait
      * @param resource $sourceImage
      * @param int      $margin
      * @param int      $size
-     * @param int[]    $foregroundColor
      * @param int[]    $backgroundColor
      *
      * @return resource
      */
-    protected function addMargin($sourceImage, $margin, $size, array $foregroundColor, array $backgroundColor)
+    protected function addMargin($sourceImage, $margin, $size, array $backgroundColor)
     {
         $additionalWhitespace = $this->calculateAdditionalWhiteSpace($sourceImage, $backgroundColor);
 
@@ -183,7 +181,8 @@ trait ImageTrait
                 $green = ($color >> 8) & 0xFF;
                 $blue = $color & 0xFF;
 
-                if (abs($red - $backgroundColor['r']) > $tolerance
+                if (
+                    abs($red - $backgroundColor['r']) > $tolerance
                     || abs($green - $backgroundColor['g']) > $tolerance
                     || abs($blue - $backgroundColor['b']) > $tolerance
                 ) {
