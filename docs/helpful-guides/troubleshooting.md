@@ -16,7 +16,7 @@ ImagickException: RegistryKeyLookupFailed `CoderModulesPath' @ error/module.c/Ge
 
 ### Why it happened
 
-In 1.x, `PngWriter` and `JpgWriter` **forced** the ImageMagick (Imagick) backend. That required the
+In 3.x, `PngWriter` and `JpgWriter` **forced** the ImageMagick (Imagick) backend. That required the
 `ext-imagick` extension to be installed *and correctly configured*. When ImageMagick could not
 locate its coder modules (a common misconfiguration on Windows), Imagick threw the
 `RegistryKeyLookupFailed 'CoderModulesPath'` error and no image could be produced.

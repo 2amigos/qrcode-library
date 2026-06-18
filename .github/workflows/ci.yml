@@ -22,7 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          # GD-only by design: as of v2.0 the library renders QR codes with the
+          # GD-only by design: as of v4.0 the library renders QR codes with the
           # GD backend and no longer depends on imagick. Only gd + simplexml
           # are required at runtime, so imagick is deliberately NOT installed.
           extensions: gd, simplexml
@@ -32,7 +32,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Check coding standards (php-cs-fixer)
-        # Non-blocking: the v2.0 style baseline is still being normalised across
+        # Non-blocking: the v4.0 style baseline is still being normalised across
         # src/, so a failing dry-run should not fail the whole pipeline yet.
         continue-on-error: true
         run: vendor/bin/php-cs-fixer fix --dry-run --diff
