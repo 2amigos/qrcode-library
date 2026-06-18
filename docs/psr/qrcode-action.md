@@ -70,7 +70,10 @@ use Da\QrCode\Bridge\Psr\QrCodeAction;
 use Yiisoft\Router\Route;
 
 return [
-    Route::get('/qr')->action(QrCodeAction::class)->name('qr'),
+    // The handler is resolved from the container. The array form is the most
+    // portable across yiisoft/middleware-dispatcher versions; because the action
+    // is also invokable, `->action(QrCodeAction::class)` works too.
+    Route::get('/qr')->action([QrCodeAction::class, 'handle'])->name('qr'),
 ];
 ```
 
