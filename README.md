@@ -17,7 +17,7 @@ its use on the framework.
 
 PNG and JPG output is rendered with a pure-GD backend **by default**, so no ImageMagick installation is required. 
 ImageMagick (`ext-imagick`) is **optional** and only needed if you explicitly opt into the Imagick backend — see the 
-[upgrade guide](UPGRADE-2.0.md) and the [troubleshooting guide](docs/helpful-guides/troubleshooting.md).
+[upgrade guide](UPGRADE-4.0.md) and the [troubleshooting guide](docs/helpful-guides/troubleshooting.md).
 
 ## Documentation 
 

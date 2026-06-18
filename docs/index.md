@@ -18,8 +18,8 @@ it uses a modified version of its code for the writers included on this package.
 ### Supported PHP Versions  
 | Tag | PHP Version |
 | :---: |:----------:|
-| ^1.1 |  7.3 - 8.x |
-| ^2.0 |  8.3 - 8.5 |
+| 3.x  |  7.3 - 8.1 |
+| ^4.0 |  8.3 - 8.5 |
 
 ### Server Requirements
 
@@ -33,14 +33,14 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require 2amigos/qrcode-library:^2.0
+php composer.phar require 2amigos/qrcode-library:^4.0
 ```
 or add
 
 ```json
 {
   ...
-  "2amigos/qrcode-library": "^2.0"
+  "2amigos/qrcode-library": "^4.0"
 }
 ```
 

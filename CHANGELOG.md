@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2.0.0 - 2026-06-18
+## 4.0.0 - 2026-06-18
 
 ### Added
 - Enh #69: vCard `PHOTO` now supports Base64 / `data:` URIs and local image files, inlined as a `PHOTO:data:<mime>;base64,...` line, in addition to the previous remote-URL behaviour (tonydspaniard)
@@ -10,7 +10,7 @@
 - New framework-agnostic PSR-15 `Da\QrCode\Bridge\Psr\QrCodeAction` (a `RequestHandlerInterface`) for Yii3 and any PSR-15 app (Mezzio, Slim, ...) (tonydspaniard)
 
 ### Changed
-- Reorganized framework adapters under `Da\QrCode\Bridge\<Framework>\` (Yii2, Laravel, Psr); dropped redundant `Laravel` class-name prefixes. See [UPGRADE-2.0](UPGRADE-2.0.md) §7 for the namespace map (tonydspaniard)
+- Reorganized framework adapters under `Da\QrCode\Bridge\<Framework>\` (Yii2, Laravel, Psr); dropped redundant `Laravel` class-name prefixes. See [UPGRADE-4.0](UPGRADE-4.0.md) §7 for the namespace map (tonydspaniard)
 - Enh #73: Require PHP 8.3, 8.4 or 8.5; dropped support for everything below 8.3 (tonydspaniard)
 - Dropped the `marc-mabe/php-enum` dependency; `Enums\*` classes are now plain `final class`es exposing the same `public const` values (tonydspaniard)
 - Bumped `bacon/bacon-qr-code` to `^3` and `khanamiryan/qrcode-detector-decoder` to `^2` (tonydspaniard)

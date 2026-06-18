@@ -1,6 +1,6 @@
-# Upgrading from 1.x to 2.0
+# Upgrading from 3.x to 4.0
 
-This guide lists every breaking change in **2.0** and what to do about each one. For most
+This guide lists every breaking change in **4.0** and what to do about each one. For most
 applications the upgrade is straightforward: the public API of the formats, the `QrCode`
 class and the `Da\QrCode\Enums\*` constants is unchanged.
 
@@ -21,8 +21,8 @@ class and the `Da\QrCode\Enums\*` constants is unchanged.
 Everything below PHP 8.3 has been dropped. `composer.json` now requires `"php": "^8.3"`,
 so the supported versions are **8.3, 8.4 and 8.5**.
 
-**What to do:** Upgrade your runtime to PHP 8.3 or newer before installing 2.0. If you must stay
-on an older PHP, remain on the 1.x line.
+**What to do:** Upgrade your runtime to PHP 8.3 or newer before installing 4.0. If you must stay
+on an older PHP, remain on the 3.x line.
 
 ## 2. `marc-mabe/php-enum` dependency removed
 
@@ -51,12 +51,12 @@ Previously, `PngWriter` and `JpgWriter` forced the ImageMagick backend, which re
 `ext-imagick` extension and, on some Windows setups, produced the error
 `RegistryKeyLookupFailed 'CoderModulesPath' ... GetMagickModulePath` (issue #68).
 
-As of 2.0, both writers render with a new pure-GD backend
+As of 4.0, both writers render with a new pure-GD backend
 ([`Da\QrCode\Renderer\GdImageBackEnd`](src/Renderer/GdImageBackEnd.php)) **by default**, so only
 `ext-gd` is required (the library already required it).
 
 Because the rendering engine changed, the **raw bytes of generated PNG/JPG images differ slightly**
-from 1.x, even when the QR content is identical.
+from 3.x, even when the QR content is identical.
 
 ImageMagick is still supported as an **opt-in** backend — pass it to the writer constructor:
 
@@ -116,7 +116,7 @@ The framework-specific classes were scattered across `Action/`, `Component/`, `C
 redundant `Laravel` prefixes were dropped. The framework-agnostic core (`QrCode`, `StyleManager`,
 `Writer\*`, `Format\*`, `Renderer\*`, `Factory\WriterFactory`, the `Enums`, etc.) is **unchanged**.
 
-| 1.x class | 2.0 class |
+| 3.x class | 4.0 class |
 | --- | --- |
 | `Da\QrCode\Action\QrCodeAction` | `Da\QrCode\Bridge\Yii2\QrCodeAction` |
 | `Da\QrCode\Component\QrCodeComponent` | `Da\QrCode\Bridge\Yii2\QrCodeComponent` |
@@ -135,7 +135,7 @@ redundant `Laravel` prefixes were dropped. The framework-agnostic core (`QrCode`
 
 ## 8. New: framework-agnostic PSR-15 action (Yii3, Mezzio, Slim, …)
 
-`2.0` adds [`Da\QrCode\Bridge\Psr\QrCodeAction`](src/Bridge/Psr/QrCodeAction.php), a PSR-15
+`4.0` adds [`Da\QrCode\Bridge\Psr\QrCodeAction`](src/Bridge/Psr/QrCodeAction.php), a PSR-15
 `RequestHandlerInterface` that renders a QR from a request parameter and depends only on PSR-7/PSR-17
 interfaces. Use it with **Yii3** or any PSR-15 application. It requires `psr/http-message`,
 `psr/http-factory` and `psr/http-server-handler` (all listed under `suggest`).
