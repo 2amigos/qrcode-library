@@ -126,6 +126,7 @@ Helpful Guides
 
 -  [Advanced Usage](helpful-guides/advance-usage.md)
 -  [Working with QrCodeComponent and QrCodeAction](helpful-guides/working-with-qrcode-component-and-qrcode-action.md)
+-  [Troubleshooting](helpful-guides/troubleshooting.md)
 
 Contributing
 ------------

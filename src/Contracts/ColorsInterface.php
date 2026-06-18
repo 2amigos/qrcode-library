@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * This file is part of the 2amigos/qrcode-library project.
+ *
+ * (c) 2amigOS! <http://2am.tech/>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Da\QrCode\Contracts;
 
 use BaconQrCode\Renderer\Color\Alpha;
-use BaconQrCode\Renderer\Color\ColorInterface;
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\RendererStyle\Fill;
 use BaconQrCode\Renderer\RendererStyle\Gradient;
@@ -64,7 +72,13 @@ interface ColorsInterface
     /**
      * @return GradientType
      */
-    public function getGradientTye();
+    public function getGradientType(): GradientType;
+
+    /**
+     * @deprecated since 2.0, misspelled alias of {@see getGradientType()}. Will be removed in 3.0.
+     * @return GradientType
+     */
+    public function getGradientTye(): GradientType;
 
     /**
      * @return Fill

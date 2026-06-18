@@ -13,7 +13,6 @@ namespace Da\QrCode\Writer;
 
 use BaconQrCode\Encoder\Encoder;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
-use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
@@ -86,7 +85,7 @@ class SvgWriter extends AbstractWriter
         $size = $qrCode->getSize();
         $scale = round(($size - ($margin * 2))  / $matrix, self::PRECISION);
 
-        $svg->g->attributes()->transform = sprintf("translate(%s, %s), scale(%s)", $margin, $margin, $scale);
+        $svg->g->attributes()->transform = sprintf('translate(%s, %s), scale(%s)', $margin, $margin, $scale);
     }
 
     /**
@@ -97,7 +96,7 @@ class SvgWriter extends AbstractWriter
      * @param $scale
      * @return void
      */
-    protected function addLogo($svg, $qrCode, $logoPath, $logoWidth = null, $scale = false)
+    protected function addLogo($svg, $qrCode, $logoPath, ?int $logoWidth = null, $scale = false)
     {
         $logoContents = $this->transformLogo($logoPath, $logoWidth, $scale);
         $logoBase64 = base64_encode($this->imageToString($logoContents->image()));
@@ -139,7 +138,7 @@ class SvgWriter extends AbstractWriter
         $qrCodeOriginalWidth = $svg->attributes()->width;
         $qrCodeOriginalHeight = $svg->attributes()->height;
         $svg->attributes()->height = $qrCodeOriginalHeight + $blockSize;
-        $svg->attributes()->viewBox = sprintf("0 0 %s %s", $qrCodeOriginalWidth, $qrCodeOriginalHeight + $blockSize);
+        $svg->attributes()->viewBox = sprintf('0 0 %s %s', $qrCodeOriginalWidth, $qrCodeOriginalHeight + $blockSize);
         $svg->rect->attributes()->height = $qrCodeOriginalHeight + $blockSize;
 
         $labelFontPath = 'data:application/x-font-otf;charset=utf-8;base64,'

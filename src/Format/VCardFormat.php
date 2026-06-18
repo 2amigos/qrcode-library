@@ -28,6 +28,21 @@ class VCardFormat extends AbstractFormat
     use UrlTrait;
 
     /**
+     * @var string[] image extensions allowed when referencing a photo by URL.
+     */
+    private const SUPPORTED_PHOTO_EXTENSIONS = ['jpeg', 'jpg', 'png', 'gif'];
+
+    /**
+     * @var array<string, string> extension to MIME type fallback map for inline photos.
+     */
+    private const PHOTO_MIME_TYPES = [
+        'jpeg' => 'image/jpeg',
+        'jpg' => 'image/jpeg',
+        'png' => 'image/png',
+        'gif' => 'image/gif',
+    ];
+
+    /**
      * @var string the name
      */
     public $name;
@@ -137,23 +152,73 @@ class VCardFormat extends AbstractFormat
     }
 
     /**
-     * @throws InvalidConfigException
-     * @return string  the formatted photo. Makes sure is of the right image extension.
+     * Builds the vCard `PHOTO` line.
+     *
+     * The {@see $photo} property accepts, in order of precedence:
+     *  - a ready `data:` URI (e.g. `data:image/png;base64,...`) — embedded inline as-is;
+     *  - a path to a readable local image file — read and embedded inline as a Base64 data URI (#69);
+     *  - a remote URL or path ending in a supported image extension — referenced by URL (back-compat).
+     *
+     * @throws InvalidConfigException if the photo can not be read or has an unsupported format.
+     * @return string|null the formatted `PHOTO` line, or null when no photo is set.
      */
     protected function getFormattedPhoto(): ?string
     {
-        if ($this->photo !== null) {
-            $ext = strtolower(substr(strrchr($this->photo, '.'), 1));
+        if ($this->photo === null || $this->photo === '') {
+            return null;
+        }
 
-            if ($ext === 'jpeg' || $ext === 'jpg' || $ext === 'png' || $ext === 'gif') {
-                $ext = strtoupper($ext);
-
-                return 'PHOTO;VALUE=URL;TYPE=' . $ext . ':' . $this->photo;
+        // Already a data URI: embed inline (vCard 4.0 supports inline data values).
+        // Only image data URIs are allowed, to avoid embedding arbitrary (e.g. HTML/JS) payloads.
+        if (str_starts_with($this->photo, 'data:')) {
+            foreach (self::PHOTO_MIME_TYPES as $mime) {
+                if (str_starts_with($this->photo, 'data:' . $mime)) {
+                    return 'PHOTO:' . $this->photo;
+                }
             }
 
             throw new InvalidConfigException('Invalid format Image!');
         }
 
-        return null;
+        // Readable local file: inline it as a Base64 data URI.
+        if (is_file($this->photo)) {
+            $contents = @file_get_contents($this->photo);
+
+            if ($contents === false) {
+                throw new InvalidConfigException('Unable to read photo file: ' . $this->photo);
+            }
+
+            return 'PHOTO:data:' . $this->detectPhotoMimeType($this->photo, $contents) . ';base64,'
+                . base64_encode($contents);
+        }
+
+        // Remote URL or plain path: reference by URL, keeping the historical behaviour.
+        $ext = strtolower(pathinfo((string) parse_url($this->photo, PHP_URL_PATH), PATHINFO_EXTENSION));
+
+        if (in_array($ext, self::SUPPORTED_PHOTO_EXTENSIONS, true)) {
+            return 'PHOTO;VALUE=URL;TYPE=' . strtoupper($ext) . ':' . $this->photo;
+        }
+
+        throw new InvalidConfigException('Invalid format Image!');
+    }
+
+    /**
+     * Resolves the MIME type for an inline photo, preferring the real image type over the extension.
+     *
+     * @param string $path     the photo path (used as an extension fallback).
+     * @param string $contents the raw image contents.
+     * @return string the resolved MIME type.
+     */
+    private function detectPhotoMimeType(string $path, string $contents): string
+    {
+        $info = @getimagesizefromstring($contents);
+
+        if ($info !== false && isset($info['mime'])) {
+            return $info['mime'];
+        }
+
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+        return self::PHOTO_MIME_TYPES[$ext] ?? 'application/octet-stream';
     }
 }

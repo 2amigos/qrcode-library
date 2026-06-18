@@ -1,9 +1,19 @@
 <?php
 
+/*
+ * This file is part of the 2amigos/qrcode-library project.
+ *
+ * (c) 2amigOS! <http://2am.tech/>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Da\QrCode\Factory;
 
 use Da\QrCode\Contracts\QrCodeInterface;
 use Da\QrCode\Enums\Format;
+use Da\QrCode\Enums\Label as LabelEnum;
 use Da\QrCode\Format\AbstractFormat;
 use Da\QrCode\Label;
 use Da\QrCode\QrCode;
@@ -69,7 +79,7 @@ class LaravelQrCodeFactory
      */
     protected static function applyForeground(QrCodeInterface $qrCode, ?array $foreground): void
     {
-        $foreground = $foreground ?: config('2am-qrcode.foreground');
+        $foreground = $foreground ?: self::resolveConfig('2am-qrcode.foreground', ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 100]);
 
         $qrCode->setForegroundColor(
             $foreground['r'],
@@ -115,7 +125,7 @@ class LaravelQrCodeFactory
      */
     protected static function applyBackground(QrCodeInterface $qrCode, ?array $background): void
     {
-        $background = $background ?: config('2am-qrcode.background');
+        $background = $background ?: self::resolveConfig('2am-qrcode.background', ['r' => 255, 'g' => 255, 'b' => 255]);
 
         $qrCode->setbackgroundColor(
             $background['r'],
@@ -148,9 +158,9 @@ class LaravelQrCodeFactory
      */
     protected static function applyMargin(QrCodeInterface $qrCode, ?int $margin): void
     {
-        $margin = $margin ?: config('2am-qrcode.margin');
+        $margin = $margin ?: self::resolveConfig('2am-qrcode.margin', 15);
 
-        $qrCode->setMargin($margin);
+        $qrCode->setMargin((int) $margin);
     }
 
     /**
@@ -160,9 +170,9 @@ class LaravelQrCodeFactory
      */
     protected static function applySize(QrCodeInterface $qrCode, ?int $size): void
     {
-        $size = $size ?: config('2am-qrcode.size');
+        $size = $size ?: self::resolveConfig('2am-qrcode.size', 300);
 
-        $qrCode->setSize($size);
+        $qrCode->setSize((int) $size);
     }
 
     /**
@@ -175,9 +185,9 @@ class LaravelQrCodeFactory
      */
     protected static function applyLogo(QrCodeInterface $qrCode, ?string $logoPath, ?int $logoSize, ?bool $scale): void
     {
-        $logoPath = $logoPath ?: config('2am-qrcode.logoPath');
-        $logoSize = $logoSize ?: config('2am-qrcode.logoSize');
-        $scale = $scale ?: config('2am-qrcode.scaleLogoHeight');
+        $logoPath = $logoPath ?: self::resolveConfig('2am-qrcode.logoPath');
+        $logoSize = $logoSize ?: self::resolveConfig('2am-qrcode.logoSize');
+        $scale = $scale ?: self::resolveConfig('2am-qrcode.scaleLogoHeight', false);
 
         if (is_null($logoPath)) {
             return;
@@ -225,11 +235,40 @@ class LaravelQrCodeFactory
         if (! is_null($label)) {
             $qrCode->setLabel(new Label(
                 $label,
-                $fontPath ?? config('2am-qrcode.label.fontPath'),
-                $size ?? config('2am-qrcode.label.size'),
-                $alignment ?? config('2am-qrcode.label.align')
+                $fontPath ?? self::resolveConfig('2am-qrcode.label.fontPath'),
+                $size ?? self::resolveConfig('2am-qrcode.label.size', 16),
+                $alignment ?? self::resolveConfig('2am-qrcode.label.align', LabelEnum::ALIGN_CENTER)
             ));
         }
+    }
+
+    /**
+     * Resolves a package configuration value.
+     *
+     * Falls back to the provided default when not running inside a booted Laravel
+     * application (so the factory can be used standalone, e.g. in tests), or when the key is unset.
+     *
+     * @param string $key the dotted configuration key.
+     * @param mixed $default the value to use when the configuration is unavailable.
+     * @return mixed the resolved configuration value or the default.
+     */
+    protected static function resolveConfig(string $key, $default = null)
+    {
+        if (function_exists('config')) {
+            try {
+                $value = config($key);
+
+                if ($value !== null) {
+                    return $value;
+                }
+            } catch (\Exception $e) {
+                // Not running inside a booted Laravel application (e.g. the container/config
+                // binding is unavailable); fall back to the default. Errors (e.g. TypeError) are
+                // intentionally not swallowed so genuine bugs still surface.
+            }
+        }
+
+        return $default;
     }
 
     /**
@@ -256,7 +295,7 @@ class LaravelQrCodeFactory
             );
         }
 
-        if (! is_null($format) && $format !== 'text' && ! (new $format($content)) instanceof AbstractFormat) {
+        if (! is_null($format) && $format !== 'text' && ! is_subclass_of($format, AbstractFormat::class)) {
             throw new Exception(
                 'Invalid format. It should be instance of Enum or null, '
                 . gettype($format)

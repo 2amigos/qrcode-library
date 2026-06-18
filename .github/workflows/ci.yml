@@ -1,37 +1,44 @@
 name: tests
-on: [push]
+
+on:
+  push:
+  pull_request:
 
 jobs:
-  test:
-    name: PHPUnit
+  tests:
+    name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
 
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.4', '8.5']
 
-      - name: setup enviroment
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: ${{ matrix.php }}
+          # GD-only by design: as of v2.0 the library renders QR codes with the
+          # GD backend and no longer depends on imagick. Only gd + simplexml
+          # are required at runtime, so imagick is deliberately NOT installed.
+          extensions: gd, simplexml
+          coverage: xdebug
 
       - name: Install dependencies
-        run: composer install
+        run: composer install --prefer-dist --no-progress
 
-      - name: Install laravel dependencies (testings purpose)
-        run: (cd ./tests/_laravel && composer install)
+      - name: Check coding standards (php-cs-fixer)
+        # Non-blocking: the v2.0 style baseline is still being normalised across
+        # src/, so a failing dry-run should not fail the whole pipeline yet.
+        continue-on-error: true
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
 
-      - name: Create laravel env file
-        run: (cd ./tests/_laravel && cp .env.example .env)
-        
-      - name: Create Laravel Tests app Key
-        run: (cd ./tests/_laravel && php artisan key:generate)
+      - name: Static analysis (phpstan)
+        run: vendor/bin/phpstan analyse --no-progress
 
       - name: Run unit tests
-        run: ./vendor/bin/codecept run --coverage --coverage-xml ./coverage.xml
-
-      - name: Upload coverage reports to Codacy
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: ./tests/_output/coverage.xml
+        run: vendor/bin/codecept run unit

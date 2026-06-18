@@ -11,6 +11,16 @@ QrCode Library
 This library allows developers to generate QR codes with ease. It works standalone and also provides Yii2 components for 
 its use on the framework.
 
+## Requirements
+
+- PHP 8.3, 8.4 or 8.5
+- `ext-gd`
+- `ext-simplexml`
+
+PNG and JPG output is rendered with a pure-GD backend **by default**, so no ImageMagick installation is required. 
+ImageMagick (`ext-imagick`) is **optional** and only needed if you explicitly opt into the Imagick backend — see the 
+[upgrade guide](UPGRADE-2.0.md) and the [troubleshooting guide](docs/helpful-guides/troubleshooting.md).
+
 ## Documentation 
 
 You can read the latest docs on [http://qrcode-library.readthedocs.io/en/latest/](http://qrcode-library.readthedocs.io/en/latest/)

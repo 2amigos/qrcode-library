@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the 2amigos/qrcode-library project.
+ *
+ * (c) 2amigOS! <http://2am.tech/>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Da\QrCode;
 
 use BaconQrCode\Renderer\Color\Alpha;
@@ -14,8 +23,8 @@ use BaconQrCode\Renderer\RendererStyle\Fill;
 use BaconQrCode\Renderer\RendererStyle\Gradient;
 use BaconQrCode\Renderer\RendererStyle\GradientType;
 use Da\QrCode\Contracts\ColorsInterface;
-use Da\QrCode\Enums\Gradient as GradientEnum;
 use Da\QrCode\Contracts\PathStyleInterface;
+use Da\QrCode\Enums\Gradient as GradientEnum;
 use Exception;
 
 class StyleManager implements PathStyleInterface, ColorsInterface
@@ -58,7 +67,7 @@ class StyleManager implements PathStyleInterface, ColorsInterface
         $backgroundColor,
         ?string $pathStyle = null,
         ?float $styleIntensity = null,
-        $gradientType = null
+        ?string $gradientType = null
     ) {
         $this->setForegroundColor($foregroundColor);
         $this->setBackgroundColor($backgroundColor);
@@ -177,7 +186,7 @@ class StyleManager implements PathStyleInterface, ColorsInterface
     /**
      * @return GradientType
      */
-    public function getGradientTye()
+    public function getGradientType(): GradientType
     {
         switch ($this->gradientType) {
             case GradientEnum::GRADIENT_DIAGONAL:
@@ -191,6 +200,15 @@ class StyleManager implements PathStyleInterface, ColorsInterface
             default:
                 return GradientType::VERTICAL();
         }
+    }
+
+    /**
+     * @deprecated since 2.0, misspelled alias of {@see getGradientType()}. Will be removed in 3.0.
+     * @return GradientType
+     */
+    public function getGradientTye(): GradientType
+    {
+        return $this->getGradientType();
     }
 
     /**
@@ -240,7 +258,7 @@ class StyleManager implements PathStyleInterface, ColorsInterface
                 new Gradient(
                     $this->getForegroundColor(),
                     $this->getForegroundEndColor(),
-                    $this->getGradientTye(),
+                    $this->getGradientType(),
                 )
             );
         }

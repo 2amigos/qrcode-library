@@ -183,6 +183,52 @@ class FormatsTest extends \Codeception\Test\Unit
         });
     }
 
+    public function testVCardPhotoBase64()
+    {
+        $class = new ReflectionClass(VCardFormat::class);
+        $method = $class->getMethod('getFormattedPhoto');
+        $method->setAccessible(true);
+
+        // A local image file is inlined as a Base64 data URI (#69).
+        $vcard = new VCardFormat();
+        $vcard->photo = codecept_data_dir('logo.png');
+        $value = $method->invoke($vcard);
+
+        $expected = 'PHOTO:data:image/png;base64,' . base64_encode(file_get_contents(codecept_data_dir('logo.png')));
+        $this->tester->assertEquals($expected, $value);
+
+        // An existing data URI is embedded as-is.
+        $vcard->photo = 'data:image/png;base64,iVBORw0KGgo=';
+        $this->tester->assertEquals('PHOTO:data:image/png;base64,iVBORw0KGgo=', $method->invoke($vcard));
+
+        // The whole vCard string includes the inline photo.
+        $vcard2 = new VCardFormat();
+        $vcard2->name = 'Antonio';
+        $vcard2->photo = codecept_data_dir('logo.png');
+        $this->tester->assertStringContainsString('PHOTO:data:image/png;base64,', $vcard2->getText());
+
+        // Non-image data URIs are rejected (no arbitrary payloads in the vCard).
+        $vcard->photo = 'data:text/html;base64,PHNjcmlwdD4=';
+        $this->tester->expectThrowable(InvalidConfigException::class, function () use ($vcard, $method) {
+            $method->invoke($vcard);
+        });
+    }
+
+    public function testMeCardOrganization()
+    {
+        // Without organization, the output is unchanged (no ORG entry).
+        $card = new MeCardFormat();
+        $card->firstName = 'Antonio';
+        $card->lastName = 'Ramirez';
+        $this->tester->assertStringNotContainsString('ORG:', $card->getText());
+
+        // With organization, an ORG entry is emitted (#34).
+        $card->organization = '2amigos';
+        $text = $card->getText();
+        $this->tester->assertStringContainsString('ORG:2amigos;', $text);
+        $this->tester->assertStringContainsString('NICKNAME:', $text);
+    }
+
     public function testWifi()
     {
         $wifi = new WifiFormat(['authentication' => 'WPA', 'ssid' => 'testSSID', 'password' => 'HAKUNAMATATA']);

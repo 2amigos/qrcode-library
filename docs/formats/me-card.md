@@ -38,5 +38,15 @@ echo $qrCode->writeString();
 
 ```
 
+Organization
+------------
+
+Since **2.0** (#34) you can set an `organization`, which is emitted as an `ORG:` entry. It is only
+added when set, so existing output is unaffected.
+
+```php
+$format->organization = '2amigos';
+// adds: ORG:2amigos;
+```
 
 © [2amigos](https://2am.tech/) 2013-2023

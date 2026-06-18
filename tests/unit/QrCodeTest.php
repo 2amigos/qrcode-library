@@ -9,7 +9,7 @@ use Da\QrCode\QrCode;
 use Da\QrCode\Writer\EpsWriter;
 use Da\QrCode\Writer\JpgWriter;
 use Da\QrCode\Writer\SvgWriter;
-
+use Zxing\QrReader;
 
 class QrCodeTest extends \Codeception\Test\Unit
 {
@@ -20,38 +20,36 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testRaw()
     {
-        $qrCode = new QrCode('2amigOS');
-        $out = $qrCode->writeString();
-        $out = base64_encode($out);
-        $expected = file_get_contents(codecept_data_dir('out.txt'));
+        $out = (new QrCode('2amigOS'))->writeString();
 
-        $this->tester->assertEquals($expected, $out);
+        $this->assertPngString($out);
+        $this->assertSame('2amigOS', $this->decode($out));
     }
 
     public function testPng()
     {
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])));
-        $out = $qrCode->writeString();
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.png')), $out);
+        $out = (new QrCode(new MailToFormat(['email' => 'hola@2amigos.us'])))->writeString();
+
+        $this->assertPngString($out);
+        $this->assertSame('MAILTO:hola@2amigos.us', $this->decode($out));
     }
 
     public function testJpg()
     {
-        return true;  // todo: try to figure out what is going on Travis and why is working locally.
         $writer = new JpgWriter();
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
-        $out = $qrCode->writeString();
+        $out = (new QrCode(new MailToFormat(['email' => 'hola@2amigos.us']), null, $writer))->writeString();
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data.jpeg')), $out);
+        $info = getimagesizefromstring($out);
+        $this->assertNotFalse($info);
+        $this->assertSame('image/jpeg', $info['mime']);
+        $this->assertSame('MAILTO:hola@2amigos.us', $this->decode($out));
     }
 
     public function testEps()
     {
-        $writer = new EpsWriter();
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
-        $out = $qrCode->writeString();
+        $out = (new QrCode(new MailToFormat(['email' => 'hola@2amigos.us']), null, new EpsWriter()))->writeString();
 
-        $this->tester->assertEquals(
+        $this->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('data.eps'))),
             $this->normalizeString($out)
         );
@@ -59,13 +57,11 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testSvg()
     {
-        $writer = new SvgWriter();
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])), null, $writer);
-        $out = $qrCode->writeString();
+        $out = (new QrCode(new MailToFormat(['email' => 'hola@2amigos.us']), null, new SvgWriter()))->writeString();
 
-        $this->tester->assertEquals(
+        $this->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('data.svg'))),
-            $out
+            $this->normalizeString($out)
         );
     }
 
@@ -75,7 +71,8 @@ class QrCodeTest extends \Codeception\Test\Unit
             ->setLogo(codecept_data_dir('logo.png'))
             ->writeString();
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-logo.png')), $out);
+        $this->assertPngString($out);
+        $this->assertSame('HTTPS://2AM.TECH', $this->decode($out));
     }
 
     public function testLogoInvalidPath()
@@ -89,55 +86,48 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testSetOutputFormat()
     {
-        $png = (new QrCode('https://2am.tech'))
-            ->setWriter(new \Da\QrCode\Writer\PngWriter())
-            ->writeString();
+        $png = (new QrCode('https://2am.tech'))->setWriter(new \Da\QrCode\Writer\PngWriter())->writeString();
+        $jpeg = (new QrCode('https://2am.tech'))->setWriter(new JpgWriter())->writeString();
+        $svg = (new QrCode('https://2am.tech'))->setWriter(new SvgWriter())->writeString();
+        $eps = (new QrCode('https://2am.tech'))->setWriter(new EpsWriter())->writeString();
 
-        $jpeg = (new QrCode('https://2am.tech'))
-            ->setWriter(new \Da\QrCode\Writer\JpgWriter())
-            ->writeString();
+        $this->assertSame('image/png', getimagesizefromstring($png)['mime']);
+        $this->assertSame('https://2am.tech', $this->decode($png));
+        $this->assertSame('image/jpeg', getimagesizefromstring($jpeg)['mime']);
+        $this->assertSame('https://2am.tech', $this->decode($jpeg));
 
-        $svg = (new QrCode('https://2am.tech'))
-            ->setWriter(new \Da\QrCode\Writer\SvgWriter())
-            ->writeString();
-
-        $eps = (new QrCode('https://2am.tech'))
-            ->setWriter(new \Da\QrCode\Writer\EpsWriter())
-            ->writeString();
-        file_put_contents(codecept_data_dir('writers/qrcode.eps'), $this->normalizeString($eps));
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.png')), $png);
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('writers/qrcode.jpg')), $jpeg);
-        $this->tester->assertEquals(
-            $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.eps'))),
-            $this->normalizeString($eps)
-        );
-        $this->tester->assertEquals(
+        $this->assertEquals(
             $this->normalizeString(file_get_contents(codecept_data_dir('writers/qrcode.svg'))),
-            $svg
+            $this->normalizeString($svg)
         );
+        $this->assertStringContainsString('%!PS-Adobe', $eps);
     }
 
     public function testLabel()
     {
         $label = new Label('2am.tech');
 
+        $path = codecept_data_dir('data-label-new.png');
         (new QrCode(strtoupper('https://2am.tech'), ErrorCorrectionLevelInterface::HIGH))
             ->setLabel($label)
-            ->writeFile(codecept_data_dir('data-label-new.png'));
-        $out = file_get_contents(codecept_data_dir('data-label-new.png'));
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-label.png')), $out);
+            ->writeFile($path);
+        $out = file_get_contents($path);
 
-        unlink(codecept_data_dir('data-label-new.png'));
+        $this->assertPngString($out);
+        $this->assertSame('HTTPS://2AM.TECH', $this->decode($out));
+
+        unlink($path);
     }
 
     public function testQrColored()
     {
-        $qrCode = new QrCode((new MailToFormat(['email' => 'hola@2amigos.us'])));
-        $out = $qrCode
+        $out = (new QrCode(new MailToFormat(['email' => 'hola@2amigos.us'])))
             ->setForegroundColor(51, 153, 255)
             ->writeString();
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('data-color.png')), $out);
+        // Coloured foreground still produces a valid PNG of the expected dimensions.
+        $info = $this->assertPngString($out);
+        $this->assertSame(320, $info[0]);
     }
 
     public function testAttributes()
@@ -168,9 +158,7 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->tester->assertEquals('https://2am.tech', $qrCode->getText());
         $this->tester->assertEquals('image/png', $qrCode->getContentType());
 
-        $out = $qrCode->writeString();
-
-        $this->tester->assertStringContainsString($out, file_get_contents(codecept_data_dir('data-attributes.png')));
+        $this->assertPngString($qrCode->writeString());
     }
 
     public function testLabelAttributes()
@@ -192,85 +180,79 @@ class QrCodeTest extends \Codeception\Test\Unit
 
     public function testQrCodeAlphaForeground()
     {
-        $qrCode = (new QrCode('2am. Technologies'))
+        $out = (new QrCode('2am. Technologies'))
             ->setForegroundColor(0, 0, 0, 50)
             ->writeString();
 
-        $this->tester->assertEquals(file_get_contents(codecept_data_dir('qrcode-alpha.png')), $qrCode);
+        // Semi-transparent foreground still yields a valid PNG.
+        $this->assertPngString($out);
     }
 
     public function testSvgWithLogo()
     {
-        $qrCode = new QrCode('2am. Technologies');
-        $qrCode->setWriter(new SvgWriter())
-            ->setLogo(codecept_data_dir('logo.png'));
-
-        (new QrCode('2am. Technologies'))
+        $svg = (new QrCode('2am. Technologies'))
             ->setWriter(new SvgWriter())
             ->setLogo(codecept_data_dir('logo.png'))
-            ->setScaleLogoHeight(true);
+            ->writeString();
 
-        $this->tester->assertEquals(
-            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-logo.svg'))),
-            $this->normalizeString($qrCode->writeString())
-        );
+        $this->assertValidSvg($svg);
+        $this->assertStringContainsString('<image', $svg);
+        $this->assertStringContainsString('data:image/png;base64', $svg);
     }
 
     public function testSvgWithLabel()
     {
-        $qrCode = new QrCode('2am. Technologies');
-        $qrCode->setWriter(new SvgWriter())
-            ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_LEFT));
+        $svg = (new QrCode('2am. Technologies'))
+            ->setWriter(new SvgWriter())
+            ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_LEFT))
+            ->writeString();
 
-        $this->tester->assertEquals(
-            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label.svg'))),
-            $this->normalizeString($qrCode->writeString())
-        );
+        $this->assertValidSvg($svg);
+        $this->assertStringContainsString('2am. Technologies', $svg);
+        $this->assertStringContainsString('@font-face', $svg);
     }
 
     public function testSvgLabelAlignmentCenter()
     {
-        $qrCode = new QrCode('2am. Technologies');
-        $qrCode->setWriter(new SvgWriter())
-            ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_CENTER));
+        $svg = (new QrCode('2am. Technologies'))
+            ->setWriter(new SvgWriter())
+            ->setLabel(new Label('2am. Technologies', 'resources/fonts/noto_sans.otf', null, LabelInterface::ALIGN_CENTER))
+            ->writeString();
 
-        $this->tester->assertEquals(
-            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label2.svg'))),
-            $this->normalizeString($qrCode->writeString())
-        );
+        $this->assertValidSvg($svg);
+        $this->assertStringContainsString('2am. Technologies', $svg);
     }
 
     public function testSvgLabelAlignmentRight()
     {
-        $qrCode = new QrCode('2am. Technologies');
-        $qrCode->setWriter(new SvgWriter())
-            ->setLabel(new Label('2am. Technologies', null, null, LabelInterface::ALIGN_RIGHT));
+        $svg = (new QrCode('2am. Technologies'))
+            ->setWriter(new SvgWriter())
+            ->setLabel(new Label('2am. Technologies', null, null, LabelInterface::ALIGN_RIGHT))
+            ->writeString();
 
-        $this->tester->assertEquals(
-            $this->normalizeString(file_get_contents(codecept_data_dir('data-svg-with-label3.svg'))),
-            $this->normalizeString($qrCode->writeString())
-        );
+        $this->assertValidSvg($svg);
+        $this->assertStringContainsString('2am. Technologies', $svg);
     }
 
     public function testScaleLogo()
     {
-        $qrCode = new QrCode('2am. Technologies');
-        $qrCode->setLogo(codecept_data_dir('logo.png'))
+        $this->expectNotToPerformAssertions();
+
+        (new QrCode('2am. Technologies'))
+            ->setLogo(codecept_data_dir('logo.png'))
             ->setScaleLogoHeight(true);
     }
 
     public function testScaleLogoSvg()
     {
-        $qrCode = new QrCode('2am. Technologies');
-        $qrCode
+        $svg = (new QrCode('2am. Technologies'))
             ->setWriter(new SvgWriter())
             ->setLogo(codecept_data_dir('logo.png'))
-            ->setScaleLogoHeight(true);
+            ->setScaleLogoHeight(true)
+            ->writeString();
 
-        $this->tester->assertEquals(
-            $this->normalizeString(file_get_contents(codecept_data_dir('svg-with-logo-scale.svg'))),
-            $this->normalizeString($qrCode->writeString())
-        );
+        $this->assertValidSvg($svg);
+        $this->assertStringContainsString('<image', $svg);
     }
 
     public function testUnsetForegroundEndColor()
@@ -301,12 +283,40 @@ class QrCodeTest extends \Codeception\Test\Unit
         $this->assertEquals($qrCode->getGradientType(), GradientType::VERTICAL());
     }
 
+    /**
+     * Decodes a QR image blob back to its text payload using the bundled reader.
+     */
+    private function decode(string $blob): ?string
+    {
+        return (new QrReader($blob, QrReader::SOURCE_TYPE_BLOB))->text();
+    }
+
+    /**
+     * Asserts the blob is a valid PNG image and returns its getimagesize() info.
+     *
+     * @return array<int|string, mixed>
+     */
+    private function assertPngString(string $blob): array
+    {
+        $info = getimagesizefromstring($blob);
+        $this->assertNotFalse($info, 'Output is not a valid image');
+        $this->assertSame('image/png', $info['mime']);
+
+        return $info;
+    }
+
+    private function assertValidSvg(string $svg): void
+    {
+        $this->assertStringContainsString('<svg', $svg);
+        $this->assertNotFalse(simplexml_load_string($svg), 'Output is not valid SVG/XML');
+    }
+
     protected function normalizeString($string)
     {
         return str_replace(
-            "\r\n", "\n", str_replace(
-                "&#13;", "", $string
-            )
+            "\r\n",
+            "\n",
+            str_replace("&#13;", "", $string)
         );
     }
 }

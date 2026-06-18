@@ -11,7 +11,8 @@
 
 namespace Da\QrCode\Writer;
 
-use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\Image\ImageBackEndInterface;
+use Da\QrCode\Renderer\GdImageBackEnd;
 use Da\QrCode\Traits\ImageTrait;
 
 class PngWriter extends AbstractWriter
@@ -20,10 +21,13 @@ class PngWriter extends AbstractWriter
 
     /**
      * PngWriter constructor.
+     *
+     * Defaults to the pure-GD back end so no ImageMagick installation is required. Pass an
+     * {@see ImageBackEndInterface} (e.g. `new ImagickImageBackEnd('png')`) to opt into Imagick.
      */
-    public function __construct()
+    public function __construct(?ImageBackEndInterface $renderBackEnd = null)
     {
-        parent::__construct(new ImagickImageBackEnd('png'));
+        parent::__construct($renderBackEnd ?? new GdImageBackEnd('png'));
     }
 
     /**

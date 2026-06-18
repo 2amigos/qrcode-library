@@ -32,28 +32,31 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.3",
+        "php": "^8.3",
         "ext-gd": "*",
         "ext-simplexml": "*",
-        "bacon/bacon-qr-code": "^2.0",
-        "khanamiryan/qrcode-detector-decoder": "^1.0",
-        "marc-mabe/php-enum": "^4.7"
+        "bacon/bacon-qr-code": "^3.0",
+        "khanamiryan/qrcode-detector-decoder": "^2.0"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
-        "friendsofphp/php-cs-fixer": "^2.3",
-        "scrutinizer/ocular": "~1.1",
-        "squizlabs/php_codesniffer": "*",
-        "phpmd/phpmd": "@stable",
-        "codeception/specify": "^0.4.3",
-        "codeception/verify": "^0.3.1",
-        "codeception/codeception": "*",
-        "yiisoft/yii2": "^2.0",
-        "codeception/module-filesystem": "^1.0",
-        "codeception/module-yii2": "^1.0",
-        "codeception/module-asserts": "2.0.1",
-        "codeception/module-laravel": "^2.1",
-        "laravel/framework": "^8.83"
+        "friendsofphp/php-cs-fixer": "^3.75",
+        "phpstan/phpstan": "^2.1",
+        "squizlabs/php_codesniffer": "^3.10",
+        "phpmd/phpmd": "^2.15",
+        "codeception/codeception": "^5.1",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-filesystem": "^3.0",
+        "codeception/module-yii2": "^2.0",
+        "codeception/module-laravel": "^3.2",
+        "codeception/specify": "^2.0",
+        "codeception/verify": "^3.0",
+        "yiisoft/yii2": "^2.0.52",
+        "laravel/framework": "^12.0"
+    },
+    "suggest": {
+        "ext-imagick": "To render QR codes with the ImageMagick backend instead of the default GD backend",
+        "yiisoft/yii2": "To use the Yii2 QrCode component and action",
+        "laravel/framework": "To use the Laravel QrCode blade component, service provider and factory"
     },
     "autoload": {
         "psr-4": {
@@ -62,13 +65,19 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         },
         "laravel": {
             "providers": [
                 "Da\\QrCode\\Providers\\QrCodeServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix",
+        "stan": "phpstan analyse",
+        "test": "codecept run"
     },
     "config": {
         "allow-plugins": {

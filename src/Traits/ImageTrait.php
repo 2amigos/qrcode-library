@@ -120,7 +120,7 @@ trait ImageTrait
      */
     protected function addMargin($sourceImage, $margin, $size, array $foregroundColor, array $backgroundColor)
     {
-        $additionalWhitespace = $this->calculateAdditionalWhiteSpace($sourceImage, $foregroundColor);
+        $additionalWhitespace = $this->calculateAdditionalWhiteSpace($sourceImage, $backgroundColor);
 
         if ($margin === 0) {
             return $sourceImage;
@@ -151,26 +151,42 @@ trait ImageTrait
     }
 
     /**
+     * Calculates the left/top whitespace padding that surrounds the rendered QR.
+     *
+     * It returns the leftmost column that contains a non-background pixel (i.e. the start of the QR
+     * content). Detecting "not the background colour" — rather than matching one exact foreground
+     * colour — is what makes this correct for gradient fills, where edge modules are NOT the start
+     * colour (a radial gradient, for instance, paints its edges with the end colour).
+     *
      * @param resource $image
-     * @param int[]    $foregroundColor
+     * @param int[]    $backgroundColor
      *
      * @return int
      */
-    protected function calculateAdditionalWhiteSpace($image, array $foregroundColor): int
+    protected function calculateAdditionalWhiteSpace($image, array $backgroundColor): int
     {
         $width = imagesx($image);
         $height = imagesy($image);
-        $foregroundColor = imagecolorallocate(
-            $image,
-            $foregroundColor['r'],
-            $foregroundColor['g'],
-            $foregroundColor['b']
-        );
+        $tolerance = 16;
         $whitespace = $width;
+
         for ($y = 0; $y < $height; $y++) {
-            for ($x = 0; $x < $width; $x++) {
+            for ($x = 0; $x < $whitespace; $x++) {
                 $color = imagecolorat($image, $x, $y);
-                if ($color == $foregroundColor || $x == $whitespace) {
+
+                // A fully transparent pixel is part of a transparent background, not QR content.
+                if ((($color >> 24) & 0x7F) === 127) {
+                    continue;
+                }
+
+                $red = ($color >> 16) & 0xFF;
+                $green = ($color >> 8) & 0xFF;
+                $blue = $color & 0xFF;
+
+                if (abs($red - $backgroundColor['r']) > $tolerance
+                    || abs($green - $backgroundColor['g']) > $tolerance
+                    || abs($blue - $backgroundColor['b']) > $tolerance
+                ) {
                     $whitespace = min($whitespace, $x);
                     break;
                 }
@@ -187,7 +203,7 @@ trait ImageTrait
      *
      * @return resource
      */
-    protected function addLogo($sourceImage, $logoPath, $logoWidth = null, $scale = false)
+    protected function addLogo($sourceImage, $logoPath, ?int $logoWidth = null, $scale = false)
     {
         $logoContents = $this->transformLogo($logoPath, $logoWidth, $scale);
         $logoImage = $logoContents->image();

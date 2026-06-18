@@ -6,10 +6,41 @@ use Da\QrCode\Enums\Gradient;
 use Da\QrCode\Factory\LaravelQrCodeFactory;
 use Da\QrCode\QrCode;
 use Da\QrCode\Writer\PngWriter;
+use Illuminate\Config\Repository;
+use Illuminate\Container\Container;
 
 class LaravelQrCodeFactoryTest extends \Codeception\Test\Unit
 {
     protected $tester;
+
+    protected function _after()
+    {
+        // Ensure no Laravel container leaks into the other (standalone) factory tests.
+        Container::setInstance(null);
+    }
+
+    /**
+     * Proves the factory integrates with a current Laravel (12.x) container/config, resolving
+     * package defaults through the `config()` helper rather than its built-in fallbacks.
+     */
+    public function testFactoryUsesLaravelConfig()
+    {
+        $container = new Container();
+        $container->instance('config', new Repository([
+            '2am-qrcode' => require __DIR__ . '/../../config/2am-qrcode.php',
+        ]));
+        Container::setInstance($container);
+
+        $qrCode = LaravelQrCodeFactory::make('2am. Technologies', Format::TEXT);
+
+        // Values come straight from config/2am-qrcode.php (size 300, margin 15).
+        $this->assertSame(300, $qrCode->getSize());
+        $this->assertSame(15, $qrCode->getMargin());
+        $foreground = $qrCode->getForegroundColor();
+        $this->assertSame(0, $foreground['r']);
+        $background = $qrCode->getBackgroundColor();
+        $this->assertSame(255, $background['r']);
+    }
 
     public function testInvalidQrCodeFormatNumber()
     {

@@ -32,7 +32,7 @@ class WriterFactory
             'eps' => EpsWriter::class,
             'jpg' => JpgWriter::class,
             'png' => PngWriter::class,
-            'svg' => SvgWriter::class
+            'svg' => SvgWriter::class,
         ];
 
         if (!array_key_exists($name, $writerMap)) {
