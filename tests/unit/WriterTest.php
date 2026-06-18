@@ -67,7 +67,14 @@ class WriterTest extends \Codeception\Test\Unit
         $qrCode = new QrCode('hola@2amigos.us');
 
         $out = $writer->writeDataUri($qrCode);
-        $this->assertEquals(file_get_contents(codecept_data_dir('uri.txt')), $out);
+
+        $this->assertStringStartsWith('data:image/png;base64,', $out);
+        $blob = base64_decode(substr($out, strlen('data:image/png;base64,')));
+        $this->assertSame('image/png', getimagesizefromstring($blob)['mime']);
+        $this->assertSame(
+            'hola@2amigos.us',
+            (new \Zxing\QrReader($blob, \Zxing\QrReader::SOURCE_TYPE_BLOB))->text()
+        );
     }
 
     public function testGetWriterName()

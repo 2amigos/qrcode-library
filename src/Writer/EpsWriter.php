@@ -12,8 +12,6 @@
 namespace Da\QrCode\Writer;
 
 use BaconQrCode\Renderer\Image\EpsImageBackEnd;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Da\QrCode\Contracts\QrCodeInterface;
 

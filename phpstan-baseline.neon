@@ -1,0 +1,673 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$background with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$content with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:__construct\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Parameter \#11 \$logoSize of static method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) expects string\|null, int\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$background type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$content type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$foreground type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$foreground2 type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Laravel\\QrCodeBladeComponent\:\:\$logoSize \(int\|null\) does not accept string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Bridge/Laravel/QrCodeBladeComponent.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setForegroundColor\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setForegroundEndColor\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setGradientType\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLabel\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLogo\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setLogoWidth\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setMargin\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setPathIntensity\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setPathStyle\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setScaleLogoHeight\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setSize\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:setbackgroundColor\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyBackground\(\) has parameter \$background with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyForeground\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyForeground2\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:buildQrCode\(\) has parameter \$content with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$background with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$content with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$foreground with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:make\(\) has parameter \$foreground2 with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:validate\(\) has parameter \$content with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Parameter \#3 \$logoSize of static method Da\\QrCode\\Bridge\\Laravel\\QrCodeFactory\:\:applyLogo\(\) expects int\|null, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: src/Bridge/Laravel/QrCodeFactory.php
+
+		-
+			message: '#^Access to static property \$app on an unknown class Yii\.$#'
+			identifier: class.notFound
+			count: 4
+			path: src/Bridge/Yii2/QrCodeAction.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Yii2\\QrCodeAction\:\:run\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Bridge/Yii2/QrCodeAction.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeAction\:\:\$background type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeAction.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeAction\:\:\$foreground type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeAction.php
+
+		-
+			message: '#^Class Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent has PHPDoc tag @method for method getBackgroundColor\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeComponent.php
+
+		-
+			message: '#^Class Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent has PHPDoc tag @method for method getForegroundColor\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeComponent.php
+
+		-
+			message: '#^Class Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent has PHPDoc tag @method for method getMargin\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:__call\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Bridge/Yii2/QrCodeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:\$backgroundColor type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeComponent.php
+
+		-
+			message: '#^Property Da\\QrCode\\Bridge\\Yii2\\QrCodeComponent\:\:\$foregroundColor type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Bridge/Yii2/QrCodeComponent.php
+
+		-
+			message: '#^Method Da\\QrCode\\Contracts\\ColorsInterface\:\:setForegroundEndColor\(\) has parameter \$color with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Contracts/ColorsInterface.php
+
+		-
+			message: '#^Method Da\\QrCode\\Contracts\\LabelInterface\:\:getMargins\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/LabelInterface.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$ratio$#'
+			identifier: parameter.notFound
+			count: 1
+			path: src/Contracts/PathStyleInterface.php
+
+		-
+			message: '#^Method Da\\QrCode\\Contracts\\QrCodeInterface\:\:getForegroundEndColor\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/QrCodeInterface.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\)\: Unexpected token "\\n     \* ", expected type at offset 15 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: src/Contracts/QrCodeInterface.php
+
+		-
+			message: '#^Method Da\\QrCode\\Dto\\LogoDto\:\:__construct\(\) has parameter \$height with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Dto/LogoDto.php
+
+		-
+			message: '#^Method Da\\QrCode\\Dto\\LogoDto\:\:__construct\(\) has parameter \$image with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Dto/LogoDto.php
+
+		-
+			message: '#^Method Da\\QrCode\\Dto\\LogoDto\:\:__construct\(\) has parameter \$targetHeight with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Dto/LogoDto.php
+
+		-
+			message: '#^Method Da\\QrCode\\Dto\\LogoDto\:\:__construct\(\) has parameter \$targetWidth with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Dto/LogoDto.php
+
+		-
+			message: '#^Method Da\\QrCode\\Dto\\LogoDto\:\:__construct\(\) has parameter \$width with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Dto/LogoDto.php
+
+		-
+			message: '#^Method Da\\QrCode\\Format\\AbstractFormat\:\:__call\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Format/AbstractFormat.php
+
+		-
+			message: '#^Method Da\\QrCode\\Format\\AbstractFormat\:\:__construct\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Format/AbstractFormat.php
+
+		-
+			message: '#^Method Da\\QrCode\\Format\\BookMarkFormat\:\:setUrl\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Format/BookMarkFormat.php
+
+		-
+			message: '#^Property Da\\QrCode\\Format\\GeoFormat\:\:\$altitude has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Format/GeoFormat.php
+
+		-
+			message: '#^Property Da\\QrCode\\Format\\GeoFormat\:\:\$lat has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Format/GeoFormat.php
+
+		-
+			message: '#^Property Da\\QrCode\\Format\\GeoFormat\:\:\$lng has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Format/GeoFormat.php
+
+		-
+			message: '#^Method Da\\QrCode\\Format\\MeCardFormat\:\:setUrl\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Format/MeCardFormat.php
+
+		-
+			message: '#^Method Da\\QrCode\\Format\\VCardFormat\:\:setUrl\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Format/VCardFormat.php
+
+		-
+			message: '#^Offset ''mime'' on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: src/Format/VCardFormat.php
+
+		-
+			message: '#^Method Da\\QrCode\\Label\:\:__construct\(\) has parameter \$margins with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Label.php
+
+		-
+			message: '#^Method Da\\QrCode\\Label\:\:getMargins\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Label.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$alignment$#'
+			identifier: parameter.notFound
+			count: 1
+			path: src/Label.php
+
+		-
+			message: '#^Property Da\\QrCode\\Label\:\:\$margins has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Label.php
+
+		-
+			message: '#^Method Da\\QrCode\\QrCode\:\:getForegroundEndColor\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/QrCode.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$text with type string\|null is not subtype of native type string\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: src/QrCode.php
+
+		-
+			message: '#^Instanceof between BaconQrCode\\Renderer\\Color\\Alpha\|BaconQrCode\\Renderer\\Color\\Rgb and BaconQrCode\\Renderer\\Color\\ColorInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: src/StyleManager.php
+
+		-
+			message: '#^Method Da\\QrCode\\StyleManager\:\:buildColor\(\) has parameter \$alpha with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^Method Da\\QrCode\\StyleManager\:\:buildColor\(\) has parameter \$applyAlpha with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^Method Da\\QrCode\\StyleManager\:\:buildColor\(\) has parameter \$blue with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^Method Da\\QrCode\\StyleManager\:\:buildColor\(\) has parameter \$green with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^Method Da\\QrCode\\StyleManager\:\:buildColor\(\) has parameter \$red with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\)\: Unexpected token "\\n     ", expected type at offset 15 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 2
+			path: src/StyleManager.php
+
+		-
+			message: '#^Property Da\\QrCode\\StyleManager\:\:\$backgroundColor \(BaconQrCode\\Renderer\\Color\\Alpha\|BaconQrCode\\Renderer\\Color\\Rgb\) does not accept BaconQrCode\\Renderer\\Color\\ColorInterface\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^Property Da\\QrCode\\StyleManager\:\:\$foregroundEndColor has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^Property Da\\QrCode\\StyleManager\:\:\$gradientType has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/StyleManager.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:getStyleManager\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: src/Writer/AbstractWriter.php
+
+		-
+			message: '#^Call to an undefined method Da\\QrCode\\Contracts\\QrCodeInterface\:\:getWriter\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Writer/AbstractWriter.php
+
+		-
+			message: '#^PHPDoc tag @return with type string is incompatible with native type BaconQrCode\\Common\\ErrorCorrectionLevel\|null\.$#'
+			identifier: return.phpDocType
+			count: 1
+			path: src/Writer/AbstractWriter.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between int\<min, \-1\>\|int\<1, max\> and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/Writer/AbstractWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\JpgWriter\:\:addLabel\(\) should return resource but returns \(GdImage\|false\)\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\JpgWriter\:\:addLogo\(\) has parameter \$scale with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\JpgWriter\:\:addMargin\(\) should return resource but returns \(GdImage\|false\)\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$dst_image of function imagecopyresampled expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagecolorat expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagejpeg expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagesx expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagesy expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$sourceImage of method Da\\QrCode\\Writer\\JpgWriter\:\:addMargin\(\) expects resource, GdImage\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Parameter \#2 \$src_image of function imagecopyresampled expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Property Da\\QrCode\\Writer\\JpgWriter\:\:\$validate has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Writer/JpgWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\PngWriter\:\:addLabel\(\) should return resource but returns \(GdImage\|false\)\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\PngWriter\:\:addLogo\(\) has parameter \$scale with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\PngWriter\:\:addMargin\(\) should return resource but returns \(GdImage\|false\)\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Parameter \#1 \$dst_image of function imagecopyresampled expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagecolorat expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagepng expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagesx expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagesy expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Parameter \#1 \$sourceImage of method Da\\QrCode\\Writer\\PngWriter\:\:addMargin\(\) expects resource, GdImage\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Parameter \#2 \$src_image of function imagecopyresampled expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Property Da\\QrCode\\Writer\\PngWriter\:\:\$validate has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Writer/PngWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\SvgWriter\:\:addLogo\(\) has parameter \$logoPath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Writer/SvgWriter.php
+
+		-
+			message: '#^Method Da\\QrCode\\Writer\\SvgWriter\:\:addLogo\(\) has parameter \$scale with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Writer/SvgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagepng expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/SvgWriter.php
+
+		-
+			message: '#^Parameter \#1 \$image of method Da\\QrCode\\Writer\\SvgWriter\:\:imageToString\(\) expects resource, GdImage given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Writer/SvgWriter.php
+
+		-
+			message: '#^Parameter \#2 \$value of method SimpleXMLElement\:\:addAttribute\(\) expects string, \(float\|int\) given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Writer/SvgWriter.php
+
+		-
+			message: '#^Parameter \#2 \$value of method SimpleXMLElement\:\:addAttribute\(\) expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Writer/SvgWriter.php

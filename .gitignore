@@ -48,6 +48,7 @@ codeception.yml
 # Code Style Checkers and Mess Detectors
 /.php_cs.cache
 /.php_cs
+/.php-cs-fixer.cache
 
 # test
 /build

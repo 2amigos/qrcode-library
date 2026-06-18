@@ -4,12 +4,20 @@ QrCode Library
 [![Latest Version](https://img.shields.io/github/tag/2amigos/qrcode-library.svg?style=flat-square&label=release)](https://github.com/2amigos/qrcode-library/tags)
 [![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![tests](https://github.com/2amigos/qrcode-library/actions/workflows/ci.yml/badge.svg)](https://github.com/2amigos/qrcode-library/actions/workflows/ci.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b61a5b723c0d4799aedbb9150d4d544c)](https://app.codacy.com/gh/2amigos/qrcode-library/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/b61a5b723c0d4799aedbb9150d4d544c)](https://app.codacy.com/gh/2amigos/qrcode-library/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Total Downloads](https://img.shields.io/packagist/dt/2amigos/qrcode-library.svg)](https://packagist.org/packages/2amigos/qrcode-library) 
 
 This library allows developers to generate QR codes with ease. It works standalone and also provides Yii2 components for 
 its use on the framework.
+
+## Requirements
+
+- PHP 8.3, 8.4 or 8.5
+- `ext-gd`
+- `ext-simplexml`
+
+PNG and JPG output is rendered with a pure-GD backend **by default**, so no ImageMagick installation is required. 
+ImageMagick (`ext-imagick`) is **optional** and only needed if you explicitly opt into the Imagick backend — see the 
+[upgrade guide](UPGRADE-2.0.md) and the [troubleshooting guide](docs/helpful-guides/troubleshooting.md).
 
 ## Documentation 
 

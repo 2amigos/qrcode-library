@@ -66,6 +66,11 @@ class MeCardFormat extends AbstractFormat
      * @var string designates a text string to be set as the kana name in the phonebook. (0 or more characters)
      */
     public $sound;
+    /**
+     * @var string the name of the organization / company associated with the contact.
+     *             Emitted as an `ORG:` entry only when set, so existing output is unaffected (#34).
+     */
+    public $organization;
 
     /**
      * @return string
@@ -83,8 +88,13 @@ class MeCardFormat extends AbstractFormat
         $data[] = "BDAY:{$this->birthday};";
         $data[] = "ADR:{$this->address};";
         $data[] = "URL:{$this->url};";
+
+        if ($this->organization !== null && $this->organization !== '') {
+            $data[] = "ORG:{$this->organization};";
+        }
+
         $data[] = "NICKNAME:{$this->nickName};;";
 
-        return implode($data);
+        return implode('', $data);
     }
 }

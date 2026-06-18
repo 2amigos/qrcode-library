@@ -8,7 +8,7 @@ First we need to configure the component in our Yii2 application config file on 
 'components' => [
 // ... 
     'qr' => [
-        'class' => '\Da\QrCode\Component\QrCodeComponent',
+        'class' => '\Da\QrCode\Bridge\Yii2\QrCodeComponent',
         'label' => '2amigos consulting group llc',
         'size' => 500 // big and nice :D
         // ... you can configure more properties of the component here

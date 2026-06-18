@@ -82,7 +82,7 @@ abstract class AbstractWriter implements WriterInterface
      * @param bool $scale
      * @return LogoDto
      */
-    protected function transformLogo($logoPath, $logoWidth = null, $scale = false)
+    protected function transformLogo($logoPath, ?int $logoWidth = null, $scale = false)
     {
         $logoImage = imagecreatefromstring(file_get_contents($logoPath));
         $logoSourceWidth = imagesx($logoImage);

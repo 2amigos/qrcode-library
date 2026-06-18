@@ -12,6 +12,7 @@
 namespace Da\QrCode;
 
 use BaconQrCode\Renderer\Color\Alpha;
+use BaconQrCode\Renderer\RendererStyle\GradientType;
 use Da\QrCode\Contracts\ErrorCorrectionLevelInterface;
 use Da\QrCode\Contracts\LabelInterface;
 use Da\QrCode\Contracts\QrCodeInterface;
@@ -204,13 +205,13 @@ class QrCode implements QrCodeInterface
     }
 
     /**
-     * @return string
+     * @return GradientType
      */
-    public function getGradientType(): string
+    public function getGradientType(): GradientType
     {
         return $this
             ->styleManager
-            ->getGradientTye();
+            ->getGradientType();
     }
 
     /**
@@ -398,7 +399,7 @@ class QrCode implements QrCodeInterface
             'b' => $rgb->getBlue(),
             'a' => $color instanceof Alpha
                 ? $color->getAlpha()
-                : 100
+                : 100,
         ];
     }
 
@@ -421,7 +422,7 @@ class QrCode implements QrCodeInterface
             'b' => $rgb->getBlue(),
             'a' => $color instanceof Alpha
                 ? $color->getAlpha()
-                : 100
+                : 100,
         ];
     }
 
@@ -436,7 +437,7 @@ class QrCode implements QrCodeInterface
         return [
             'r' => $rgb->getRed(),
             'g' => $rgb->getGreen(),
-            'b' => $rgb->getBlue()
+            'b' => $rgb->getBlue(),
         ];
     }
 

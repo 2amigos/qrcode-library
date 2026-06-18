@@ -26,4 +26,26 @@ echo $qrCode->writeString();
 
 ```
 
+Photo
+-----
+
+Since **2.0** (#69) the `photo` property accepts more than a remote URL. It is interpreted in the
+following order of precedence:
+
+- a ready `data:` URI (e.g. `data:image/png;base64,...`) — embedded inline as-is;
+- a path to a readable local image file — read and embedded inline as a Base64 `data:` URI;
+- a remote URL or path ending in a supported image extension (`jpeg`, `jpg`, `png`, `gif`) —
+  referenced by URL, the historical behaviour.
+
+```php
+// Inline a local image file as Base64 (new in 2.0)
+$format->photo = '/path/to/avatar.png';
+
+// Inline a ready data URI as-is (new in 2.0)
+$format->photo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...';
+
+// Reference a remote image by URL (back-compatible)
+$format->photo = 'https://example.com/avatar.png';
+```
+
 © [2amigos](https://2am.tech/) 2013-2023
