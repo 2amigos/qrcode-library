@@ -20,15 +20,13 @@ public function actions()
 {
     return [
         'qr' => [
-            'class' => QrCodeAction::className(),
+            'class' => \Da\QrCode\Bridge\Yii2\QrCodeAction::class,
             'text' => 'https://2am.tech',
             'param' => 'v',
-            'commponent' => 'qr' // if configured in our app as `qr` 
+            'component' => 'qr' // if configured in our app as `qr` 
         ]
     ];
 }
 ```
 
-See [QrCodComponent](qrcode-component.md).
-
-© [2amigos](https://2am.tech/) 2013-2023
+See [QrCodeComponent](qrcode-component.md).

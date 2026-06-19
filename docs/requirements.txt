@@ -1,0 +1,3 @@
+# Documentation build dependencies (Read the Docs / local `mkdocs serve`).
+# Material for MkDocs pulls in mkdocs and pymdown-extensions transitively.
+mkdocs-material>=9.5,<10

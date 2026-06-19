@@ -25,5 +25,3 @@ header('Content-Type: ' . $qrCode->getContentType());
 echo $qrCode->writeString();
 
 ```
-
-© [2amigos](https://2am.tech/) 2013-2023

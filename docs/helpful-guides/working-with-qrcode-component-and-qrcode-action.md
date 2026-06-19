@@ -9,7 +9,7 @@ First we need to configure the component in our Yii2 application config file on 
 // ... 
     'qr' => [
         'class' => '\Da\QrCode\Bridge\Yii2\QrCodeComponent',
-        'label' => '2amigos consulting group llc',
+        'label' => '2am.tech',
         'size' => 500 // big and nice :D
         // ... you can configure more properties of the component here
     ]
@@ -26,10 +26,10 @@ public function actions()
 {
     return [
         'qr' => [
-            'class' => QrCodeAction::className(),
+            'class' => \Da\QrCode\Bridge\Yii2\QrCodeAction::class,
             'text' => 'https://2am.tech', // default text
             'param' => 'v',
-            'commponent' => 'qr' // if configured in our app as `qr` 
+            'component' => 'qr' // if configured in our app as `qr` 
         ]
     ];
 }
@@ -44,5 +44,3 @@ QrCode. According to the above configuration we could use it to display it on im
 <!-- this will display https://2am.tech (default text) -->
 <img src="<?= Url::to(['controller/qr']) ?>" />
 ```
-
-© [2amigos](https://2am.tech/) 2013-2023

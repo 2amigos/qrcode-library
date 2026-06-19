@@ -23,7 +23,7 @@ $format->lastName = 'Ramirez';
 $format->sound = 'docomotaro';
 $format->phone = '657657XXX';
 $format->videoPhone = '657657XXX';
-$format->email = 'hola@2amigos.us';
+$format->email = 'hola@2am.tech';
 $format->note = 'test-note';
 $format->birthday = '19791201';
 $format->address = 'test-address';
@@ -41,12 +41,10 @@ echo $qrCode->writeString();
 Organization
 ------------
 
-Since **2.0** (#34) you can set an `organization`, which is emitted as an `ORG:` entry. It is only
+Since **4.0** (#34) you can set an `organization`, which is emitted as an `ORG:` entry. It is only
 added when set, so existing output is unaffected.
 
 ```php
-$format->organization = '2amigos';
-// adds: ORG:2amigos;
+$format->organization = '2am.tech';
+// adds: ORG:2am.tech;
 ```
-
-© [2amigos](https://2am.tech/) 2013-2023

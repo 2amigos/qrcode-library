@@ -38,7 +38,7 @@ $action = (new QrCodeAction($responseFactory, $streamFactory))
     ->withForegroundColor(20, 30, 90)
     ->withBackgroundColor(255, 255, 255)
     ->withLogo(__DIR__ . '/logo.png', 90)
-    ->withLabel('2amigos')
+    ->withLabel('2am.tech')
     ->withWriter(new \Da\QrCode\Writer\SvgWriter()); // default writer is PNG (GD)
 ```
 

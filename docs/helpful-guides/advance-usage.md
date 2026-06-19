@@ -16,7 +16,7 @@ Remembering that fact, we can configure and use our instance like this:
 // A label can be a string OR a Da\Contracts\LabelInterface instance. 
 // Using the instance, we will have more control on how do we want the label to be displayed.
 // Immutability also applies to this class! 
-$label = (new Label('2amigos'))
+$label = (new Label('2am.tech'))
     ->setFont(__DIR__ . '/../resources/fonts/monsterrat.otf')
     ->setFontSize(12);
 
@@ -101,5 +101,3 @@ $qrCode = (new QrCode('https://2am.tech'))
 
 The default value for the intensity is 1. It must be a number between 0 and 1,
 otherwise an exception will be thrown.
-
-© [2amigos](https://2am.tech/) 2013-2023

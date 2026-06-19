@@ -23,9 +23,9 @@ It has only `content` as a required field.
 <x-2am-qrcode :content="'2am. Technologies'"/>
 ```
 
-We can also define the qrcode [format](../index.md#Formats). To do so,
-you must specify the `format` attribute with a constant from `\Da\QrCode\Enum\Format` and the `content` as an array,
-fulfilling the data for the designed format as specified in the format [docs]((../index.md#Formats)).
+We can also define the qrcode [format](../index.md#formats). To do so,
+you must specify the `format` attribute with a constant from `\Da\QrCode\Enums\Format` and the `content` as an array,
+fulfilling the data for the designed format as specified in the format [docs](../index.md#formats).
 
 To work with colors (background, foreground and gradient foreground), you set
 the attributes `background`, `foregroud` and `foreground2` (for gradient foreground) as an array
@@ -71,11 +71,11 @@ All blade component attributes:
 | Attribute |                                Description                                 |                   Data Type                    |
 |:---------:|:--------------------------------------------------------------------------:|:----------------------------------------------:|
 |  content  |                         Defines the qrcode's data                          |                 string; array                  |
-| format |                        Defines the qrcode's format                         |             \Da\QrCode\Enum\Format             |
+| format |                        Defines the qrcode's format                         |             \Da\QrCode\Enums\Format             |
 | foreground |                 Defines the qrcode`s foreground base color                 |               array (r, g, b, a)               |
 | background |                   Defines the qrcode's background color                    |               array (r, g, b, a)               |
 | foreground2 |       Defines the qrcode's foreground end color (turns to gradient)        |               array (r, g, b, a)               |
-| pathStyle |                      Defines the qrcode's path style                       |              \Da\QrCode\Enum\Path              |
+| pathStyle |                      Defines the qrcode's path style                       |              \Da\QrCode\Enums\Path              |
 | intensity |                      Defines the path style intensity                      |              float, from 0.1 to 1              |
 | margin |                        Defines the qrcode's margin                         |                      int                       |
 | size |                         Defines the qrcode's size                          |                      int                       |
@@ -86,4 +86,4 @@ All blade component attributes:
 | label |                         Defines the qrcode's label                         | string |
 | font |                           Defines the label font                           | string. It should be full path |
 | fontSize |                        Defines the label font size                         | int |
-| fontAlign | Defines the label alignment | \Da\QrCode\Label |
+| fontAlign | Defines the label alignment | \Da\QrCode\Enums\Label |

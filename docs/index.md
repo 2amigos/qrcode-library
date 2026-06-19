@@ -1,11 +1,10 @@
 # Qrcode Library
 
-[![Documentation Status](https://readthedocs.org/projects/qrcode-library/badge/?version=latest)](http://qrcode-library.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/qrcode-library/badge/?version=latest)](https://qrcode-library.readthedocs.io/en/latest/?badge=latest)
 [![Packagist Version](https://img.shields.io/packagist/v/2amigos/qrcode-library.svg?style=flat-square)](https://packagist.org/packages/2amigos/qrcode-library)
-[![Build Status](https://travis-ci.org/2amigos/qrcode-library.svg?branch=master)](https://travis-ci.org/2amigos/qrcode-library)
+[![tests](https://github.com/2amigos/qrcode-library/actions/workflows/ci.yml/badge.svg)](https://github.com/2amigos/qrcode-library/actions/workflows/ci.yml)
 [![Latest Stable Version](https://poser.pugx.org/2amigos/qrcode-library/version)](https://packagist.org/packages/2amigos/qrcode-library)
 [![Total Downloads](https://poser.pugx.org/2amigos/qrcode-library/downloads)](https://packagist.org/packages/2amigos/qrcode-library)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/2amigos/qrcode-library/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/2amigos/qrcode-library/?branch=master)
 
 The library provides developers with the tools to generate Qr codes with ease. It is a total refactored version of the 
 previous named yii2-qrcode-helper which was based on the ported PHP version of the libqrencode C library.  
@@ -79,18 +78,18 @@ You can set the foreground color, defining RGBA values, where the alpha is optio
 
 ```PHP
 $qrCode = (new QrCode('This is my text'))
-    ->setForeground(0, 0, 0);
+    ->setForegroundColor(0, 0, 0);
 
 // or, setting alpha as well
 $qrCode = (new QrCode('This is my text'))
-    ->setForeground(0, 0, 0, 50);
+    ->setForegroundColor(0, 0, 0, 50);
 ```
 
 ### Formats
 
 In order to ease the task to write different formats into a QrCode, the library comes with a set of classes. These are: 
 
--  [BookmarkFormat](formats/bookmark.md)
+-  [BookMarkFormat](formats/bookmark.md)
 -  [BtcFormat](formats/bitcoin.md) 
 -  [GeoFormat](formats/geo.md)
 -  [ICalFormat](formats/ical.md)
@@ -141,6 +140,3 @@ Contributing
 
 -  [How to Contribute](contributing/how-to.md)
 -  [Clean Code](contributing/clean-code.md)
-
-
-© [2amigos](https://2am.tech/) 2013-2023
