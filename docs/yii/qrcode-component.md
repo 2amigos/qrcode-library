@@ -34,10 +34,7 @@ Yii::$app->response->headers->add('Content-Type', $qr->getContentType());
 
 return $qr
     ->setText('https://2am.tech')
-    ->setLabel('2amigos consulting group llc')
+    ->setLabel('2am.tech')
     ->writeString();
 
 ```
-
-
-© [2amigos](https://2am.tech/) 2013-2023

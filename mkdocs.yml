@@ -1,3 +1,92 @@
 site_name: QrCode Library
+site_description: >-
+  Generate QR codes with ease in PHP. Works standalone and ships bridges for
+  Laravel, Yii2 and Yii3 / PSR-15.
+site_url: https://qrcode-library.readthedocs.io/
 repo_url: https://github.com/2amigos/qrcode-library
-edit_uri: docs/master/
+repo_name: 2amigos/qrcode-library
+edit_uri: edit/master/docs/
+copyright: Copyright &copy; 2013–2026 2am.tech
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Formats:
+      - Bitcoin (BTC): formats/bitcoin.md
+      - Bookmark (MEBKM): formats/bookmark.md
+      - Geo location: formats/geo.md
+      - iCal event: formats/ical.md
+      - Mail message: formats/mail-message.md
+      - Mailto: formats/mail-to.md
+      - MeCard: formats/me-card.md
+      - MMS: formats/mms.md
+      - Phone: formats/phone.md
+      - SMS: formats/sms.md
+      - vCard: formats/vcard.md
+      - Wi-Fi: formats/wifi.md
+      - YouTube: formats/youtube.md
+  - Laravel:
+      - Blade component: laravel/blade-component.md
+      - File route: laravel/file-route.md
+      - Customization: laravel/customization.md
+  - Yii2:
+      - QrCode component: yii/qrcode-component.md
+      - QrCode action: yii/qrcode-action.md
+  - Yii3 / PSR-15:
+      - PSR-15 action: psr/qrcode-action.md
+  - Helpful guides:
+      - Advanced usage: helpful-guides/advance-usage.md
+      - Components & actions: helpful-guides/working-with-qrcode-component-and-qrcode-action.md
+      - Troubleshooting: helpful-guides/troubleshooting.md
+  - Contributing:
+      - How to contribute: contributing/how-to.md
+      - Clean code: contributing/clean-code.md

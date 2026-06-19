@@ -12,9 +12,9 @@ Usage
 ```php 
 
 use Da\QrCode\QrCode;
-use Da\QrCode\Format\BookmarkFormat; 
+use Da\QrCode\Format\BookMarkFormat; 
 
-$format = new BookMarkFormat(['title' => '2amigos', 'url' => 'http://2am.tech']);
+$format = new BookMarkFormat(['title' => '2am.tech', 'url' => 'http://2am.tech']);
 
 $qrCode = new QrCode($format);
 
@@ -23,5 +23,3 @@ header('Content-Type: ' . $qrCode->getContentType());
 echo $qrCode->writeString();
 
 ```
-
-© [2amigos](https://2am.tech/) 2013-2023

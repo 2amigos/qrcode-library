@@ -27,6 +27,3 @@ All contributions should follow our [templates guidelines](https://github.com/2a
 ## Clean Code
 
 - Follow the guidelines at [Clean Code](clean-code.md) 
-
-
-© [2amigos](https://2am.tech/) 2013-2023

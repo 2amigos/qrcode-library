@@ -21,10 +21,10 @@ In 3.x, `PngWriter` and `JpgWriter` **forced** the ImageMagick (Imagick) backend
 locate its coder modules (a common misconfiguration on Windows), Imagick threw the
 `RegistryKeyLookupFailed 'CoderModulesPath'` error and no image could be produced.
 
-### The fix in 2.0
+### The fix in 4.0
 
-As of 2.0 the writers render with a **pure-GD backend by default**
-([`Da\QrCode\Renderer\GdImageBackEnd`](../../src/Renderer/GdImageBackEnd.php)), so PNG and JPG output
+As of 4.0 the writers render with a **pure-GD backend by default**
+([`Da\QrCode\Renderer\GdImageBackEnd`](https://github.com/2amigos/qrcode-library/blob/master/src/Renderer/GdImageBackEnd.php)), so PNG and JPG output
 only needs `ext-gd`, which the library already requires. **The error no longer occurs out of the
 box** — you do not need ImageMagick at all.
 
@@ -42,7 +42,7 @@ avoids the ImageMagick configuration headache entirely.
 ### If you explicitly opt into ImageMagick
 
 ImageMagick is still supported as an opt-in backend. Pass it to the writer constructor (see
-[`PngWriter`](../../src/Writer/PngWriter.php) / [`JpgWriter`](../../src/Writer/JpgWriter.php)):
+[`PngWriter`](https://github.com/2amigos/qrcode-library/blob/master/src/Writer/PngWriter.php) / [`JpgWriter`](https://github.com/2amigos/qrcode-library/blob/master/src/Writer/JpgWriter.php)):
 
 ```php
 use Da\QrCode\QrCode;
@@ -120,6 +120,3 @@ echo '<img src="' . $qrCode->writeDataUri() . '" alt="QR code">';
 ```
 
 Both approaches use the default GD backend, so neither requires ImageMagick.
-
-
-© [2amigos](https://2am.tech/)

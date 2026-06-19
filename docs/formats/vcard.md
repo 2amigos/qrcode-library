@@ -16,7 +16,7 @@ use Da\QrCode\Format\VCardFormat;
 $format = new VCardFormat();
 $format->name = "Antonio";
 $format->fullName = "Antonio Ramirez";
-$format->email = "hola@2amigos.us";
+$format->email = "hola@2am.tech";
 
 $qrCode = new QrCode($format);
 
@@ -29,7 +29,7 @@ echo $qrCode->writeString();
 Photo
 -----
 
-Since **2.0** (#69) the `photo` property accepts more than a remote URL. It is interpreted in the
+Since **4.0** (#69) the `photo` property accepts more than a remote URL. It is interpreted in the
 following order of precedence:
 
 - a ready `data:` URI (e.g. `data:image/png;base64,...`) — embedded inline as-is;
@@ -38,14 +38,12 @@ following order of precedence:
   referenced by URL, the historical behaviour.
 
 ```php
-// Inline a local image file as Base64 (new in 2.0)
+// Inline a local image file as Base64 (new in 4.0)
 $format->photo = '/path/to/avatar.png';
 
-// Inline a ready data URI as-is (new in 2.0)
+// Inline a ready data URI as-is (new in 4.0)
 $format->photo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...';
 
 // Reference a remote image by URL (back-compatible)
 $format->photo = 'https://example.com/avatar.png';
 ```
-
-© [2amigos](https://2am.tech/) 2013-2023
