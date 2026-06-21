@@ -21,7 +21,7 @@ ImageMagick (`ext-imagick`) is **optional** and only needed if you explicitly op
 
 ## Documentation 
 
-You can read the latest docs on [http://qrcode-library.readthedocs.io/en/latest/](http://qrcode-library.readthedocs.io/en/latest/)
+You can read the latest docs on [https://qrcode-library.readthedocs.io/en/latest/](https://qrcode-library.readthedocs.io/en/latest/)
 
 ## Contributing
 
