@@ -51,7 +51,7 @@
         "codeception/specify": "^2.0",
         "codeception/verify": "^3.0",
         "yiisoft/yii2": "^2.0.52",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^12.61.1",
         "psr/http-message": "^2.0",
         "psr/http-factory": "^1.0",
         "nyholm/psr7": "^1.8",
